@@ -25,7 +25,7 @@ from invenio.testsuite import InvenioTestCase, make_test_suite, run_test_suite
 from invenio.base.wrappers import lazy_import
 from invenio.ext.sqlalchemy import db
 
-Page = lazy_import('invenio.modules.pages.models:Page')
+Page = lazy_import('invenio_pages.models:Page')
 
 
 class PagesTestViews(InvenioTestCase):

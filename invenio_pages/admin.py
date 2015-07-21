@@ -24,7 +24,7 @@ from flask import current_app
 
 from invenio.ext.admin.views import ModelView
 from invenio.ext.sqlalchemy import db
-from invenio.modules.pages.models import Page
+from invenio_pages.models import Page
 
 from jinja2 import TemplateNotFound
 
