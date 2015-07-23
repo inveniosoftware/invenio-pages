@@ -28,6 +28,7 @@ from invenio_pages.models import Page
 
 from jinja2 import TemplateNotFound
 
+from wtforms import TextAreaField
 from wtforms.validators import ValidationError
 
 
@@ -62,6 +63,7 @@ class PagesAdmin(ModelView):
         template_name=dict(
             validators=[template_exists]
         ))
+    form_overrides = dict(content=TextAreaField)
 
     # FIXME if we want to prevent users from modifying the dates
     # form_widget_args = {
