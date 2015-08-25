@@ -26,6 +26,7 @@ Authors
 
 Invenio module that adds support for static pages.
 
+- Adrian Baran <bouzlibop@gmail.com>
 - Eirini Psallida <eirini.psallida@cern.ch>
 - Javier Martin Montull <javier.martin.montull@cern.ch>
 - Jiri Kuncar <jiri.kuncar@cern.ch>

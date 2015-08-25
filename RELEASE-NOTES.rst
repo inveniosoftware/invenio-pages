@@ -1,8 +1,8 @@
 ==================================
- Invenio-Pages v0.1.0 is released
+ Invenio-Pages v0.1.1 is released
 ==================================
 
-Invenio-Pages v0.1.0 was released on July 22, 2015.
+Invenio-Pages v0.1.1 was released on August 25, 2015.
 
 About
 -----
@@ -11,20 +11,24 @@ Invenio module that adds support for static pages.
 
 *This is an experimental development preview release.*
 
-What's new
-----------
+Bug fixes
+---------
 
-- Initial public release.
+- Adds missing `invenio_upgrader` dependency and amends past upgrade
+  recipes following its separation into standalone package.
+
+- Overrides default wtforms field for content column in order to
+  display it properly. (closes inveniosoftware/invenio#3311)
 
 Installation
 ------------
 
-   $ pip install invenio-pages
+   $ pip install invenio-pages==0.1.1
 
 Documentation
 -------------
 
-   http://invenio-pages.readthedocs.org/en/v0.1.0
+   http://invenio-pages.readthedocs.org/en/v0.1.1
 
 Happy hacking and thanks for flying Invenio-Pages.
 
