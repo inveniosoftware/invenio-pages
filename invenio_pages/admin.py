@@ -24,7 +24,7 @@ import os
 
 from flask import current_app
 
-from invenio.base.globals import cfg
+from invenio_base.globals import cfg
 
 from invenio.ext.admin.views import ModelView
 from invenio.ext.sqlalchemy import db
