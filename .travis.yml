@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of Invenio-Pages
-# Copyright (C) 2015 CERN
+# This file is part of Invenio.
+# Copyright (C) 2015 CERN.
 #
 # Invenio is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as
@@ -14,19 +14,19 @@
 # General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with Invenio; if not, write to the Free Software Foundation,
-# Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
-#
-# In applying this license, CERN does not waive the privileges and immunities
-# granted to it by virtue of its status as an Intergovernmental Organization
-# or submit itself to any jurisdiction.
+# along with Invenio; if not, write to the Free Software Foundation, Inc.,
+# 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
+
 
 notifications:
   email: false
 
+sudo: false
+
 services:
   - mysql
   - redis
+  - elasticsearch
 
 language: python
 
@@ -35,30 +35,30 @@ cache:
   - pip
 
 env:
-  - REQUIREMENTS=lowest REXTRAS=docs,test
-  - REQUIREMENTS=release REXTRAS=docs,test
-  - REQUIREMENTS=devel REXTRAS=docs,test
+  - REQUIREMENTS=lowest REXTRAS=docs,tests
+  - REQUIREMENTS=release REXTRAS=docs,tests
+  - REQUIREMENTS=devel REXTRAS=docs,tests
 
 python:
   - "2.7"
 
 before_install:
-  - "sudo apt-get update"
-  - "sudo apt-get install python-dev"
   - "travis_retry pip install --upgrade pip"
-  - "travis_retry pip install mock"
+  - "travis_retry pip install mock twine wheel coveralls"
   - "python requirements.py --extras=$REXTRAS --level=min > .travis-lowest-requirements.txt"
   - "python requirements.py --extras=$REXTRAS --level=pypi > .travis-release-requirements.txt"
   - "python requirements.py --extras=$REXTRAS --level=dev > .travis-devel-requirements.txt"
+  - "mkdir -p ${VIRTUAL_ENV}/var/invenio.base-instance/"
+  - "cp .travis.invenio.cfg ${VIRTUAL_ENV}/var/invenio.base-instance/invenio.cfg"
 
 install:
-  - "travis_retry pip install unittest2"
-  - "travis_retry pip install -r .travis-$REQUIREMENTS-requirements.txt --allow-all-external --quiet"
-  - "travis_retry pip install -e .[$REXTRAS] --quiet --process-dependency-links"
+  - "travis_retry pip install -e git+https://github.com/inveniosoftware/invenio#egg=invenio"
+  - "travis_retry pip install -r .travis-$REQUIREMENTS-requirements.txt --allow-all-external"
+  - "travis_retry pip install -e .[$REXTRAS]"
 
 before_script:
-  - "inveniomanage database init --yes-i-know || echo ':('"
-  - "inveniomanage database create --quiet || echo ':('"
+  - "inveniomanage database init --yes-i-know"
+  - "inveniomanage database create --quiet"
 
 script:
   - "sphinx-build -qnN docs docs/_build/html"
@@ -66,3 +66,13 @@ script:
 
 after_success:
   - coveralls
+
+deploy:
+  provider: pypi
+  user: jirikuncar
+  password:
+    secure: dzJNSqrweGti1gr4nmrrSMS4GsG1KvP8jkpSQTv5OoQhJ/sqOQRnWEKu/yrjuNTdwFb/IHviAn1AixRo2+Us5KevbVVfY4e9qCgyVkcpYoIuapYzpFKJ6yd1j1s+lCYVRJ4d9gD3V9I/r1WAnLiL8ZyP3fe1kff0hyJc2dDz64Np8lbLkoFvIWN4SW3O643E1d1WholqutYtziDfnEI3bJwnkotHrVSBescVwINt1CbOUlo8hiocOlQzbJCNczuhP6WakPsBTTQEsfb8BSFE1YQg9jFTEa3B6saiPj4nR5iJTVWzxJ8uyxBG5D9pCbxoKEm4yQ389pYoESdYB9K6fOpJXnuQ+PVziEuHVTPKS4Uoh0GUhD5NliVwbjjZF8RaVyr/Mp22bdOc3DBriutHTmpr/rP5RSOjLszCaXEs2bX5OV00HHMwRzmSs+x/3HET7JbwSiBKdbI6EUs0ykGEpdMsGg1rYcHruqhBbczIBFOA7n8gxo0EwY8gS2wz27TYWxdoHRr7e5uotplkd3L+sp2m+EasVhfLkQONZRVibKdUsqp828rTcLEIFegadWkU6xl2UO6Ujchf7qVgleb33Rv5MbkwYIcfFbjXwigl314gtAhBwHEYcwVgHF1S8HWpMhzXb6oXv9ZiJUSrzScSlSN28V0OROeawXuFZo/xOsg=
+  distributions: "compile_catalog sdist bdist_wheel"
+  on:
+    tags: true
+    python: "2.7"
