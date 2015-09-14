@@ -32,6 +32,8 @@ class PagesTestViews(InvenioTestCase):
 
     """ Test pages functionality."""
 
+    render_templates = False
+
     def setUp(self):
         Page.query.delete()
         self.test_page = Page()
@@ -58,7 +60,8 @@ class PagesTestViews(InvenioTestCase):
     def test_page_content(self):
         with self.app.test_client() as c:
             response = c.get("/pages/test")
-            assert 'Testing pages' in response.data
+            page = self.get_context_variable('page')
+            assert 'Testing pages' == page.content
 
     def test_trailing_slash_added(self):
         p = self._get_test_page()
