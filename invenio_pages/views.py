@@ -27,7 +27,7 @@ from flask.ctx import after_this_request
 
 from invenio_base.globals import cfg
 from invenio_base.signals import before_handle_user_exception
-from invenio.ext.sqlalchemy import db
+from invenio_ext.sqlalchemy import db
 from invenio_pages.models import Page
 
 from sqlalchemy import event
