@@ -23,7 +23,7 @@ from flask import url_for
 
 from invenio.testsuite import InvenioTestCase, make_test_suite, run_test_suite
 from invenio_base.wrappers import lazy_import
-from invenio.ext.sqlalchemy import db
+from invenio_ext.sqlalchemy import db
 
 Page = lazy_import('invenio_pages.models:Page')
 

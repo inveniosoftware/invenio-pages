@@ -21,7 +21,7 @@
 
 from datetime import datetime
 
-from invenio.ext.sqlalchemy import db
+from invenio_ext.sqlalchemy import db
 
 
 class Page(db.Model):
