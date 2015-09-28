@@ -21,9 +21,11 @@
 
 from flask import url_for
 
-from invenio.testsuite import InvenioTestCase, make_test_suite, run_test_suite
 from invenio_base.wrappers import lazy_import
-from invenio.ext.sqlalchemy import db
+
+from invenio_ext.sqlalchemy import db
+
+from invenio_testing import InvenioTestCase
 
 Page = lazy_import('invenio_pages.models:Page')
 
@@ -59,16 +61,10 @@ class PagesTestViews(InvenioTestCase):
 
     def test_page_content(self):
         with self.app.test_client() as c:
-            response = c.get("/pages/test")
+            c.get("/pages/test")
             page = self.get_context_variable('page')
             assert 'Testing pages' == page.content
 
     def test_trailing_slash_added(self):
         p = self._get_test_page()
         assert p.url.startswith("/")
-
-
-TEST_SUITE = make_test_suite(PagesTestViews,)
-
-if __name__ == "__main__":
-    run_test_suite(TEST_SUITE)
