@@ -24,14 +24,22 @@
 Changes
 =======
 
-Version 0.1.1 (released 2015-08-25)
+Version 0.1.2 (released 2015-10-07):
+------------------------------------
+
+- Removes calls to PluginManager consider_setuptools_entrypoints()
+  removed in PyTest 2.8.0.
+- Adds missing `invenio_base` dependency.
+
+Version 0.1.1 (released 2015-08-25):
+------------------------------------
 
 - Adds missing `invenio_upgrader` dependency and amends past upgrade
   recipes following its separation into standalone package.
-
 - Overrides default wtforms field for content column in order to
   display it properly. (closes inveniosoftware/invenio#3311)
 
-Version 0.1.0 (released 2015-07-22)
+Version 0.1.0 (released 2015-07-22):
+------------------------------------
 
 - Initial public release.
