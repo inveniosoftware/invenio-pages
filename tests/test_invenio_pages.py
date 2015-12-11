@@ -21,10 +21,32 @@
 # In applying this license, CERN does not
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
-#
-# !WARNING! !WARNING! !WARNING! !WARNING! !WARNING! !WARNING! !WARNING!
-#      Do NOT delete this file, even when it seems to be useless!
-#      It used by read Read the Docs to build our documentation!
-# !WARNING! !WARNING! !WARNING! !WARNING! !WARNING! !WARNING! !WARNING!
 
--e .[docs]
+
+"""Module tests."""
+
+from __future__ import absolute_import, print_function
+
+from flask import Flask
+from flask_babelex import Babel
+
+from invenio_pages import InvenioPages
+
+
+def test_version():
+    """Test version import."""
+    from invenio_pages import __version__
+    assert __version__
+
+
+def test_init():
+    """Test extension initialization."""
+    app = Flask('testapp')
+    ext = InvenioPages(app)
+    assert 'invenio-pages' in app.extensions
+
+    app = Flask('testapp')
+    ext = InvenioPages()
+    assert 'invenio-pages' not in app.extensions
+    ext.init_app(app)
+    assert 'invenio-pages' in app.extensions

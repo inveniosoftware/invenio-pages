@@ -23,28 +23,27 @@
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
 
-[build_sphinx]
-source-dir = docs/
-build-dir = docs/_build
-all_files = 1
+"""Minimal Flask application example for development.
 
-[bdist_wheel]
-universal = 1
+Run example development server:
 
-[compile_catalog]
-directory = invenio_pages/translations/
+.. code-block:: console
 
-[extract_messages]
-copyright_holder = CERN
-msgid_bugs_address = info@invenio-software.org
-mapping-file = babel.ini
-output-file = invenio_pages/translations/messages.pot
-add-comments = NOTE
+   $ cd examples
+   $ python app.py
+"""
 
-[init_catalog]
-input-file = invenio_pages/translations/messages.pot
-output-dir = invenio_pages/translations/
+from __future__ import absolute_import, print_function
 
-[update_catalog]
-input-file = invenio_pages/translations/messages.pot
-output-dir = invenio_pages/translations/
+from flask import Flask
+from flask_babelex import Babel
+
+from invenio_pages import InvenioPages
+
+# Create Flask application
+app = Flask(__name__)
+Babel(app)
+InvenioPages(app)
+
+if __name__ == "__main__":
+    app.run()
