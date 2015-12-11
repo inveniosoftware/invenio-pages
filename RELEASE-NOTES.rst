@@ -1,32 +1,30 @@
 ======================
- Invenio-Pages v0.1.2
+ Invenio-Pages v1.0.0
 ======================
 
-Invenio-Pages v0.1.2 was released on October 7, 2015.
+Invenio-Pages v1.0.0 was released on TBD, 2015.
 
 About
 -----
 
-Invenio module that adds support for static pages.
+Static pages module for Invenio.
 
 *This is an experimental developer preview release.*
 
-Bug fixes
----------
+What's new
+----------
 
-- Removes calls to PluginManager consider_setuptools_entrypoints()
-  removed in PyTest 2.8.0.
-- Adds missing `invenio_base` dependency.
+- Major refactoring for Invenio 3.
 
 Installation
 ------------
 
-   $ pip install invenio-pages==0.1.2
+   $ pip install invenio-pages==1.0.0
 
 Documentation
 -------------
 
-   http://invenio-pages.readthedocs.org/en/v0.1.2
+   http://pythonhosted.org/invenio-pages/
 
 Happy hacking and thanks for flying Invenio-Pages.
 

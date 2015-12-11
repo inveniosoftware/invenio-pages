@@ -21,8 +21,15 @@
     waive the privileges and immunities granted to it by virtue of its status
     as an Intergovernmental Organization or submit itself to any jurisdiction.
 
+
 Changes
 =======
+
+Version 1.0.0 (released TBD)
+----------------------------
+
+- Major refactoring for Invenio 3.
+
 
 Version 0.1.2 (released 2015-10-07):
 ------------------------------------
