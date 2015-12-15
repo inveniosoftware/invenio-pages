@@ -1,8 +1,8 @@
-======================
- Invenio-Pages v1.0.0
-======================
+========================
+ Invenio-Pages v1.0.0a1
+========================
 
-Invenio-Pages v1.0.0 was released on TBD, 2015.
+Invenio-Pages v1.0.0a1 was released on December 16, 2015.
 
 About
 -----
@@ -15,6 +15,7 @@ What's new
 ----------
 
 - Major refactoring for Invenio 3.
+- Adds versioning support for pages.
 
 Installation
 ------------

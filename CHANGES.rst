@@ -25,10 +25,11 @@
 Changes
 =======
 
-Version 1.0.0 (released TBD)
-----------------------------
+Version 1.0.0a1 (released 2015-12-16):
+--------------------------------------
 
 - Major refactoring for Invenio 3.
+- Adds versioning support for pages.
 
 
 Version 0.1.2 (released 2015-10-07):
