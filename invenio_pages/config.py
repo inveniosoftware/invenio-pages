@@ -27,4 +27,7 @@
 from __future__ import absolute_import, print_function
 
 PAGES_DEFAULT_TEMPLATE = 'invenio_pages/default.html'
-PAGES_APPEND_SLASH = True
+"""Default template to render."""
+
+PAGES_TEMPLATES = [('invenio_pages/default.html', 'Default'), ]
+"""List of available templates for pages."""

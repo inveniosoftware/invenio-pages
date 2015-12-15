@@ -26,25 +26,55 @@
 
 from __future__ import absolute_import, print_function
 
-import os
-
 from flask import current_app
 from flask_admin.contrib.sqla import ModelView
 from jinja2 import TemplateNotFound
-from werkzeug import secure_filename
-from wtforms import TextAreaField
-from wtforms.validators import DataRequired, ValidationError
+from markupsafe import Markup
+from werkzeug.local import LocalProxy
+from wtforms import IntegerField, SelectField, TextAreaField
+from wtforms.validators import ValidationError
+from wtforms.widgets import TextArea
 
-from .models import Page
+from .models import Page, PageList
+
+
+def _(x):
+    """Identity function for string extraction."""
+    return x
+
+
+class CKTextAreaWidget(TextArea):
+    """CKEditor widget."""
+
+    def __call__(self, field, **kwargs):
+        """Render widget."""
+        if kwargs.get('class'):
+            kwargs['class'] += ' ckeditor'
+        else:
+            kwargs.setdefault('class', 'ckeditor')  # pragma: no cover
+        return super(CKTextAreaWidget, self).__call__(field, **kwargs)
+
+
+class CKTextAreaField(TextAreaField):
+    """CKEditor field."""
+
+    widget = CKTextAreaWidget()
 
 
 def template_exists(form, field):
     """Form validation: check that selected template exists."""
-    template_name = "invenio_pages/" + secure_filename(field.data)
     try:
-        current_app.jinja_env.get_template(template_name)
+        current_app.jinja_env.get_template(field.data)
     except TemplateNotFound:
-        raise ValidationError("Template selected does not exist")
+        raise ValidationError(_("Template selected does not exist"))
+
+
+def same_page_choosen(form, field):
+    """Check that we are not trying to assign list page itself as a child."""
+    if form._obj is not None:
+        if field.data.id == form._obj.list_id:
+            raise ValidationError(
+                _('You cannot assign list page itself as a child.'))
 
 
 class PagesAdmin(ModelView):
@@ -53,28 +83,63 @@ class PagesAdmin(ModelView):
     can_create = True
     can_edit = True
     can_delete = True
+    can_view_details = True
 
-    create_template = 'pages/edit.html'
-    edit_template = 'pages/edit.html'
+    create_template = 'invenio_pages/create.html'
+    edit_template = 'invenio_pages/edit.html'
 
     column_list = (
-        'url', 'title', 'last_modified',
+        'url', 'title', 'template_name', 'created', 'updated', 'link')
+    column_details_list = (
+        'url', 'title', 'template_name', 'description',  'content', 'created',
+        'updated', )
+    column_filters = (
+        'url', 'title', 'template_name', 'content', 'description')
+    column_searchable_list = (
+        'url', 'title', 'template_name', 'content', 'description')
+    column_labels = dict(url='URL')
+    column_default_sort = 'url'
+    column_formatters = dict(
+        link=lambda v, c, m, p: Markup('<a href="{0}">{1}</a>'.format(
+            m.url, _('View'))),
+        content=lambda v, c, m, p: Markup(m.content),
     )
-    column_searchable_list = ('url',)
 
     page_size = 100
 
+    form_columns = (
+        'url', 'title', 'description', 'content', 'template_name', )
     form_args = dict(
         template_name=dict(
-            default=lambda: os.path.basename(
-                current_app.config["PAGES_DEFAULT_TEMPLATE"]),
-            validators=[DataRequired(), template_exists]
-        ))
+            choices=LocalProxy(lambda: current_app.config['PAGES_TEMPLATES'])
+        ), )
+    form_widget_args = {
+        'created': {
+            'style': 'pointer-events: none;',
+            'readonly': True
+        },
+        'updated': {
+            'style': 'pointer-events: none;',
+            'readonly': True
+        },
+    }
+    form_overrides = dict(
+        content=CKTextAreaField,
+        description=TextAreaField,
+        template_name=SelectField,
+    )
 
-    form_overrides = dict(content=TextAreaField)
+    inline_models = [
+        (PageList, {
+            'form_columns': ['id', 'order', 'page'],
+            'form_overrides': {'order': IntegerField},
+            'form_args': {'page': {'validators': [same_page_choosen]}}
+        })
+    ]
 
 
 pages_adminview = {
     'model': Page,
     'modelview': PagesAdmin,
+    'category': _('Pages'),
 }

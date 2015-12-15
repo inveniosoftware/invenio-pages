@@ -28,9 +28,7 @@ from __future__ import absolute_import, print_function
 
 import six
 from flask import Blueprint, abort, current_app, render_template, request
-from flask.ctx import after_this_request
 from invenio_db import db
-from sqlalchemy import event
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.exceptions import NotFound
 
@@ -44,19 +42,14 @@ blueprint = Blueprint(
 )
 
 
-def preload_pages(original, app, options, first_registration):
+@blueprint.before_app_first_request
+def preload_pages():
     """Register all pages before the first application request."""
-    with app.app_context():
-        try:
-            _add_url_rule([page.url for page in Page.query.all()])
-        except Exception:  # pragma: no cover
-            current_app.logger.warn('Pages were not loaded.')
-            raise
-    original(app, options, first_registration=False)
-
-original_register = blueprint.register
-blueprint.register = lambda app, options, first_registration=False: \
-    preload_pages(original_register, app, options, first_registration)
+    try:
+        _add_url_rule([page.url for page in Page.query.all()])
+    except Exception:  # pragma: no cover
+        current_app.logger.warn('Pages were not loaded.')
+        raise
 
 
 def view():
@@ -69,10 +62,9 @@ def view():
         page
             `pages.pages` object
     """
-    return render_page(request.path)
+    return render_page(request.path)  # pragma: no cover
 
 
-# @cache.memoize for guests?
 def render_page(path):
     """Internal interface to the page view."""
     try:

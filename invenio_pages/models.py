@@ -26,7 +26,6 @@
 
 from __future__ import absolute_import, print_function
 
-import pkg_resources
 from invenio_db import db
 from sqlalchemy_utils.models import Timestamp
 
@@ -48,14 +47,14 @@ class Page(db.Model, Timestamp):
     title = db.Column(db.String(200), nullable=False, default='')
     """Page title."""
 
-    content = db.Column(db.Text(length=2**32-2), nullable=False, default='')
+    content = db.Column(db.Text(), nullable=False, default='')
     """Page content. Default is pages/templates/default.html"""
 
     description = db.Column(db.String(200), nullable=False, default='')
     """Page description."""
 
-    template_name = db.Column(db.String(70), nullable=True)
-    """Page template name. Default is cfg["PAGES_DEFAULT_TEMPLATE"]."""
+    template_name = db.Column(db.String(70), nullable=False)
+    """Page template name."""
 
     @classmethod
     def get_by_url(self, url):
@@ -78,28 +77,28 @@ class PageList(db.Model):
 
     __tablename__ = 'pages_pagelist'
 
-    id = db.Column(db.Integer, nullable=False,
-                   primary_key=True, autoincrement=True)
+    id = db.Column(
+        db.Integer, nullable=False, primary_key=True, autoincrement=True)
     """PageList identifier."""
 
-    list_id = db.Column(db.Integer,
-                        db.ForeignKey(Page.id), nullable=False)
+    list_id = db.Column(
+        db.Integer, db.ForeignKey(Page.id), nullable=False)
     """Id of a list."""
 
-    page_id = db.Column(db.Integer,
-                        db.ForeignKey(Page.id), nullable=False)
+    page_id = db.Column(
+        db.Integer, db.ForeignKey(Page.id), nullable=False)
     """Id of a page."""
 
     order = db.Column(db.Integer, nullable=False)
 
-    list = db.relationship(Page,
-                           backref=db.backref("pages",
-                                              cascade="all, delete-orphan"),
-                           foreign_keys=[list_id])
+    list = db.relationship(
+        Page,
+        backref=db.backref("pages", cascade="all, delete-orphan"),
+        foreign_keys=[list_id])
     """Relation to the list."""
 
-    page = db.relationship(Page,
-                           backref=db.backref("lists",
-                                              cascade="all, delete-orphan"),
-                           foreign_keys=[page_id])
+    page = db.relationship(
+        Page,
+        backref=db.backref("lists", cascade="all, delete-orphan"),
+        foreign_keys=[page_id])
     """Relation to the page."""

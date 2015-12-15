@@ -28,14 +28,12 @@
 from __future__ import absolute_import, print_function
 
 import pytest
-from flask import Flask, abort
+from flask import Flask
 from flask_cli import FlaskCLI
 from invenio_admin import InvenioAdmin
 from invenio_db import InvenioDB, db
 
-from invenio_pages import InvenioPages, Page
-from invenio_pages.admin import pages_adminview
-from invenio_pages.views import blueprint
+from invenio_pages import Page
 
 
 @pytest.fixture

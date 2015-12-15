@@ -27,7 +27,7 @@
 from __future__ import absolute_import, print_function
 
 import pytest
-from flask import current_app, url_for
+from flask import current_app
 from invenio_db import db
 from werkzeug.exceptions import NotFound
 
@@ -36,6 +36,7 @@ from invenio_pages.views import blueprint, render_page
 
 
 def test_page_content(pages_fixture):
+    """Test page content."""
     app = pages_fixture
     InvenioPages(app)
     app.register_blueprint(blueprint)
@@ -49,6 +50,7 @@ def test_page_content(pages_fixture):
 
 
 def test_non_existing_page(pages_fixture):
+    """Test non-existing page content."""
     app = pages_fixture
     InvenioPages(app)
     app.register_blueprint(blueprint)
@@ -60,6 +62,7 @@ def test_non_existing_page(pages_fixture):
 
 
 def test_runtime_added_page(pages_fixture):
+    """Test runtime added page."""
     app = pages_fixture
     InvenioPages(app)
     app.register_blueprint(blueprint)
@@ -84,6 +87,7 @@ def test_runtime_added_page(pages_fixture):
 
 
 def test_pre_existing_404_function(pages_fixture):
+    """Test pre existing 404."""
     app = pages_fixture
 
     app.existing_called = False

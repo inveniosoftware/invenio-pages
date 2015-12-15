@@ -48,11 +48,22 @@ extras_require = {
     'docs': [
         'Sphinx>=1.3',
     ],
+    'mysql': [
+        'invenio-db[mysql]>=1.0.0a7',
+    ],
+    'postgresql': [
+        'invenio-db[postgresql]>=1.0.0a7',
+    ],
+    'sqlite': [
+        'invenio-db>=1.0.0a7',
+    ],
     'tests': tests_require,
 }
 
 extras_require['all'] = []
-for reqs in extras_require.values():
+for name, reqs in extras_require.items():
+    if name in ('mysql', 'postgresql', 'sqlite'):
+        continue
     extras_require['all'].extend(reqs)
 
 setup_requires = [
@@ -62,7 +73,6 @@ setup_requires = [
 install_requires = [
     'Flask-BabelEx>=0.9.2',
     'invenio_admin>=1.0.0a2',
-    'invenio_db>=1.0.0a7',  # TODO: Bump version when versioning support is out
 ]
 
 packages = find_packages()
