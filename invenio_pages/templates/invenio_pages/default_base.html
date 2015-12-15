@@ -16,9 +16,9 @@
 # along with Invenio; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 #}
-{% extends "page.html" %}
+{% extends "invenio_pages/base.html" %}
 {% set title = page.title %}
-{% block body %}
+{% block page_body %}
 
 {{ page.content|safe }}
 

@@ -22,8 +22,19 @@
 # waive the privileges and immunities granted to it by virtue of its status
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
-[tox]
-envlist = py27
+"""Models for Pages module."""
 
-[testenv]
-commands = {envpython} setup.py test
+from __future__ import absolute_import, print_function
+
+from invenio_pages import InvenioPages, Page
+from invenio_pages.views import blueprint
+
+
+def test_page_repr(pages_fixture):
+    app = pages_fixture
+    InvenioPages(app)
+    app.register_blueprint(blueprint)
+
+    with app.app_context():
+        dog_page = Page.get_by_url('/dogs/shiba')
+        assert dog_page.__repr__() == 'URL: /dogs/shiba, title: Page for doge!'

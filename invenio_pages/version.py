@@ -28,4 +28,6 @@ This file is imported by ``invenio_pages.__init__``,
 and parsed by ``setup.py``.
 """
 
-__version__ = "0.1.3.dev20151007"
+from __future__ import absolute_import, print_function
+
+__version__ = "1.0.0.dev20150000"

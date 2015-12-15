@@ -21,15 +21,18 @@
     waive the privileges and immunities granted to it by virtue of its status
     as an Intergovernmental Organization or submit itself to any jurisdiction.
 
+
 Authors
 =======
 
-Invenio module that adds support for static pages.
+Static pages module for Invenio.
 
 - Adrian Baran <bouzlibop@gmail.com>
 - Eirini Psallida <eirini.psallida@cern.ch>
 - Javier Martin Montull <javier.martin.montull@cern.ch>
 - Jiri Kuncar <jiri.kuncar@cern.ch>
+- Lars Holm Nielsen <lars.holm.nielsen@cern.ch>
 - Leonardo Rossi <leonardo.r@cern.ch>
+- Sami Hiltunen <sami.mikael.hiltunen@cern.ch>
 - Tibor Simko <tibor.simko@cern.ch>
 - Yoan Blanc <yoan.blanc@cern.ch>
