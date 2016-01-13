@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
-# Copyright (C) 2015 CERN.
+# Copyright (C) 2015, 2016 CERN.
 #
 # Invenio is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
@@ -26,7 +26,9 @@
 
 from __future__ import absolute_import, print_function
 
+from flask import current_app
 from invenio_db import db
+from sqlalchemy.orm import validates
 from sqlalchemy_utils.models import Timestamp
 
 
@@ -60,6 +62,12 @@ class Page(db.Model, Timestamp):
     def get_by_url(self, url):
         """Get a page by URL."""
         return Page.query.filter_by(url=url).one()
+
+    @validates('template_name')
+    def validate_template_name(self, key, value):
+        """Validate template name."""
+        assert value in dict(current_app.config['PAGES_TEMPLATES'])
+        return value
 
     def __repr__(self):
         """Page representation.

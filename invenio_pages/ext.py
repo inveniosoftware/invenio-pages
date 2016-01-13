@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
-# Copyright (C) 2015 CERN.
+# Copyright (C) 2015, 2016 CERN.
 #
 # Invenio is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
@@ -26,8 +26,40 @@
 
 from __future__ import absolute_import, print_function
 
+from flask import url_for
+from jinja2.sandbox import SandboxedEnvironment
+
 from . import config
 from .views import handle_not_found
+
+
+class _InvenioPagesState(object):
+    """State object for Invenio Pages."""
+
+    def __init__(self, app):
+        """Initialize state."""
+        self.app = app
+        self._jinja_env = None
+
+    @property
+    def jinja_env(self):
+        """Create a sandboxed Jinja environment."""
+        if self._jinja_env is None:
+            self._jinja_env = SandboxedEnvironment(
+                extensions=[
+                    'jinja2.ext.autoescape', 'jinja2.ext.with_', ],
+                autoescape=True,
+            )
+            self._jinja_env.globals['url_for'] = url_for
+            # Load whitelisted configuration variables.
+            for var in self.app.config['PAGES_WHITELIST_CONFIG_KEYS']:
+                self._jinja_env.globals[var] = self.app.config.get(var)
+        return self._jinja_env
+
+    def render_template(self, source, **kwargs_context):
+        """Render a template string using sandboxed environment."""
+        return self.jinja_env.from_string(source).render(
+            kwargs_context)
 
 
 class InvenioPages(object):
@@ -53,7 +85,9 @@ class InvenioPages(object):
         else:
             app.error_handler_spec[None][404] = handle_not_found
 
-        app.extensions['invenio-pages'] = self
+        app.extensions['invenio-pages'] = _InvenioPagesState(app)
+
+        return app.extensions['invenio-pages']
 
     def init_config(self, app):
         """Initialize configuration."""

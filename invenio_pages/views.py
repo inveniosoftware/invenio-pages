@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
-# Copyright (C) 2015 CERN.
+# Copyright (C) 2015, 2016 CERN.
 #
 # Invenio is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
@@ -50,6 +50,12 @@ def preload_pages():
     except Exception:  # pragma: no cover
         current_app.logger.warn('Pages were not loaded.')
         raise
+
+
+@blueprint.app_template_filter('render_string')
+def render_string(source):
+    """Render a string in sandboxed environment."""
+    return current_app.extensions['invenio-pages'].render_template(source)
 
 
 def view():

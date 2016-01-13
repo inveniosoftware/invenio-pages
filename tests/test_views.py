@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
-# Copyright (C) 2015 CERN.
+# Copyright (C) 2015, 2016 CERN.
 #
 # Invenio is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
@@ -47,6 +47,32 @@ def test_page_content(pages_fixture):
             assert resp.status_code == 200
             assert 'so doge!' in str(resp.get_data())
             assert 'so doge!' in str(render_page('/dogs/shiba'))
+
+
+def test_page_content_dynamic(app):
+    """Test page content."""
+    app.config['PAGES_WHITELIST_CONFIG_KEYS'] = ['MYVAR']
+    InvenioPages(app)
+    app.register_blueprint(blueprint)
+    content = 'dynamic-content'
+    with app.app_context():
+        app.config['MYVAR'] = content
+        page = Page(
+            url='/dynamic',
+            title='Dynamic page',
+            content='{{MYVAR}}',
+            template_name='invenio_pages/dynamic.html',
+        )
+        db.session.add(page)
+        db.session.commit()
+
+        with app.test_request_context('/dynamic'):
+            assert content in render_page('/dynamic')
+
+        with app.test_client() as client:
+            resp = client.get('/dynamic')
+            assert resp.status_code == 200
+            assert content in resp.get_data(as_text=True)
 
 
 def test_non_existing_page(pages_fixture):

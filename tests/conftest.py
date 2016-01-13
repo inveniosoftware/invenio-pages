@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
-# Copyright (C) 2015 CERN.
+# Copyright (C) 2015, 2016 CERN.
 #
 # Invenio is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
@@ -33,7 +33,7 @@ from flask_cli import FlaskCLI
 from invenio_admin import InvenioAdmin
 from invenio_db import InvenioDB, db
 
-from invenio_pages import Page
+from invenio_pages import InvenioPages, Page
 
 
 @pytest.fixture
@@ -59,7 +59,7 @@ def app(request):
 
 @pytest.fixture
 def admin_fixture(pages_fixture):
-
+    """Admin fixture."""
     def unprotected_factory(base_class):
 
         class UnprotectedAdminView(base_class):
@@ -72,7 +72,7 @@ def admin_fixture(pages_fixture):
 
         return UnprotectedAdminView
 
-    ext_admin = InvenioAdmin(
+    InvenioAdmin(
         pages_fixture,
         view_class_factory=unprotected_factory,
     )
@@ -82,6 +82,8 @@ def admin_fixture(pages_fixture):
 
 @pytest.fixture
 def pages_fixture(app):
+    """Page fixtures."""
+    InvenioPages(app)
     with app.app_context():
         pages = [
             Page(
