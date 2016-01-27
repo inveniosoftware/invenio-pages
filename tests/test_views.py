@@ -29,6 +29,7 @@ from __future__ import absolute_import, print_function
 import pytest
 from flask import current_app
 from invenio_db import db
+from jinja2.exceptions import UndefinedError
 from werkzeug.exceptions import NotFound
 
 from invenio_pages import InvenioPages, Page
@@ -73,6 +74,37 @@ def test_page_content_dynamic(app):
             resp = client.get('/dynamic')
             assert resp.status_code == 200
             assert content in resp.get_data(as_text=True)
+
+
+def test_current_app_and_config_not_visible(app):
+    """Test current_app and config are not visible to template."""
+    app.config.update(
+        SECRET_KEY='super secret'
+    )
+    InvenioPages(app)
+    app.register_blueprint(blueprint)
+    with app.app_context():
+        page = Page(
+            url='/dynamic',
+            title='Dynamic page',
+            content="{{SECRET_KEY}}",
+            template_name='invenio_pages/dynamic.html',
+        )
+        db.session.add(page)
+        db.session.commit()
+
+        with app.test_request_context('/dynamic'):
+            assert app.config['SECRET_KEY'] not in render_page('/dynamic')
+
+            page.content = '{{config.SECRET_KEY}}'
+            db.session.commit()
+            with pytest.raises(UndefinedError):
+                render_page('/dynamic')
+
+            page.content = "{{current_app.config['SECRET_KEY']}}"
+            db.session.commit()
+            with pytest.raises(UndefinedError):
+                render_page('/dynamic')
 
 
 def test_non_existing_page(pages_fixture):
