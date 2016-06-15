@@ -1,8 +1,8 @@
 ========================
- Invenio-Pages v1.0.0a2
+ Invenio-Pages v1.0.0a3
 ========================
 
-Invenio-Pages v1.0.0a2 was released on February 5, 2016.
+Invenio-Pages v1.0.0a3 was released on June 15, 2016.
 
 About
 -----
@@ -20,7 +20,7 @@ What's new
 Installation
 ------------
 
-   $ pip install invenio-pages==1.0.0a2
+   $ pip install invenio-pages==1.0.0a3
 
 Documentation
 -------------
