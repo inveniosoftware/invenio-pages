@@ -154,7 +154,7 @@ def test_pre_existing_404_function(pages_fixture):
         current_app.existing_called = True
         return error
 
-    app.error_handler_spec[None][404] = existing_handler
+    app.register_error_handler(404, existing_handler)
 
     InvenioPages(app)
     app.register_blueprint(blueprint)

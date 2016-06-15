@@ -26,8 +26,11 @@
 
 from __future__ import absolute_import, print_function
 
+from distutils.version import StrictVersion
+from flask import __version__ as flask_version
 from flask import url_for
 from jinja2.sandbox import SandboxedEnvironment
+from werkzeug.exceptions import NotFound
 
 from . import config
 from .views import handle_not_found
@@ -70,20 +73,44 @@ class InvenioPages(object):
         if app:
             self.init_app(app)
 
-    def init_app(self, app):
-        """Flask application initialization."""
-        self.init_config(app)
-
+    @staticmethod
+    def wrap_errorhandler_010(app):
+        """Wrap error handler pre-v0.11 versions."""
         try:
             existing_handler = app.error_handler_spec[None][404]
-        except KeyError:
+        except (KeyError, TypeError):
             existing_handler = None
 
         if existing_handler:
             app.error_handler_spec[None][404] = \
                 lambda error: handle_not_found(error, wrapped=existing_handler)
         else:
+            app.error_handler_spec.setdefault(None, {}).setdefault(404, {})
             app.error_handler_spec[None][404] = handle_not_found
+
+    @staticmethod
+    def wrap_errorhandler_011(app):
+        """Wrap error handler for post-v0.11 versions."""
+        try:
+            existing_handler = app.error_handler_spec[None][404][NotFound]
+        except (KeyError, TypeError):
+            existing_handler = None
+
+        if existing_handler:
+            app.error_handler_spec[None][404][NotFound] = \
+                lambda error: handle_not_found(error, wrapped=existing_handler)
+        else:
+            app.error_handler_spec.setdefault(None, {}).setdefault(404, {})
+            app.error_handler_spec[None][404][NotFound] = handle_not_found
+
+    def init_app(self, app):
+        """Flask application initialization."""
+        self.init_config(app)
+
+        if StrictVersion(flask_version) >= StrictVersion('0.11.0'):
+            self.wrap_errorhandler_011(app)
+        else:
+            self.wrap_errorhandler_010(app)
 
         app.extensions['invenio-pages'] = _InvenioPagesState(app)
 
