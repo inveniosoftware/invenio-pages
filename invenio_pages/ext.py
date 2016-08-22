@@ -74,23 +74,8 @@ class InvenioPages(object):
             self.init_app(app)
 
     @staticmethod
-    def wrap_errorhandler_010(app):
-        """Wrap error handler pre-v0.11 versions."""
-        try:
-            existing_handler = app.error_handler_spec[None][404]
-        except (KeyError, TypeError):
-            existing_handler = None
-
-        if existing_handler:
-            app.error_handler_spec[None][404] = \
-                lambda error: handle_not_found(error, wrapped=existing_handler)
-        else:
-            app.error_handler_spec.setdefault(None, {}).setdefault(404, {})
-            app.error_handler_spec[None][404] = handle_not_found
-
-    @staticmethod
-    def wrap_errorhandler_011(app):
-        """Wrap error handler for post-v0.11 versions."""
+    def wrap_errorhandler(app):
+        """Wrap error handler."""
         try:
             existing_handler = app.error_handler_spec[None][404][NotFound]
         except (KeyError, TypeError):
@@ -107,11 +92,7 @@ class InvenioPages(object):
         """Flask application initialization."""
         self.init_config(app)
 
-        if StrictVersion(flask_version) >= StrictVersion('0.11.0'):
-            self.wrap_errorhandler_011(app)
-        else:
-            self.wrap_errorhandler_010(app)
-
+        self.wrap_errorhandler(app)
         app.extensions['invenio-pages'] = _InvenioPagesState(app)
 
         return app.extensions['invenio-pages']

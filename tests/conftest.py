@@ -29,7 +29,6 @@ from __future__ import absolute_import, print_function
 
 import pytest
 from flask import Flask
-from flask_cli import FlaskCLI
 from invenio_admin import InvenioAdmin
 from invenio_db import InvenioDB, db
 
@@ -44,7 +43,6 @@ def app(request):
         TESTING=True,
         SQLALCHEMY_DATABASE_URI='sqlite://',
     )
-    FlaskCLI(app)
     InvenioDB(app)
     with app.app_context():
         db.create_all()
