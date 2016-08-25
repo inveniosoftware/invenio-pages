@@ -60,13 +60,24 @@ class Page(db.Model, Timestamp):
 
     @classmethod
     def get_by_url(self, url):
-        """Get a page by URL."""
+        """Get a page by URL.
+
+        :param url: The page URL.
+        :returns: A :class:`invenio_pages.models.Page` instance.
+        """
         return Page.query.filter_by(url=url).one()
 
     @validates('template_name')
     def validate_template_name(self, key, value):
-        """Validate template name."""
-        assert value in dict(current_app.config['PAGES_TEMPLATES'])
+        """Validate template name.
+
+        :param key: The template path.
+        :param value: The template name.
+        :raises ValueError: If template name is wrong.
+        """
+        if value not in dict(current_app.config['PAGES_TEMPLATES']):
+            raise ValueError(
+                'Template "{0}" does not exist.'.format(value))
         return value
 
     def __repr__(self):

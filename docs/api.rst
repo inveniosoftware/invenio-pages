@@ -25,6 +25,23 @@
 API Docs
 ========
 
-invenio_pages
+.. automodule:: invenio_pages.ext
+   :members:
+
+Configuration
 -------------
 
+.. automodule:: invenio_pages.config
+   :members:
+
+Models
+------
+
+.. automodule:: invenio_pages.models
+   :members:
+
+Views
+-----
+
+.. automodule:: invenio_pages.views
+   :members:

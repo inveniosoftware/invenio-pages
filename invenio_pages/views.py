@@ -54,25 +54,31 @@ def preload_pages():
 
 @blueprint.app_template_filter('render_string')
 def render_string(source):
-    """Render a string in sandboxed environment."""
+    """Render a string in sandboxed environment.
+
+    :param source: A string containing the page source.
+    :returns: The rendered template.
+    """
     return current_app.extensions['invenio-pages'].render_template(source)
 
 
 def view():
     """Public interface to the page view.
 
-    Models: `pages.pages`
-    Templates: Uses the template defined by the ``template_name`` field,
-        or :template:`pages/default.html` if template_name is not defined.
-    Context:
-        page
-            `pages.pages` object
+    Models: `pages.pages`.
+    Templates: Uses the template defined by the ``template_name`` field
+    or ``pages/default.html`` if template_name is not defined.
+    Context: page `pages.pages` object.
     """
     return render_page(request.path)  # pragma: no cover
 
 
 def render_page(path):
-    """Internal interface to the page view."""
+    """Internal interface to the page view.
+
+    :param path: Page path.
+    :returns: The rendered template.
+    """
     try:
         page = Page.get_by_url(request.path)
     except NoResultFound:

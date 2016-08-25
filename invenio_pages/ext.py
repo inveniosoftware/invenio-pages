@@ -40,7 +40,10 @@ class _InvenioPagesState(object):
     """State object for Invenio Pages."""
 
     def __init__(self, app):
-        """Initialize state."""
+        """Initialize state.
+
+        :param app: The Flask application.
+        """
         self.app = app
         self._jinja_env = None
 
@@ -60,22 +63,32 @@ class _InvenioPagesState(object):
         return self._jinja_env
 
     def render_template(self, source, **kwargs_context):
-        """Render a template string using sandboxed environment."""
-        return self.jinja_env.from_string(source).render(
-            kwargs_context)
+        r"""Render a template string using sandboxed environment.
+
+        :param source: A string containing the page source.
+        :param \*\*kwargs_context: The context associated with the page.
+        :returns: The rendered template.
+        """
+        return self.jinja_env.from_string(source).render(kwargs_context)
 
 
 class InvenioPages(object):
     """Invenio-Pages extension."""
 
     def __init__(self, app=None):
-        """Extension initialization."""
+        """Extension initialization.
+
+        :param app: The Flask application. (Default: ``None``)
+        """
         if app:
             self.init_app(app)
 
     @staticmethod
     def wrap_errorhandler(app):
-        """Wrap error handler."""
+        """Wrap error handler.
+
+        :param app: The Flask application.
+        """
         try:
             existing_handler = app.error_handler_spec[None][404][NotFound]
         except (KeyError, TypeError):
@@ -89,7 +102,12 @@ class InvenioPages(object):
             app.error_handler_spec[None][404][NotFound] = handle_not_found
 
     def init_app(self, app):
-        """Flask application initialization."""
+        """Flask application initialization.
+
+        :param app: The Flask application.
+        :returns: The :class:`invenio_pages.ext.InvenioPages` instance
+            initialized.
+        """
         self.init_config(app)
 
         self.wrap_errorhandler(app)
@@ -98,7 +116,10 @@ class InvenioPages(object):
         return app.extensions['invenio-pages']
 
     def init_config(self, app):
-        """Initialize configuration."""
+        """Initialize configuration.
+
+        :param app: The Flask application.
+        """
         app.config.setdefault(
             "PAGES_BASE_TEMPLATE",
             app.config.get("BASE_TEMPLATE",
