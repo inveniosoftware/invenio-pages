@@ -1,6 +1,6 @@
 ..
     This file is part of Invenio.
-    Copyright (C) 2015 CERN.
+    Copyright (C) 2015, 2016 CERN.
 
     Invenio is free software; you can redistribute it
     and/or modify it under the terms of the GNU General Public License as
@@ -28,6 +28,7 @@ Authors
 Static pages module for Invenio.
 
 - Adrian Baran <bouzlibop@gmail.com>
+- Alizee Pace <alizee.pace@gmail.com>
 - Eirini Psallida <eirini.psallida@cern.ch>
 - Javier Martin Montull <javier.martin.montull@cern.ch>
 - Jiri Kuncar <jiri.kuncar@cern.ch>
