@@ -27,6 +27,7 @@
 from __future__ import absolute_import, print_function
 
 from distutils.version import StrictVersion
+
 from flask import __version__ as flask_version
 from flask import url_for
 from jinja2.sandbox import SandboxedEnvironment
