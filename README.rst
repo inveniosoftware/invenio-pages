@@ -46,4 +46,4 @@ Static pages module for Invenio.
 *This is an experimental developer preview release.*
 
 * Free software: GPLv2 license
-* Documentation: https://pythonhosted.org/invenio-pages/
+* Documentation: https://invenio-pages.readthedocs.io/

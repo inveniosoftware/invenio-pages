@@ -25,7 +25,7 @@ Installation
 Documentation
 -------------
 
-   http://pythonhosted.org/invenio-pages/
+   http://invenio-pages.readthedocs.io/
 
 Happy hacking and thanks for flying Invenio-Pages.
 
