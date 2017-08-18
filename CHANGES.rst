@@ -1,6 +1,6 @@
 ..
     This file is part of Invenio.
-    Copyright (C) 2015, 2016 CERN.
+    Copyright (C) 2015, 2016, 2017 CERN.
 
     Invenio is free software; you can redistribute it
     and/or modify it under the terms of the GNU General Public License as
@@ -24,6 +24,12 @@
 
 Changes
 =======
+
+Version 1.0.0a4 (released 2017-08-18):
+--------------------------------------
+
+- Update minimum Flask version to 0.11.1.
+- Improve documentation and examples.
 
 Version 1.0.0a3 (released 2016-06-15):
 --------------------------------------

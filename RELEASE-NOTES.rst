@@ -1,8 +1,8 @@
 ========================
- Invenio-Pages v1.0.0a3
+ Invenio-Pages v1.0.0a4
 ========================
 
-Invenio-Pages v1.0.0a3 was released on June 15, 2016.
+Invenio-Pages v1.0.0a4 was released on August 18, 2017.
 
 About
 -----
@@ -20,18 +20,18 @@ What's new
 Installation
 ------------
 
-   $ pip install invenio-pages==1.0.0a3
+   $ pip install invenio-pages==1.0.0a4
 
 Documentation
 -------------
 
-   http://invenio-pages.readthedocs.io/
+   https://invenio-pages.readthedocs.io/
 
 Happy hacking and thanks for flying Invenio-Pages.
 
 | Invenio Development Team
 |   Email: info@inveniosoftware.org
 |   IRC: #invenio on irc.freenode.net
-|   Twitter: http://twitter.com/inveniosoftware
+|   Twitter: https://twitter.com/inveniosoftware
 |   GitHub: https://github.com/inveniosoftware/invenio-pages
 |   URL: http://inveniosoftware.org
