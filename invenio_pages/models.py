@@ -67,6 +67,15 @@ class Page(db.Model, Timestamp):
         """
         return Page.query.filter_by(url=url).one()
 
+    @classmethod
+    def get_by_id(self, id):
+        """Get a page by ID.
+
+        :param id: The page ID.
+        :returns: A :class:`invenio_pages.models.Page` instance.
+        """
+        return Page.query.filter_by(id=id).one()
+
     @validates('template_name')
     def validate_template_name(self, key, value):
         """Validate template name.

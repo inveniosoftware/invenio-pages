@@ -32,7 +32,7 @@ from flask import Flask
 from invenio_admin import InvenioAdmin
 from invenio_db import InvenioDB, db
 
-from invenio_pages import InvenioPages, Page
+from invenio_pages import InvenioPages, InvenioPagesREST, Page
 
 
 @pytest.fixture
@@ -42,6 +42,7 @@ def app(request):
     app.config.update(
         TESTING=True,
         SQLALCHEMY_DATABASE_URI='sqlite://',
+        SQLALCHEMY_TRACK_MODIFICATIONS=False
     )
     InvenioDB(app)
     with app.app_context():
@@ -58,8 +59,8 @@ def app(request):
 @pytest.fixture
 def admin_fixture(pages_fixture):
     """Admin fixture."""
-    def unprotected_factory(base_class):
 
+    def unprotected_factory(base_class):
         class UnprotectedAdminView(base_class):
 
             def is_accesible(self):
@@ -78,10 +79,12 @@ def admin_fixture(pages_fixture):
     return pages_fixture
 
 
-@pytest.fixture
+@pytest.fixture(scope='function')
 def pages_fixture(app):
     """Page fixtures."""
     InvenioPages(app)
+    InvenioPagesREST(app)
+
     with app.app_context():
         pages = [
             Page(
@@ -100,6 +103,13 @@ def pages_fixture(app):
                 url='/cows/',
                 title='Page for Cows!',
                 content='Generic cow.',
+                template_name='invenio_pages/default.html',
+            ),
+            Page(
+                url='/htmldog',
+                title='Page for modern dogs!',
+                content='<h1>HTML aware dog.</h1>.\n'
+                        '<p class="test">paragraph<br /></p>',
                 template_name='invenio_pages/default.html',
             ),
         ]

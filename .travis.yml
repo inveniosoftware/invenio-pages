@@ -23,12 +23,10 @@
 # as an Intergovernmental Organization or submit itself to any jurisdiction.
 
 addons:
-  postgresql: 9.3
+  postgresql: "9.6"
 
 notifications:
   email: false
-
-sudo: false
 
 language: python
 
@@ -48,8 +46,8 @@ env:
   - REQUIREMENTS=devel EXTRAS=all,postgresql SQLALCHEMY_DATABASE_URI="postgresql+psycopg2://postgres@localhost:5432/invenio"
 
 python:
-  - "2.7"
-  - "3.5"
+  - "3.6"
+  - "3.7"
 
 before_install:
   - "travis_retry pip install --upgrade pip setuptools py"
@@ -78,4 +76,4 @@ deploy:
   distributions: "compile_catalog sdist bdist_wheel"
   on:
     tags: true
-    python: "2.7"
+    python: "3.6"
