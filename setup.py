@@ -39,7 +39,7 @@ tests_require = [
     'pytest-cache>=1.0',
     'pytest-cov>=1.8.0',
     'pytest-pep8>=1.0.6',
-    'pytest>=2.8.0',
+    'pytest>=3.8.1',
 ]
 
 extras_require = {
@@ -70,9 +70,9 @@ setup_requires = [
 ]
 
 install_requires = [
-    'Flask-BabelEx>=0.9.2',
-    'Flask>=0.11.1',
-    'invenio-admin>=1.0.0b4',
+    'invenio-base>=1.2.2',
+    'invenio-admin>=1.2.0',
+    'invenio-rest>=1.2.0'
 ]
 
 packages = find_packages()
@@ -100,6 +100,10 @@ setup(
     entry_points={
         'invenio_base.apps': [
             'invenio_pages = invenio_pages:InvenioPages',
+
+        ],
+        'invenio_base.api_apps': [
+            'invenio_pages_rest = invenio_pages:InvenioPagesREST',
         ],
         'invenio_i18n.translations': [
             'messages = invenio_pages',
@@ -112,6 +116,10 @@ setup(
         ],
         'invenio_base.blueprints': [
             'invenio_pages = invenio_pages.views:blueprint',
+
+        ],
+        "invenio_base.api_blueprints": [
+            'invenio_pages_rest = invenio_pages.rest:blueprint',
         ],
     },
     extras_require=extras_require,

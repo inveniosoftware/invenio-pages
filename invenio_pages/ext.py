@@ -129,3 +129,7 @@ class InvenioPages(object):
         for k in dir(config):
             if k.startswith('PAGES_'):
                 app.config.setdefault(k, getattr(config, k))
+
+
+class InvenioPagesREST(InvenioPages):
+    """Invenio App ILS REST API app."""
