@@ -25,6 +25,14 @@
 Changes
 =======
 
+Version 1.0.0a5 (released 2020-04-14):
+--------------------------------------
+
+- Add REST API GET Static Page Resource
+- Drop support for Python 2.7
+- Update python dependencies
+
+
 Version 1.0.0a4 (released 2017-08-18):
 --------------------------------------
 
