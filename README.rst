@@ -25,8 +25,8 @@
  Invenio-Pages
 ===============
 
-.. image:: https://img.shields.io/travis/inveniosoftware/invenio-pages.svg
-        :target: https://travis-ci.org/inveniosoftware/invenio-pages
+.. image:: https://github.com/inveniosoftware/invenio-pages/workflows/CI/badge.svg
+        :target: https://github.com/inveniosoftware/invenio-pages/actions?query=workflow%3ACI
 
 .. image:: https://img.shields.io/coveralls/inveniosoftware/invenio-pages.svg
         :target: https://coveralls.io/r/inveniosoftware/invenio-pages
