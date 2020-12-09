@@ -10,6 +10,7 @@
 import html
 
 from marshmallow import Schema, fields, post_dump
+
 from invenio_pages.serializers.links import default_links_item_factory
 
 
