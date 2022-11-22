@@ -115,6 +115,9 @@ setup(
         "invenio_base.api_blueprints": [
             'invenio_pages_rest = invenio_pages.rest:blueprint',
         ],
+        "invenio_db.alembic": [
+            'invenio_pages = invenio_pages:alembic',
+        ],
     },
     extras_require=extras_require,
     install_requires=install_requires,
