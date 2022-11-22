@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
-# Copyright (C) 2015, 2016 CERN.
+# Copyright (C) 2015, 2016, 2022 CERN.
 #
 # Invenio is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
@@ -48,3 +48,22 @@ def test_init():
     assert 'invenio-pages' not in app.extensions
     ext.init_app(app)
     assert 'invenio-pages' in app.extensions
+
+
+def test_alembic(app, db):
+    """Test alembic recipes."""
+    ext = app.extensions['invenio-db']
+
+    if db.engine.name == 'sqlite':
+        raise pytest.skip('Upgrades are not supported on SQLite.')
+
+    assert not ext.alembic.compare_metadata()
+    db.drop_all()
+    ext.alembic.upgrade()
+
+    assert not ext.alembic.compare_metadata()
+    ext.alembic.stamp()
+    ext.alembic.downgrade(target='96e796392533')
+    ext.alembic.upgrade()
+
+    assert not ext.alembic.compare_metadata()
