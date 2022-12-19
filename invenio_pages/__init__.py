@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
-# Copyright (C) 2014, 2015, 2016 CERN.
+# Copyright (C) 2014, 2015, 2016, 2022 CERN.
 #
 # Invenio is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
@@ -24,11 +24,10 @@
 
 """Static pages module for Invenio."""
 
-from __future__ import absolute_import, print_function
-
 from .ext import InvenioPages, InvenioPagesREST
 from .models import Page, PageList
-from .version import __version__
+
+__version__ = "1.0.0a5"
 
 __all__ = (
     '__version__', 'InvenioPages', 'InvenioPagesREST', 'Page', 'PageList')

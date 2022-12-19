@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
-# Copyright (C) 2014, 2015, 2016 CERN.
+# Copyright (C) 2014, 2015, 2016, 2022 CERN.
 #
 # Invenio is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
@@ -24,7 +24,6 @@
 
 """Views for Pages module."""
 
-from __future__ import absolute_import, print_function
 
 import six
 from flask import Blueprint, abort, current_app, render_template, request
@@ -40,16 +39,6 @@ blueprint = Blueprint(
     url_prefix='/',
     template_folder='templates'
 )
-
-
-@blueprint.before_app_first_request
-def preload_pages():
-    """Register all pages before the first application request."""
-    try:
-        _add_url_rule([page.url for page in Page.query.all()])
-    except Exception:  # pragma: no cover
-        current_app.logger.warn('Pages were not loaded.')
-        raise
 
 
 @blueprint.app_template_filter('render_string')
@@ -95,7 +84,6 @@ def handle_not_found(exception, **extra):
 
     page = Page.query.filter(db.or_(Page.url == request.path,
                                     Page.url == request.path + "/")).first()
-
     if page:
         _add_url_rule(page.url)
         return render_template(
@@ -113,11 +101,7 @@ def handle_not_found(exception, **extra):
 
 def _add_url_rule(url_or_urls):
     """Register URL rule to application URL map."""
-    old = current_app._got_first_request
-    # This is bit of cheating to overcome @flask.app.setupmethod decorator.
-    current_app._got_first_request = False
     if isinstance(url_or_urls, six.string_types):
         url_or_urls = [url_or_urls]
     map(lambda url: current_app.add_url_rule(url, 'invenio_pages.view', view),
         url_or_urls)
-    current_app._got_first_request = old

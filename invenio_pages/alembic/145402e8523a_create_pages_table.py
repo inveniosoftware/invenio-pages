@@ -36,17 +36,17 @@ def upgrade():
 
     op.create_table(
         "pages_page_version",
-        sa.Column("created", sa.DateTime(), autoincrement=False, nullable=False),
-        sa.Column("updated", sa.DateTime(), autoincrement=False, nullable=False),
+        sa.Column("created", sa.DateTime(), autoincrement=False, nullable=True),
+        sa.Column("updated", sa.DateTime(), autoincrement=False, nullable=True),
         sa.Column("id", sa.Integer(), autoincrement=False, nullable=False),
-        sa.Column("url", sa.String(length=100), autoincrement=False, nullable=False),
-        sa.Column("title", sa.String(length=200), autoincrement=False, nullable=False),
-        sa.Column("content", sa.Text(), autoincrement=False, nullable=False),
+        sa.Column("url", sa.String(length=100), autoincrement=False, nullable=True),
+        sa.Column("title", sa.String(length=200), autoincrement=False, nullable=True),
+        sa.Column("content", sa.Text(), autoincrement=False, nullable=True),
         sa.Column(
-            "description", sa.String(length=200), autoincrement=False, nullable=False
+            "description", sa.String(length=200), autoincrement=False, nullable=True
         ),
         sa.Column(
-            "template_name", sa.String(length=70), autoincrement=False, nullable=False
+            "template_name", sa.String(length=70), autoincrement=False, nullable=True
         ),
         sa.Column(
             "transaction_id", sa.BigInteger(), autoincrement=False, nullable=False
@@ -80,9 +80,9 @@ def upgrade():
     op.create_table(
         "pages_pagelist_version",
         sa.Column("id", sa.Integer(), autoincrement=False, nullable=False),
-        sa.Column("list_id", sa.Integer(), autoincrement=False, nullable=False),
-        sa.Column("page_id", sa.Integer(), autoincrement=False, nullable=False),
-        sa.Column("order", sa.Integer(), autoincrement=False, nullable=False),
+        sa.Column("list_id", sa.Integer(), autoincrement=False, nullable=True),
+        sa.Column("page_id", sa.Integer(), autoincrement=False, nullable=True),
+        sa.Column("order", sa.Integer(), autoincrement=False, nullable=True),
         sa.Column(
             "transaction_id", sa.BigInteger(), autoincrement=False, nullable=False
         ),
