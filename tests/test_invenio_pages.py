@@ -24,8 +24,6 @@
 
 """Module tests."""
 
-from __future__ import absolute_import, print_function
-
 from flask import Flask
 
 from invenio_pages import InvenioPages
@@ -40,7 +38,7 @@ def test_version():
 def test_init():
     """Test extension initialization."""
     app = Flask('testapp')
-    ext = InvenioPages(app)
+    InvenioPages(app)
     assert 'invenio-pages' in app.extensions
 
     app = Flask('testapp')
@@ -48,22 +46,3 @@ def test_init():
     assert 'invenio-pages' not in app.extensions
     ext.init_app(app)
     assert 'invenio-pages' in app.extensions
-
-
-def test_alembic(app, db):
-    """Test alembic recipes."""
-    ext = app.extensions['invenio-db']
-
-    if db.engine.name == 'sqlite':
-        raise pytest.skip('Upgrades are not supported on SQLite.')
-
-    assert not ext.alembic.compare_metadata()
-    db.drop_all()
-    ext.alembic.upgrade()
-
-    assert not ext.alembic.compare_metadata()
-    ext.alembic.stamp()
-    ext.alembic.downgrade(target='96e796392533')
-    ext.alembic.upgrade()
-
-    assert not ext.alembic.compare_metadata()

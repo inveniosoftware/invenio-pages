@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of Invenio.
-# Copyright (C) 2015, 2016 CERN.
+# Copyright (C) 2015, 2016, 2022 CERN.
 #
 # Invenio is free software; you can redistribute it
 # and/or modify it under the terms of the GNU General Public License as
@@ -24,11 +24,6 @@
 
 """Static pages module for Invenio."""
 
-from __future__ import absolute_import, print_function
-
-from distutils.version import StrictVersion
-
-from flask import __version__ as flask_version
 from flask import url_for
 from jinja2.sandbox import SandboxedEnvironment
 from werkzeug.exceptions import NotFound
@@ -53,8 +48,6 @@ class _InvenioPagesState(object):
         """Create a sandboxed Jinja environment."""
         if self._jinja_env is None:
             self._jinja_env = SandboxedEnvironment(
-                extensions=[
-                    'jinja2.ext.autoescape', 'jinja2.ext.with_', ],
                 autoescape=True,
             )
             self._jinja_env.globals['url_for'] = url_for
