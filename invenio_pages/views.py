@@ -25,7 +25,6 @@
 """Views for Pages module."""
 
 
-import six
 from flask import Blueprint, abort, current_app, render_template, request
 from invenio_db import db
 from sqlalchemy.orm.exc import NoResultFound
@@ -96,7 +95,7 @@ def handle_not_found(exception, **extra):
 
 def _add_url_rule(url_or_urls):
     """Register URL rule to application URL map."""
-    if isinstance(url_or_urls, six.string_types):
+    if isinstance(url_or_urls, str):
         url_or_urls = [url_or_urls]
     map(
         lambda url: current_app.add_url_rule(url, "invenio_pages.view", view),

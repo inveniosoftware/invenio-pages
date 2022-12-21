@@ -40,3 +40,4 @@ recursive-include invenio_pages *.html
 recursive-include invenio_pages *.po *.pot *.mo *.py
 recursive-include tests *.py
 recursive-include .github/workflows *.yml
+include .git-blame-ignore-revs
