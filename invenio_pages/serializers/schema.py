@@ -26,7 +26,8 @@ class PageSchemaV1(Schema):
     @post_dump
     def item_links_addition(self, data, **kwargs):
         """Add the links for each page."""
-        links_item_factory = self.context.get('links_item_factory',
-                                              default_links_item_factory)
-        data['links'] = links_item_factory(data)
+        links_item_factory = self.context.get(
+            "links_item_factory", default_links_item_factory
+        )
+        data["links"] = links_item_factory(data)
         return data

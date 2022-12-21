@@ -27,11 +27,12 @@ def page_responsify(schema_class, mimetype):
         if isinstance(data, Page):
             last_modified = data.updated
             response_data = schema_class(
-                context=dict(item_links_factory=links_item_factory)).dump(data)
+                context=dict(item_links_factory=links_item_factory)
+            ).dump(data)
 
         response = current_app.response_class(
-            json.dumps(response_data),
-            mimetype=mimetype)
+            json.dumps(response_data), mimetype=mimetype
+        )
         response.status_code = code
 
         if last_modified:

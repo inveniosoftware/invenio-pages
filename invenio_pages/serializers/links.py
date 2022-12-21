@@ -14,10 +14,9 @@ from flask import request, url_for
 def default_links_item_factory(page):
     """Factory for record links generation."""
     return dict(
-        self=url_for(
-            '.pages_item', page_id=page['id'], _external=True).format(
-                protocol=request.environ['wsgi.url_scheme'],
-                host=request.environ['HTTP_HOST'],
-                page_id=page['id']
+        self=url_for(".pages_item", page_id=page["id"], _external=True).format(
+            protocol=request.environ["wsgi.url_scheme"],
+            host=request.environ["HTTP_HOST"],
+            page_id=page["id"],
         )
     )

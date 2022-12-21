@@ -16,7 +16,7 @@ from invenio_pages import Page
 from invenio_pages.serializers import page_response
 from invenio_pages.serializers.links import default_links_item_factory
 
-blueprint = Blueprint('invenio_pages_rest', __name__, url_prefix='/pages')
+blueprint = Blueprint("invenio_pages_rest", __name__, url_prefix="/pages")
 
 
 class PageDetailsResource(ContentNegotiatedMethodView):
@@ -26,11 +26,7 @@ class PageDetailsResource(ContentNegotiatedMethodView):
 
     def __init__(self, serializers=None, *args, **kwargs):
         """Constructor."""
-        super(PageDetailsResource, self).__init__(
-            serializers,
-            *args,
-            **kwargs
-        )
+        super(PageDetailsResource, self).__init__(serializers, *args, **kwargs)
 
     def get(self, page_id):
         """Get the details of requested page."""
@@ -42,20 +38,21 @@ class PageDetailsResource(ContentNegotiatedMethodView):
         etag = str(len(page.versions.all()))
         self.check_etag(etag)
         response = self.make_response(
-            page, links_item_factory=default_links_item_factory)
+            page, links_item_factory=default_links_item_factory
+        )
         response.set_etag(etag)
         return response
 
 
-serializers = {'application/json': page_response}
+serializers = {"application/json": page_response}
 
 
 blueprint.add_url_rule(
-    '/<string:page_id>',
+    "/<string:page_id>",
     view_func=PageDetailsResource.as_view(
-        'pages_item',
+        "pages_item",
         serializers=serializers,
-        default_media_type='application/json',
+        default_media_type="application/json",
     ),
-    methods=['GET']
+    methods=["GET"],
 )

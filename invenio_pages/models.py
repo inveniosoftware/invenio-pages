@@ -35,22 +35,21 @@ class Page(db.Model, Timestamp):
 
     __versioned__ = {}
 
-    __tablename__ = 'pages_page'
+    __tablename__ = "pages_page"
 
-    id = db.Column(db.Integer, nullable=False,
-                   primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
     """Page identifier."""
 
     url = db.Column(db.String(100), unique=True, nullable=False)
     """Page url."""
 
-    title = db.Column(db.String(200), nullable=False, default='')
+    title = db.Column(db.String(200), nullable=False, default="")
     """Page title."""
 
-    content = db.Column(db.Text(), nullable=False, default='')
+    content = db.Column(db.Text(), nullable=False, default="")
     """Page content. Default is pages/templates/default.html"""
 
-    description = db.Column(db.String(200), nullable=False, default='')
+    description = db.Column(db.String(200), nullable=False, default="")
     """Page description."""
 
     template_name = db.Column(db.String(70), nullable=False)
@@ -74,7 +73,7 @@ class Page(db.Model, Timestamp):
         """
         return Page.query.filter_by(id=id).one()
 
-    @validates('template_name')
+    @validates("template_name")
     def validate_template_name(self, key, value):
         """Validate template name.
 
@@ -82,9 +81,8 @@ class Page(db.Model, Timestamp):
         :param value: The template name.
         :raises ValueError: If template name is wrong.
         """
-        if value not in dict(current_app.config['PAGES_TEMPLATES']):
-            raise ValueError(
-                'Template "{0}" does not exist.'.format(value))
+        if value not in dict(current_app.config["PAGES_TEMPLATES"]):
+            raise ValueError('Template "{0}" does not exist.'.format(value))
         return value
 
     def __repr__(self):
@@ -101,18 +99,15 @@ class PageList(db.Model):
 
     __versioned__ = {}
 
-    __tablename__ = 'pages_pagelist'
+    __tablename__ = "pages_pagelist"
 
-    id = db.Column(
-        db.Integer, nullable=False, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
     """PageList identifier."""
 
-    list_id = db.Column(
-        db.Integer, db.ForeignKey(Page.id), nullable=False)
+    list_id = db.Column(db.Integer, db.ForeignKey(Page.id), nullable=False)
     """Id of a list."""
 
-    page_id = db.Column(
-        db.Integer, db.ForeignKey(Page.id), nullable=False)
+    page_id = db.Column(db.Integer, db.ForeignKey(Page.id), nullable=False)
     """Id of a page."""
 
     order = db.Column(db.Integer, nullable=False)
@@ -120,11 +115,13 @@ class PageList(db.Model):
     list = db.relationship(
         Page,
         backref=db.backref("pages", cascade="all, delete-orphan"),
-        foreign_keys=[list_id])
+        foreign_keys=[list_id],
+    )
     """Relation to the list."""
 
     page = db.relationship(
         Page,
         backref=db.backref("lists", cascade="all, delete-orphan"),
-        foreign_keys=[page_id])
+        foreign_keys=[page_id],
+    )
     """Relation to the page."""

@@ -5,16 +5,15 @@
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-"""Create invenio_pages branch"""
+"""Create invenio_pages branch."""
 
-from alembic import op
 import sqlalchemy as sa
-
+from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = '98e0a418340d'
+revision = "98e0a418340d"
 down_revision = None
-branch_labels = ('invenio_pages',)
+branch_labels = ("invenio_pages",)
 depends_on = "dbdbc1b19cf2"
 
 

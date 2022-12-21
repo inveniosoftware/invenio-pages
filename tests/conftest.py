@@ -45,7 +45,7 @@ def create_app(instance_path, entry_points):
     return _create_app
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def pages_fixture(app, db):
     """Page fixtures.
 
@@ -53,29 +53,28 @@ def pages_fixture(app, db):
     """
     pages = [
         Page(
-            url='/dogs',
-            title='Page for Dogs!',
-            content='Generic dog.',
-            template_name='invenio_pages/default.html',
+            url="/dogs",
+            title="Page for Dogs!",
+            content="Generic dog.",
+            template_name="invenio_pages/default.html",
         ),
         Page(
-            url='/dogs/shiba',
-            title='Page for doge!',
-            content='so doge!',
-            template_name='invenio_pages/default.html',
+            url="/dogs/shiba",
+            title="Page for doge!",
+            content="so doge!",
+            template_name="invenio_pages/default.html",
         ),
         Page(
-            url='/cows/',
-            title='Page for Cows!',
-            content='Generic cow.',
-            template_name='invenio_pages/default.html',
+            url="/cows/",
+            title="Page for Cows!",
+            content="Generic cow.",
+            template_name="invenio_pages/default.html",
         ),
         Page(
-            url='/htmldog',
-            title='Page for modern dogs!',
-            content='<h1>HTML aware dog.</h1>.\n'
-                    '<p class="test">paragraph<br /></p>',
-            template_name='invenio_pages/default.html',
+            url="/htmldog",
+            title="Page for modern dogs!",
+            content="<h1>HTML aware dog.</h1>.\n" '<p class="test">paragraph<br /></p>',
+            template_name="invenio_pages/default.html",
         ),
     ]
     for page in pages:
@@ -83,7 +82,7 @@ def pages_fixture(app, db):
     db.session.commit()
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def module_scoped_pages_fixture(app, database):
     """Page fixtures.
 
@@ -92,29 +91,28 @@ def module_scoped_pages_fixture(app, database):
     db = database
     pages = [
         Page(
-            url='/dogs',
-            title='Page for Dogs!',
-            content='Generic dog.',
-            template_name='invenio_pages/default.html',
+            url="/dogs",
+            title="Page for Dogs!",
+            content="Generic dog.",
+            template_name="invenio_pages/default.html",
         ),
         Page(
-            url='/dogs/shiba',
-            title='Page for doge!',
-            content='so doge!',
-            template_name='invenio_pages/default.html',
+            url="/dogs/shiba",
+            title="Page for doge!",
+            content="so doge!",
+            template_name="invenio_pages/default.html",
         ),
         Page(
-            url='/cows/',
-            title='Page for Cows!',
-            content='Generic cow.',
-            template_name='invenio_pages/default.html',
+            url="/cows/",
+            title="Page for Cows!",
+            content="Generic cow.",
+            template_name="invenio_pages/default.html",
         ),
         Page(
-            url='/htmldog',
-            title='Page for modern dogs!',
-            content='<h1>HTML aware dog.</h1>.\n'
-                    '<p class="test">paragraph<br /></p>',
-            template_name='invenio_pages/default.html',
+            url="/htmldog",
+            title="Page for modern dogs!",
+            content="<h1>HTML aware dog.</h1>.\n" '<p class="test">paragraph<br /></p>',
+            template_name="invenio_pages/default.html",
         ),
     ]
     for page in pages:

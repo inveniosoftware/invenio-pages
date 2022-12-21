@@ -29,5 +29,4 @@ from .models import Page, PageList
 
 __version__ = "1.0.0a5"
 
-__all__ = (
-    '__version__', 'InvenioPages', 'InvenioPagesREST', 'Page', 'PageList')
+__all__ = ("__version__", "InvenioPages", "InvenioPagesREST", "Page", "PageList")

@@ -24,16 +24,16 @@
 
 """Page module config."""
 
-PAGES_DEFAULT_TEMPLATE = 'invenio_pages/default.html'
+PAGES_DEFAULT_TEMPLATE = "invenio_pages/default.html"
 """Default template to render."""
 
 PAGES_TEMPLATES = [
-    ('invenio_pages/default.html', 'Default'),
-    ('invenio_pages/dynamic.html', 'Default dynamic'),
+    ("invenio_pages/default.html", "Default"),
+    ("invenio_pages/dynamic.html", "Default dynamic"),
 ]
 """List of available templates for pages."""
 
 PAGES_WHITELIST_CONFIG_KEYS = [
-    'THEME_SITENAME',
+    "THEME_SITENAME",
 ]
 """List of configuration variables accessible in the dynamic pages."""

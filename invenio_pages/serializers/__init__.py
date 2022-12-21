@@ -10,5 +10,4 @@
 from .response import page_responsify
 from .schema import PageSchemaV1
 
-page_response = page_responsify(
-    PageSchemaV1, 'application/json')
+page_response = page_responsify(PageSchemaV1, "application/json")
