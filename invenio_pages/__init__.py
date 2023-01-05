@@ -27,6 +27,6 @@
 from .ext import InvenioPages, InvenioPagesREST
 from .models import Page, PageList
 
-__version__ = "1.0.0a5"
+__version__ = "2.0.0a1"
 
 __all__ = ("__version__", "InvenioPages", "InvenioPagesREST", "Page", "PageList")
