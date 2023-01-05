@@ -25,6 +25,12 @@
 Changes
 =======
 
+Version 1.0.0a6 (released 2023-01-05):
+--------------------------------------
+
+- Upgrade invenio packages
+- Add alembic recipe
+
 Version 1.0.0a5 (released 2020-04-14):
 --------------------------------------
 
