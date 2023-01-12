@@ -37,6 +37,16 @@ blueprint = Blueprint(
 )
 
 
+@blueprint.before_app_first_request
+def register_pages():
+    """Register URL rule of all static pages to the application."""
+    # We need to set the function view, to be able to directly register the urls in the Flask.url_map
+    current_app.view_functions["invenio_pages.view"] = view
+
+    for page in Page.query.all():
+        _add_url_rule(page.url)
+
+
 @blueprint.app_template_filter("render_string")
 def render_string(source):
     """Render a string in sandboxed environment.
@@ -93,11 +103,13 @@ def handle_not_found(exception, **extra):
         return exception
 
 
-def _add_url_rule(url_or_urls):
+def _add_url_rule(url):
     """Register URL rule to application URL map."""
-    if isinstance(url_or_urls, str):
-        url_or_urls = [url_or_urls]
-    map(
-        lambda url: current_app.add_url_rule(url, "invenio_pages.view", view),
-        url_or_urls,
+    rule = current_app.url_rule_class(
+        url,
+        endpoint="invenio_pages.view",
+        methods=["GET", "HEAD", "OPTIONS"],
+        strict_slashes=True,
+        merge_slashes=True,
     )
+    current_app.url_map.add(rule)
