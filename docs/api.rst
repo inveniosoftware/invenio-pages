@@ -19,7 +19,7 @@ Configuration
 Models
 ------
 
-.. automodule:: invenio_pages.models
+.. automodule:: invenio_pages.records.models
    :members:
 
 Views

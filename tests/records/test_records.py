@@ -8,7 +8,7 @@
 
 """Models for Pages module."""
 
-from invenio_pages import Page
+from invenio_pages import PageModel as Page
 
 
 def test_page_repr(module_scoped_pages_fixture, base_app):
