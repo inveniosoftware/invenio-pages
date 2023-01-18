@@ -14,7 +14,7 @@ from sqlalchemy.orm import validates
 from sqlalchemy_utils.models import Timestamp
 
 
-class Page(db.Model, Timestamp):
+class PageModel(db.Model, Timestamp):
     """Represents a page."""
 
     __versioned__ = {}
@@ -44,18 +44,18 @@ class Page(db.Model, Timestamp):
         """Get a page by URL.
 
         :param url: The page URL.
-        :returns: A :class:`invenio_pages.models.Page` instance.
+        :returns: A :class:`invenio_pages.records.models.PageModel` instance.
         """
-        return Page.query.filter_by(url=url).one()
+        return PageModel.query.filter_by(url=url).one()
 
     @classmethod
     def get_by_id(self, id):
         """Get a page by ID.
 
         :param id: The page ID.
-        :returns: A :class:`invenio_pages.models.Page` instance.
+        :returns: A :class:`invenio_pages.records.models.PageModel` instance.
         """
-        return Page.query.filter_by(id=id).one()
+        return PageModel.query.filter_by(id=id).one()
 
     @validates("template_name")
     def validate_template_name(self, key, value):
@@ -88,23 +88,23 @@ class PageList(db.Model):
     id = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
     """PageList identifier."""
 
-    list_id = db.Column(db.Integer, db.ForeignKey(Page.id), nullable=False)
+    list_id = db.Column(db.Integer, db.ForeignKey(PageModel.id), nullable=False)
     """Id of a list."""
 
-    page_id = db.Column(db.Integer, db.ForeignKey(Page.id), nullable=False)
+    page_id = db.Column(db.Integer, db.ForeignKey(PageModel.id), nullable=False)
     """Id of a page."""
 
     order = db.Column(db.Integer, nullable=False)
 
     list = db.relationship(
-        Page,
+        PageModel,
         backref=db.backref("pages", cascade="all, delete-orphan"),
         foreign_keys=[list_id],
     )
     """Relation to the list."""
 
     page = db.relationship(
-        Page,
+        PageModel,
         backref=db.backref("lists", cascade="all, delete-orphan"),
         foreign_keys=[page_id],
     )

@@ -11,7 +11,7 @@
 import pytest
 from invenio_app.factory import create_app as _create_app
 
-from invenio_pages import Page
+from invenio_pages import PageModel as Page
 
 
 @pytest.fixture(scope="module")
