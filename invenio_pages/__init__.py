@@ -9,8 +9,8 @@
 """Static pages module for Invenio."""
 
 from .ext import InvenioPages, InvenioPagesREST
-from .models import Page, PageList
+from .records.models import PageList, PageModel
 
 __version__ = "2.0.0a2"
 
-__all__ = ("__version__", "InvenioPages", "InvenioPagesREST", "Page", "PageList")
+__all__ = ("__version__", "InvenioPages", "InvenioPagesREST", "PageModel", "PageList")

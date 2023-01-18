@@ -14,7 +14,9 @@ from invenio_db import db
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.exceptions import NotFound
 
-from .models import Page
+from invenio_pages.proxies import current_pages_service
+
+from .records.models import PageModel as Page
 
 blueprint = Blueprint(
     "invenio_pages", __name__, url_prefix="/", template_folder="templates"
@@ -59,10 +61,9 @@ def render_page(path):
     :returns: The rendered template.
     """
     try:
-        page = Page.get_by_url(request.path)
+        page = current_pages_service.read_url(request.path)
     except NoResultFound:
         abort(404)
-
     return render_template(
         [page.template_name, current_app.config["PAGES_DEFAULT_TEMPLATE"]], page=page
     )
@@ -97,3 +98,9 @@ def _add_url_rule(url):
         merge_slashes=True,
     )
     current_app.url_map.add(rule)
+
+
+def create_pages_api_bp(app):
+    """Create the pages resource api blueprint."""
+    ext = app.extensions["invenio-pages"]
+    return ext.pages_resource.as_blueprint()
