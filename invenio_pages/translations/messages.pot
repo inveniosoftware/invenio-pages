@@ -1,5 +1,5 @@
 # Translations template for invenio-pages.
-# Copyright (C) 2016 CERN
+# Copyright (C) 2016-2022 CERN
 # This file is distributed under the same license as the invenio-pages
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
