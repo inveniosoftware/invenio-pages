@@ -9,6 +9,12 @@
 Changes
 =======
 
+Version 2.0.0a2 (released 2023-01-20):
+--------------------------------------
+
+- License update
+- global: refactor pages registration process
+
 Version 2.0.0a1 (released 2023-01-05):
 --------------------------------------
 
