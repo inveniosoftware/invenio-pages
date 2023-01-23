@@ -10,7 +10,6 @@
 from flask import g
 from flask_resources import Resource, resource_requestctx, response_handler, route
 from invenio_records_resources.resources.records.resource import (
-    request_extra_args,
     request_search_args,
     request_view_args,
 )
@@ -24,7 +23,7 @@ class PageResource(Resource):
 
     def __init__(self, config, service):
         """Constructor."""
-        super(PageResource, self).__init__(config)
+        super().__init__(config)
         self.service = service
 
     def create_url_rules(self):
@@ -32,28 +31,28 @@ class PageResource(Resource):
         routes = self.config.routes
         return [
             route("GET", routes["item"], self.read),
+            route("GET", routes["list"], self.search),
         ]
 
     #
     # Primary Interface
     #
-    @request_extra_args
     @request_view_args
     @response_handler()
     def read(self):
         """Read a page."""
-        item = self.service.read_id(
+        item = self.service.read(
             id=resource_requestctx.view_args["id"],
             identity=g.identity,
         )
         return item.to_dict(), 200
 
-    @request_extra_args
     @request_search_args
-    @request_view_args
     @response_handler(many=True)
     def search(self):
         """Perform a search over pages."""
-        # TODO: implement
-
-        return [], 200
+        pages = self.service.search(
+            identity=g.identity,
+            params=resource_requestctx.args,
+        )
+        return pages.to_dict(), 200
