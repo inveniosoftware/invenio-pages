@@ -10,7 +10,9 @@
 
 from flask import current_app
 from invenio_db import db
+from sqlalchemy import or_
 from sqlalchemy.orm import validates
+from sqlalchemy.sql import text
 from sqlalchemy_utils.models import Timestamp
 
 
@@ -49,13 +51,35 @@ class PageModel(db.Model, Timestamp):
         return PageModel.query.filter_by(url=url).one()
 
     @classmethod
-    def get_by_id(self, id):
+    def get(self, id):
         """Get a page by ID.
 
         :param id: The page ID.
         :returns: A :class:`invenio_pages.records.models.PageModel` instance.
         """
         return PageModel.query.filter_by(id=id).one()
+
+    @classmethod
+    def search(self, search_params={}, filters=[]):
+        """Get pages according to param filters.
+
+        :param search_params: The maximum resources to retreive.
+        :param filters: The search filters.
+        :returns: A list of the :class:`invenio_pages.records.models.PageModel` instance.
+        """
+        pages = (
+            PageModel.query.filter(or_(*filters))
+            .order_by(
+                search_params["sort_direction"](text(",".join(search_params["sort"])))
+            )
+            .paginate(
+                page=search_params["page"],
+                per_page=search_params["size"],
+                error_out=False,
+            )
+        )
+
+        return pages
 
     @validates("template_name")
     def validate_template_name(self, key, value):

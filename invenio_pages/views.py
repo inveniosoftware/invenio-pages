@@ -9,7 +9,7 @@
 """Views for Pages module."""
 
 
-from flask import Blueprint, abort, current_app, render_template, request
+from flask import Blueprint, abort, current_app, g, render_template, request
 from invenio_db import db
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.exceptions import NotFound
@@ -61,7 +61,7 @@ def render_page(path):
     :returns: The rendered template.
     """
     try:
-        page = current_pages_service.read_url(request.path)
+        page = current_pages_service.read_url(request.path, g.identity)._record
     except NoResultFound:
         abort(404)
     return render_template(

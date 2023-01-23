@@ -7,7 +7,16 @@
 
 """Page Resource Configuration."""
 import marshmallow as ma
-from invenio_records_resources.resources import RecordResourceConfig
+from invenio_records_resources.resources import (
+    RecordResourceConfig,
+    SearchRequestArgsSchema,
+)
+
+
+class PageRequestSearchArgs(SearchRequestArgsSchema):
+    """Page request search args."""
+
+    sort_direction = ma.fields.Str()
 
 
 class PageResourceConfig(RecordResourceConfig):
@@ -18,8 +27,10 @@ class PageResourceConfig(RecordResourceConfig):
     url_prefix = "/pages"
     routes = {
         "item": "/<id>",
+        "list": "/",
     }
 
+    request_search_args = PageRequestSearchArgs
     request_view_args = {
         "id": ma.fields.Number(),
     }
