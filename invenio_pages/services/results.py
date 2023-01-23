@@ -8,7 +8,8 @@
 
 """Results for the requests service."""
 
-from invenio_records_resources.services.records.results import RecordItem
+from flask_sqlalchemy import Pagination
+from invenio_records_resources.services.records.results import RecordItem, RecordList
 
 
 class PageItem(RecordItem):
@@ -24,23 +25,7 @@ class PageItem(RecordItem):
         schema=None,
     ):
         """Constructor."""
-        self._record = page
-        self._identity = identity
-        self._service = service
-        self._data = None
-        self._schema = schema or service.schema
-        self._links_tpl = links_tpl
-        self._errors = errors
-
-    @property
-    def id(self):
-        """Identity of the page."""
-        return self._record
-
-    @property
-    def links(self):
-        """Get links for this result item."""
-        return self._links_tpl.expand(self._identity, self._record)
+        super().__init__(service, identity, page, errors, links_tpl, schema)
 
     @property
     def data(self):
@@ -60,3 +45,52 @@ class PageItem(RecordItem):
             self._data["links"] = self.links
 
         return self._data
+
+
+class PageList(RecordList):
+    """List of page results."""
+
+    def __init__(
+        self,
+        service,
+        identity,
+        pages,
+        params=None,
+        links_tpl=None,
+        links_item_tpl=None,
+        schema=None,
+    ):
+        """Constructor."""
+        super().__init__(
+            service, identity, pages, params, links_tpl, links_item_tpl, schema
+        )
+
+    @property
+    def hits(self):
+        """Iterator over the hits."""
+        for record in self.pages_result():
+            projection = self._schema.dump(
+                record,
+                context=dict(
+                    identity=self._identity,
+                    record=record,
+                ),
+            )
+
+            if self._links_item_tpl:
+                projection["links"] = self._links_item_tpl.expand(
+                    self._identity, record
+                )
+
+            yield projection
+
+    @property
+    def total(self):
+        """Get total number of pages."""
+        return len(self.pages_result())
+
+    def pages_result(self):
+        """Gets the results, even if they are in a pagination object."""
+        return (
+            self._results.items if type(self._results) == Pagination else self._results
+        )

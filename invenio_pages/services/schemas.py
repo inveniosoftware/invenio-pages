@@ -19,3 +19,4 @@ class PageSchema(BaseRecordSchema):
     title = fields.String()
     content = fields.String()
     description = fields.String()
+    template_name = fields.String()
