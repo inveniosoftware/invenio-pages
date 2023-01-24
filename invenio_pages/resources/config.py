@@ -27,7 +27,7 @@ class PageResourceConfig(RecordResourceConfig):
     url_prefix = "/pages"
     routes = {
         "item": "/<id>",
-        "list": "/",
+        "list": "",
     }
 
     request_search_args = PageRequestSearchArgs

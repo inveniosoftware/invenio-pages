@@ -11,9 +11,13 @@
 from flask import current_app
 from invenio_db import db
 from sqlalchemy import or_
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import validates
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql import text
 from sqlalchemy_utils.models import Timestamp
+
+from .errors import PageNotCreatedError, PageNotFoundError
 
 
 class PageModel(db.Model, Timestamp):
@@ -42,13 +46,34 @@ class PageModel(db.Model, Timestamp):
     """Page template name."""
 
     @classmethod
+    def create(self, data):
+        """Create a new page."""
+        try:
+            with db.session.begin_nested():
+                obj = PageModel(
+                    url=data["url"],
+                    title=data.get("title", ""),
+                    content=data.get("content", ""),
+                    description=data.get("description", ""),
+                    template_name=data["template_name"],
+                )
+                db.session.add(obj)
+
+            return obj
+        except IntegrityError:
+            raise PageNotCreatedError(data["url"])
+
+    @classmethod
     def get_by_url(self, url):
         """Get a page by URL.
 
         :param url: The page URL.
         :returns: A :class:`invenio_pages.records.models.PageModel` instance.
         """
-        return PageModel.query.filter_by(url=url).one()
+        try:
+            return self.query.filter_by(url=url).one()
+        except NoResultFound:
+            raise PageNotFoundError(url)
 
     @classmethod
     def get(self, id):
@@ -57,10 +82,13 @@ class PageModel(db.Model, Timestamp):
         :param id: The page ID.
         :returns: A :class:`invenio_pages.records.models.PageModel` instance.
         """
-        return PageModel.query.filter_by(id=id).one()
+        try:
+            return self.query.filter_by(id=id).one()
+        except NoResultFound:
+            raise PageNotFoundError(id)
 
     @classmethod
-    def search(self, search_params={}, filters=[]):
+    def search(self, search_params, filters):
         """Get pages according to param filters.
 
         :param search_params: The maximum resources to retreive.
@@ -78,8 +106,24 @@ class PageModel(db.Model, Timestamp):
                 error_out=False,
             )
         )
-
         return pages
+
+    @classmethod
+    def update(self, data, id):
+        """Update an existing page."""
+        with db.session.begin_nested():
+            self.query.filter_by(id=id).update(data)
+
+    @classmethod
+    def delete(self, page):
+        """Delete page by its id."""
+        with db.session.begin_nested():
+            db.session.delete(page)
+
+    @classmethod
+    def delete_all(self):
+        """Delete all pages."""
+        self.query.delete()
 
     @validates("template_name")
     def validate_template_name(self, key, value):
