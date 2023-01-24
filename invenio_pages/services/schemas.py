@@ -7,11 +7,13 @@
 
 """Pages schema."""
 
-from invenio_records_resources.services.records.schema import BaseRecordSchema
-from marshmallow import fields
+from datetime import timezone
+
+from marshmallow import Schema, fields
+from marshmallow_utils.fields import TZDateTime
 
 
-class PageSchema(BaseRecordSchema):
+class PageSchema(Schema):
     """Schema for page."""
 
     id = fields.String()
@@ -20,3 +22,5 @@ class PageSchema(BaseRecordSchema):
     content = fields.String()
     description = fields.String()
     template_name = fields.String()
+    created = TZDateTime(timezone=timezone.utc, format="iso", dump_only=True)
+    updated = TZDateTime(timezone=timezone.utc, format="iso", dump_only=True)

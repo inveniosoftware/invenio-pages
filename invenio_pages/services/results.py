@@ -15,18 +15,6 @@ from invenio_records_resources.services.records.results import RecordItem, Recor
 class PageItem(RecordItem):
     """Single page result."""
 
-    def __init__(
-        self,
-        service,
-        identity,
-        page,
-        links_tpl=None,
-        errors=None,
-        schema=None,
-    ):
-        """Constructor."""
-        super().__init__(service, identity, page, errors, links_tpl, schema)
-
     @property
     def data(self):
         """Property to get the page."""
@@ -46,29 +34,19 @@ class PageItem(RecordItem):
 
         return self._data
 
+    @property
+    def to_obj(self):
+        """The record is not null."""
+        return self._record
+
 
 class PageList(RecordList):
     """List of page results."""
 
-    def __init__(
-        self,
-        service,
-        identity,
-        pages,
-        params=None,
-        links_tpl=None,
-        links_item_tpl=None,
-        schema=None,
-    ):
-        """Constructor."""
-        super().__init__(
-            service, identity, pages, params, links_tpl, links_item_tpl, schema
-        )
-
     @property
     def hits(self):
         """Iterator over the hits."""
-        for record in self.pages_result():
+        for record in self._results:
             projection = self._schema.dump(
                 record,
                 context=dict(
@@ -87,10 +65,16 @@ class PageList(RecordList):
     @property
     def total(self):
         """Get total number of pages."""
-        return len(self.pages_result())
+        return len(self._results)
 
-    def pages_result(self):
-        """Gets the results, even if they are in a pagination object."""
+    @property
+    def _results(self):
         return (
-            self._results.items if type(self._results) == Pagination else self._results
+            self._page_results.items
+            if isinstance(self._page_results, Pagination)
+            else self._page_results
         )
+
+    @_results.setter
+    def _results(self, value):
+        self._page_results = value

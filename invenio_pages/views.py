@@ -61,7 +61,7 @@ def render_page(path):
     :returns: The rendered template.
     """
     try:
-        page = current_pages_service.read_url(request.path, g.identity)._record
+        page = current_pages_service.read_by_url(g.identity, request.path).to_obj
     except NoResultFound:
         abort(404)
     return render_template(

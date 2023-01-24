@@ -15,8 +15,8 @@ from invenio_records_permissions.generators import AnyUser, SystemProcess
 class PagesPermissionPolicy(BasePermissionPolicy):
     """Permission policy for pages."""
 
-    can_create = [Administration(), SystemProcess()]
+    can_create = []
     can_read = [AnyUser(), SystemProcess()]
     can_search = [AnyUser(), SystemProcess()]
     can_update = [Administration(), SystemProcess()]
-    can_delete = [Administration(), SystemProcess()]
+    can_delete = []
