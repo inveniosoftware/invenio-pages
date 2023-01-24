@@ -9,7 +9,11 @@
 
 """Pytest configuration."""
 import pytest
-from invenio_app.factory import create_app as _create_app
+from invenio_access.models import ActionRoles
+from invenio_access.permissions import superuser_access
+from invenio_accounts.models import Role
+from invenio_administration.permissions import administration_access_action
+from invenio_app.factory import create_api
 
 from invenio_pages import PageModel as Page
 
@@ -26,7 +30,7 @@ def app(base_app, database):
 @pytest.fixture(scope="module")
 def create_app(instance_path, entry_points):
     """Application factory fixture."""
-    return _create_app
+    return create_api
 
 
 @pytest.fixture(scope="function")
@@ -102,3 +106,93 @@ def module_scoped_pages_fixture(app, database):
     for page in pages:
         db.session.add(page)
     db.session.commit()
+
+
+@pytest.fixture(scope="function")
+def superuser_role_need(db):
+    """Store 1 role with 'superuser-access' ActionNeed."""
+    role = Role(name="superuser-access")
+    db.session.add(role)
+
+    action_role = ActionRoles.create(action=superuser_access, role=role)
+    db.session.add(action_role)
+
+    db.session.commit()
+    return action_role.need
+
+
+@pytest.fixture()
+def superuser(UserFixture, app, db, superuser_role_need):
+    """Admin user for requests."""
+    u = UserFixture(
+        email="superuser@inveniosoftware.org",
+        password="superuser",
+    )
+    u.create(app, db)
+
+    datastore = app.extensions["security"].datastore
+    _, role = datastore._prepare_role_modify_args(u.user, "superuser-access")
+
+    datastore.add_role_to_user(u.user, role)
+    db.session.commit()
+    return u
+
+
+@pytest.fixture()
+def superuser_identity(superuser):
+    """Superuser identity fixture."""
+    identity = superuser.identity
+    return identity
+
+
+@pytest.fixture(scope="function")
+def admin_role_need(db):
+    """Store 1 role with 'administration-access' ActionNeed."""
+    role = Role(name="administration-access")
+    db.session.add(role)
+
+    action_role = ActionRoles.create(action=administration_access_action, role=role)
+    db.session.add(action_role)
+
+    db.session.commit()
+    return action_role.need
+
+
+@pytest.fixture()
+def admin(UserFixture, app, db, admin_role_need):
+    """Admin user for requests."""
+    u = UserFixture(
+        email="admin@inveniosoftware.org",
+        password="admin",
+    )
+    u.create(app, db)
+
+    datastore = app.extensions["security"].datastore
+    _, role = datastore._prepare_role_modify_args(u.user, "administration-access")
+
+    datastore.add_role_to_user(u.user, role)
+    db.session.commit()
+    return u
+
+
+@pytest.fixture()
+def admin_user_identity(admin):
+    """Simple identity fixture."""
+    identity = admin.identity
+    return identity
+
+
+@pytest.fixture()
+def user(UserFixture, app, db):
+    """General user for requests."""
+    user = UserFixture(email="user1@example.org", password="user1")
+    user.create(app, db)
+
+    return user
+
+
+@pytest.fixture()
+def simple_user_identity(user):
+    """Simple identity fixture."""
+    identity = user.identity
+    return identity
