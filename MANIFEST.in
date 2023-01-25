@@ -6,22 +6,42 @@
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
+include .dockerignore
+include .editorconfig
+include .prettierrc
+include .tx/config
 include *.rst
 include *.sh
 include *.txt
-include .dockerignore
-include .editorconfig
-include .tx/config
-include .lgtm
-include LICENSE
-include MAINTAINERS
+include *.yml
 include babel.ini
-include docs/requirements.txt
+include docker/haproxy/Dockerfile
+include docker/nginx/Dockerfile
+include docker/postgres/Dockerfile
+include Dockerfile
+include Dockerfile.base
+include LICENSE
 include pytest.ini
-recursive-include docs *.bat *.py *.rst Makefile
-recursive-include examples *.py *.sh *.html
-recursive-include invenio_pages *.html
-recursive-include invenio_pages *.po *.pot *.mo *.py
-recursive-include tests *.py
+include scripts/bootstrap
+include scripts/console
+include scripts/server
+include scripts/setup
+include scripts/update
+prune docs/_build
 recursive-include .github/workflows *.yml
+recursive-include docs *.bat
+recursive-include docs *.py
+recursive-include docs *.rst
+recursive-include docs *.txt
+recursive-include docs Makefile
+recursive-include invenio_pages *.gitkeep
+recursive-include invenio_pages *.html *.js *.less *.json *.yaml
+recursive-include invenio_pages *.overrides
+recursive-include invenio_pages *.variables
+recursive-include invenio_pages *.png *.svg
+recursive-include invenio_pages *.txt
+recursive-include invenio_pages *.po *.pot *.mo
+recursive-include invenio_pages *.py
+recursive-include docker *.cfg *.conf *.crt *.ini *.key *.pem *.sh
+recursive-include tests *.py *.yaml *.html
 include .git-blame-ignore-revs

@@ -9,6 +9,17 @@
 Changes
 =======
 
+Version 2.0.0 (released 2023-01-25):
+--------------------------------------
+
+- major release, tests cleanup
+- License update
+- global: refactor pages registration process
+- Upgrade invenio packages
+- Add alembic recipe
+- Remove invenio-admin module
+
+
 Version 2.0.0a2 (released 2023-01-20):
 --------------------------------------
 
