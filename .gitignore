@@ -1,6 +1,11 @@
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+
+# Idea software family
+.idea/
 
 # C extensions
 *.so
@@ -22,7 +27,9 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-.idea/
+.venv/
+Pipfile
+Pipfile.lock
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -44,6 +51,9 @@ nosetests.xml
 coverage.xml
 *,cover
 
+# end-to-end testing
+.e2e_screenshots
+
 # Translations
 *.mo
 
@@ -55,3 +65,12 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Vim swapfiles
+.*.sw?
+.vscode/
+*.sublime-*
+
+# node modules
+**/*/node_modules
+node_modules
