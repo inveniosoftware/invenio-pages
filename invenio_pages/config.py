@@ -8,6 +8,8 @@
 
 """Page module config."""
 
+from flask_babelex import lazy_gettext as _
+
 PAGES_DEFAULT_TEMPLATE = "invenio_pages/default.html"
 """Default template to render."""
 
@@ -21,3 +23,32 @@ PAGES_WHITELIST_CONFIG_KEYS = [
     "THEME_SITENAME",
 ]
 """List of configuration variables accessible in the dynamic pages."""
+
+PAGES_SEARCH = {
+    "facets": [],
+    "sort": ["url", "title", "created", "updated"],
+}
+"""Community search configuration (i.e list of communities)"""
+
+PAGES_SORT_OPTIONS = {
+    "url": dict(
+        title=_("URL"),
+        fields=["url"],
+    ),
+    "title": dict(
+        title=_("Title"),
+        fields=["title"],
+    ),
+    "created": dict(
+        title=_("Created"),
+        fields=["created"],
+    ),
+    "updated": dict(
+        title=_("Updated"),
+        fields=["updated"],
+    ),
+}
+"""Definitions of available record sort options."""
+
+PAGE_FACETS = {}
+"""Available facets defined for this module."""

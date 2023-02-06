@@ -9,7 +9,6 @@
 """Invenio administration pages view module."""
 from flask_babelex import lazy_gettext as _
 from invenio_administration.views.base import (
-    AdminResourceCreateView,
     AdminResourceDetailView,
     AdminResourceEditView,
     AdminResourceListView,
@@ -17,136 +16,104 @@ from invenio_administration.views.base import (
 
 
 class PageListView(AdminResourceListView):
-    """Configuration for OAI-PMH sets list view."""
+    """Configuration for pages list view."""
 
-    api_endpoint = "/pages/"
+    api_endpoint = "/pages"
     name = "Pages"
-    resource_config = "oaipmh_server_resource"
+    resource_config = "pages_resource"
     search_request_headers = {"Accept": "application/json"}
-    title = "Pages Sets"
-    category = "Site management"
+    title = "Pages"
+    category = "Pages"
     pid_path = "id"
-    icon = "exchange"
-    template = "invenio_pages/pages-search.html"
+    icon = "file alternate outline"
+    template = "invenio_pages/administration/page_search.html"
 
     display_search = True
-    display_delete = True
+    display_delete = False
+    display_create = False
     display_edit = True
 
     item_field_list = {
-        "spec": {"text": _("Set spec"), "order": 1},
-        "name": {"text": _("Set name"), "order": 2},
-        "search_pattern": {"text": _("Search query"), "order": 3},
-        "created": {"text": _("Created"), "order": 4},
-        "updated": {"text": _("Updated"), "order": 5},
+        "url": {"text": _("Url"), "order": 1},
+        "title": {"text": _("Title"), "order": 2},
+        "content": {"text": _("Content"), "order": 3},
+        "template_name": {"text": _("Template Name"), "order": 4},
+        "description": {"text": _("Description"), "order": 5},
+        "created": {"text": _("Created"), "order": 6},
+        "updated": {"text": _("Updated"), "order": 7},
     }
 
-    search_config_name = "RDM_OAI_PMH_SEARCH"
-    search_facets_config_name = "RDM_OAI_PMH_FACETS"
-    search_sort_config_name = "RDM_OAI_PMH_SORT_OPTIONS"
-
-    create_view_name = "pages_create"
-    resource_name = "page"
+    search_config_name = "PAGES_SEARCH"
+    search_facets_config_name = "PAGES_FACETS"
+    search_sort_config_name = "PAGES_SORT_OPTIONS"
 
 
 class PageEditView(AdminResourceEditView):
-    """Configuration for OAI-PMH sets edit view."""
+    """Configuration for page edit view."""
 
-    name = "oaipmh_edit"
-    url = "/oai-pmh/<pid_value>/edit"
-    resource_config = "oaipmh_server_resource"
+    name = "pages_edit"
+    url = "/pages/<pid_value>/edit"
+    resource_config = "pages_resource"
     pid_path = "id"
-    api_endpoint = "/oaipmh/sets"
-    title = "Edit OAI-PMH set"
+    api_endpoint = "/pages"
+    title = "Edit Page set"
 
-    list_view_name = "OAI-PMH"
+    list_view_name = "Pages"
 
     form_fields = {
-        "name": {
+        "url": {
             "order": 1,
-            "text": _("Set name"),
-            "description": _("A short human-readable string naming the set."),
+            "text": _("URL"),
+            "description": _("Relative path to the page."),
         },
-        "spec": {
+        "title": {
             "order": 2,
-            "text": _("Set spec"),
-            "description": _(
-                "An identifier for the set, "
-                "which cannot be edited after the set is created."
-            ),
+            "text": _("Title"),
+            "description": _("Title of the page."),
         },
-        "search_pattern": {
+        "content": {
             "order": 3,
-            "text": _("Search query"),
-            "description": _(
-                "See the supported query "
-                "syntax in the "
-                "<a href='/help/search'>Search Guide</a>."
-            ),
+            "text": _("Content"),
+            "description": _("Content displayed by the page."),
         },
-        "created": {"order": 4},
-        "updated": {"order": 5},
-    }
-
-
-class PageCreateView(AdminResourceCreateView):
-    """Configuration for OAI-PMH sets create view."""
-
-    name = "oaipmh_create"
-    url = "/oai-pmh/create"
-    resource_config = "oaipmh_server_resource"
-    pid_path = "id"
-    api_endpoint = "/oaipmh/sets"
-    title = "Create OAI-PMH set"
-
-    list_view_name = "OAI-PMH"
-
-    form_fields = {
-        "name": {
-            "order": 1,
-            "text": _("Set name"),
-            "description": _("A short human-readable string naming the set."),
+        "template_name": {
+            "order": 4,
+            "text": _("Template name"),
+            "description": _("Jinja template used to display the page."),
         },
-        "spec": {
-            "order": 2,
-            "text": _("Set spec"),
-            "description": _(
-                "An identifier for the set, "
-                "which cannot be edited after the set is created."
-            ),
+        "description": {
+            "order": 5,
+            "text": _("Description"),
+            "description": _("Description of the page"),
         },
-        "search_pattern": {
-            "order": 3,
-            "text": _("Search query"),
-            "description": _(
-                "See the supported query "
-                "syntax in the <a href='/help/search'>Search Guide</a>."
-            ),
-        },
+        "created": {"order": 6},
+        "updated": {"order": 7},
     }
 
 
 class PageDetailView(AdminResourceDetailView):
-    """Configuration for OAI-PMH sets detail view."""
+    """Configuration for page detail view."""
 
-    url = "/pages/<id>"
-    api_endpoint = "/pages/"
-    search_request_headers = {"Accept": "application/json"}
-    name = "Pages details"
-    resource_config = "oaipmh_server_resource"
-    title = "OAI-PMH Details"
+    url = "/pages/<pid_value>"
+    api_endpoint = "/pages"
+    name = "page-details"
+    resource_config = "pages_resource"
+    title = "Page"
 
-    template = "invenio_rdm_records/oai-details.html"
-    display_delete = True
+    template = "invenio_pages/administration/page_details.html"
     display_edit = True
+    display_delete = False
 
-    list_view_name = "OAI-PMH"
+    list_view_name = "Pages"
     pid_path = "id"
 
     item_field_list = {
-        "name": {"text": _("Set name"), "order": 1},
-        "spec": {"text": _("Set spec"), "order": 2},
-        "search_pattern": {"text": _("Search query"), "order": 3},
-        "created": {"text": _("Created"), "order": 4},
-        "updated": {"text": _("Updated"), "order": 5},
+        "id": {"text": _("Id"), "order": 1},
+        "url": {"text": _("Url"), "order": 2},
+        "title": {"text": _("Title"), "order": 3},
+        "content": {"text": _("Content"), "order": 4},
+        "template_name": {"text": _("Template Name"), "order": 5},
+        "description": {"text": _("Description"), "order": 6},
+        "created": {"text": _("Created"), "order": 7},
+        "updated": {"text": _("Updated"), "order": 8},
     }
