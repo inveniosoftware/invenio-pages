@@ -7,28 +7,32 @@
 
 """Errors."""
 
+from flask_babelex import gettext as _
+
 
 class PageNotFoundError(Exception):
     """Page not found exception."""
 
     def __init__(self, identifier):
-        """Constructor."""
-        self.identifier = identifier
-
-    @property
-    def description(self):
-        """Exception's description."""
-        return f"The page identified by {self.identifier} cannot be found."
+        """Initialise error."""
+        super().__init__(
+            _(
+                "The page identified by {identifier} cannot be found.".format(
+                    identifier=identifier
+                )
+            )
+        )
 
 
 class PageNotCreatedError(Exception):
     """Page not created exception."""
 
     def __init__(self, url):
-        """Constructor."""
-        self.url = url
-
-    @property
-    def description(self):
-        """Exception's description."""
-        return f"The page with url {self.url} couldn't be created, likely due to a page with the same url already existing."
+        """Initialise error."""
+        super().__init__(
+            _(
+                "The page with url {url} couldn't be created, likely due to a page with the same URL already existing.".format(
+                    url=url
+                )
+            )
+        )

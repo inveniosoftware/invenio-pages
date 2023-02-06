@@ -34,11 +34,6 @@ class PageItem(RecordItem):
 
         return self._data
 
-    @property
-    def to_obj(self):
-        """The record is not null."""
-        return self._record
-
 
 class PageList(RecordList):
     """List of page results."""
@@ -74,6 +69,23 @@ class PageList(RecordList):
             if isinstance(self._page_results, Pagination)
             else self._page_results
         )
+
+    def to_dict(self):
+        """Return result as a dictionary."""
+        hits = list(self.hits)
+
+        res = {
+            "hits": {
+                "hits": hits,
+                "total": self.total,
+            }
+        }
+
+        if self._params:
+            if self._links_tpl:
+                res["links"] = self._links_tpl.expand(self._identity, self.pagination)
+
+        return res
 
     @_results.setter
     def _results(self, value):
