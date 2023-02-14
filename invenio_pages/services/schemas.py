@@ -17,7 +17,7 @@ class PageSchema(Schema):
     """Schema for page."""
 
     id = fields.String()
-    url = fields.String()
+    url = fields.String(metadata={"create_only": True})
     title = fields.String()
     content = fields.String()
     description = fields.String()

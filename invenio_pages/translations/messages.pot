@@ -1,36 +1,116 @@
 # Translations template for invenio-pages.
-# Copyright (C) 2016-2022 CERN
+# Copyright (C) 2023 CERN
 # This file is distributed under the same license as the invenio-pages
 # project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: invenio-pages 1.0.0a4.dev20160629\n"
+"Project-Id-Version: invenio-pages 2.0.0\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
-"POT-Creation-Date: 2016-08-19 14:00+0200\n"
+"POT-Creation-Date: 2023-02-14 17:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.11.0\n"
 
-#: invenio_pages/admin.py:69
-msgid "Template selected does not exist"
+#: invenio_pages/administration/views/pages.py:66 invenio_pages/config.py:35
+msgid "URL"
 msgstr ""
 
-#: invenio_pages/admin.py:77
-msgid "You cannot assign list page itself as a child."
+#: invenio_pages/administration/views/pages.py:38
+#: invenio_pages/administration/views/pages.py:71
+#: invenio_pages/administration/views/pages.py:113 invenio_pages/config.py:39
+#: invenio_pages/services/config.py:57
+msgid "Title"
 msgstr ""
 
-#: invenio_pages/admin.py:104
-msgid "View"
+#: invenio_pages/administration/views/pages.py:42
+#: invenio_pages/administration/views/pages.py:117 invenio_pages/config.py:43
+#: invenio_pages/services/config.py:73
+msgid "Created"
 msgstr ""
 
-#: invenio_pages/admin.py:144
-msgid "Pages"
+#: invenio_pages/administration/views/pages.py:43
+#: invenio_pages/administration/views/pages.py:118 invenio_pages/config.py:47
+#: invenio_pages/services/config.py:77
+msgid "Updated"
+msgstr ""
+
+#: invenio_pages/administration/views/pages.py:37
+#: invenio_pages/administration/views/pages.py:112
+#: invenio_pages/services/config.py:53
+msgid "Url"
+msgstr ""
+
+#: invenio_pages/administration/views/pages.py:39
+#: invenio_pages/administration/views/pages.py:76
+#: invenio_pages/administration/views/pages.py:114
+#: invenio_pages/services/config.py:61
+msgid "Content"
+msgstr ""
+
+#: invenio_pages/administration/views/pages.py:40
+#: invenio_pages/administration/views/pages.py:115
+#: invenio_pages/services/config.py:65
+msgid "Template Name"
+msgstr ""
+
+#: invenio_pages/administration/views/pages.py:41
+#: invenio_pages/administration/views/pages.py:87
+#: invenio_pages/administration/views/pages.py:116
+#: invenio_pages/services/config.py:69
+msgid "Description"
+msgstr ""
+
+#: invenio_pages/administration/views/pages.py:67
+msgid "Relative path to the page."
+msgstr ""
+
+#: invenio_pages/administration/views/pages.py:72
+msgid "Title of the page."
+msgstr ""
+
+#: invenio_pages/administration/views/pages.py:77
+msgid "Content displayed by the page."
+msgstr ""
+
+#: invenio_pages/administration/views/pages.py:82
+msgid "Template name"
+msgstr ""
+
+#: invenio_pages/administration/views/pages.py:83
+msgid "Jinja template used to display the page."
+msgstr ""
+
+#: invenio_pages/administration/views/pages.py:88
+msgid "Description of the page"
+msgstr ""
+
+#: invenio_pages/administration/views/pages.py:111
+#: invenio_pages/services/config.py:49
+msgid "Id"
+msgstr ""
+
+#: invenio_pages/records/errors.py:20
+msgid "The page identified by {identifier} cannot be found."
+msgstr ""
+
+#: invenio_pages/records/errors.py:34
+msgid ""
+"The page with url {url} couldn't be created, likely due to a page with "
+"the same URL already existing."
+msgstr ""
+
+#: invenio_pages/services/config.py:37
+msgid "Ascending"
+msgstr ""
+
+#: invenio_pages/services/config.py:41
+msgid "Descending"
 msgstr ""
 

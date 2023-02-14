@@ -61,11 +61,11 @@ def render_page(path):
     :returns: The rendered template.
     """
     try:
-        page = current_pages_service.read_by_url(g.identity, request.path).to_obj
+        page = current_pages_service.read_by_url(g.identity, request.path).to_dict()
     except NoResultFound:
         abort(404)
     return render_template(
-        [page.template_name, current_app.config["PAGES_DEFAULT_TEMPLATE"]], page=page
+        [page["template_name"], current_app.config["PAGES_DEFAULT_TEMPLATE"]], page=page
     )
 
 
