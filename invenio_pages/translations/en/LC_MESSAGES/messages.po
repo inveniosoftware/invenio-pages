@@ -1,4 +1,4 @@
-# Spanish translations for invenio-pages.
+# English translations for invenio-pages.
 # Copyright (C) 2023 CERN
 # This file is distributed under the same license as the invenio-pages
 # project.
@@ -11,8 +11,8 @@ msgstr ""
 "POT-Creation-Date: 2023-02-14 17:23+0100\n"
 "PO-Revision-Date: 2023-02-14 17:23+0100\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
-"Language-Team: es <LL@li.org>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
