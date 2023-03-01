@@ -21,7 +21,7 @@ pages.yaml file inside the app_data folder of their instance folder.
     └──app_data/
         └── pages.yaml
 Once the file is created the developer has to define in it the static 
-pages it wishes to create, using the following format for each page:
+pages they wish to create, using the following format for each page:
 .. code-block:: python
     - url: "<URL used to access the page>"  # e.g. "/about"
       title: "<Title of the page>"  # e.g. "About"
