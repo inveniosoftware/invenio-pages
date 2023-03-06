@@ -7,7 +7,7 @@
 
 """Errors."""
 
-from flask_babelex import gettext as _
+from invenio_i18n import gettext as _
 
 
 class PageNotFoundError(Exception):

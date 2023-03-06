@@ -8,7 +8,7 @@
 
 """Page module config."""
 
-from flask_babelex import lazy_gettext as _
+from invenio_i18n import lazy_gettext as _
 
 PAGES_DEFAULT_TEMPLATE = "invenio_pages/default.html"
 """Default template to render."""
