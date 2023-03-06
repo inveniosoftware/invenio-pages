@@ -7,12 +7,12 @@
 # details.
 
 """Invenio administration pages view module."""
-from flask_babelex import lazy_gettext as _
 from invenio_administration.views.base import (
     AdminResourceDetailView,
     AdminResourceEditView,
     AdminResourceListView,
 )
+from invenio_i18n import lazy_gettext as _
 
 
 class PageListView(AdminResourceListView):
@@ -105,5 +105,5 @@ class PageDetailView(AdminResourceDetailView):
         "url": {"text": _("Url"), "order": 3},
         "title": {"text": _("Title"), "order": 4},
         "description": {"text": _("Description"), "order": 5},
-        "content": {"text": _("Content"), "order": 6, "preformat": True},
+        "content": {"text": _("Content"), "order": 6, "escape": True},
     }
