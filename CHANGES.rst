@@ -9,6 +9,15 @@
 Changes
 =======
 
+
+Version 3.0.0 (released 2023-01-25):
+--------------------------------------
+
+- move the module to services/resources architecture
+- add invenio-administration page
+- remove deprecation of flask_babelex dependency
+
+
 Version 2.0.0 (released 2023-01-25):
 --------------------------------------
 
