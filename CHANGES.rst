@@ -10,7 +10,12 @@ Changes
 =======
 
 
-Version 3.0.0 (released 2023-01-25):
+Version 3.0.1 (released 2023-03-09):
+--------------------------------------
+
+- fix invenio-search dependencies
+
+Version 3.0.0 (released 2023-03-09):
 --------------------------------------
 
 - move the module to services/resources architecture
