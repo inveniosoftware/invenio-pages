@@ -2,6 +2,7 @@
 #
 # This file is part of Invenio.
 # Copyright (C) 2015-2022 CERN.
+# Copyright (C) 2023-2024 Graz University of Technology.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -14,29 +15,12 @@ from invenio_db import db
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.exceptions import NotFound
 
-from invenio_pages.proxies import current_pages_service
-
+from .proxies import current_pages_service
 from .records.models import PageModel as Page
 
 blueprint = Blueprint(
     "invenio_pages", __name__, url_prefix="/", template_folder="templates"
 )
-
-
-@blueprint.before_app_first_request
-def register_pages():
-    """Register URL rules for all static pages in the application.
-
-    This function iterates over all static pages stored in the database and registers
-    their URL rules with the application. Pages with custom views are skipped to allow
-    default handling for pages without customizations.
-    """
-    # We need to set the function view, to be able to directly register the urls in the Flask.url_map
-    current_app.view_functions["invenio_pages.view"] = view
-
-    for page in Page.query.all():
-        if not page.has_custom_view:  # Skip registration of pages with custom view
-            _add_url_rule(page.url)
 
 
 @blueprint.app_template_filter("render_string")
@@ -49,32 +33,6 @@ def render_string(source):
     return current_app.extensions["invenio-pages"].render_template(source)
 
 
-def view():
-    """Public interface to the page view.
-
-    Models: `pages.pages`.
-    Templates: Uses the template defined by the ``template_name`` field
-    or ``pages/default.html`` if template_name is not defined.
-    Context: page `pages.pages` object.
-    """
-    return render_page(request.path)  # pragma: no cover
-
-
-def render_page(path):
-    """Internal interface to the page view.
-
-    :param path: Page path.
-    :returns: The rendered template.
-    """
-    try:
-        page = current_pages_service.read_by_url(g.identity, request.path).to_dict()
-    except NoResultFound:
-        abort(404)
-    return render_template(
-        [page["template_name"], current_app.config["PAGES_DEFAULT_TEMPLATE"]], page=page
-    )
-
-
 def handle_not_found(exception, **extra):
     """Custom blueprint exception handler."""
     assert isinstance(exception, NotFound)
@@ -83,7 +41,7 @@ def handle_not_found(exception, **extra):
         db.or_(Page.url == request.path, Page.url == request.path + "/")
     ).first()
     if page:
-        _add_url_rule(page.url)
+        add_url_rule(page.url)
         return render_template(
             [page.template_name, current_app.config["PAGES_DEFAULT_TEMPLATE"]],
             page=page,
@@ -94,7 +52,7 @@ def handle_not_found(exception, **extra):
         return exception
 
 
-def _add_url_rule(url):
+def add_url_rule(url, app=None):
     """Register URL rule to application URL map."""
     rule = current_app.url_rule_class(
         url,
@@ -110,3 +68,18 @@ def create_pages_api_bp(app):
     """Create the pages resource api blueprint."""
     ext = app.extensions["invenio-pages"]
     return ext.pages_resource.as_blueprint()
+
+
+def render_page(path):
+    """Internal interface to the page view.
+
+    :param path: Page path.
+    :returns: The rendered template.
+    """
+    try:
+        page = current_pages_service.read_by_url(g.identity, request.path).to_dict()
+    except NoResultFound:
+        abort(404)
+    return render_template(
+        [page["template_name"], current_app.config["PAGES_DEFAULT_TEMPLATE"]], page=page
+    )

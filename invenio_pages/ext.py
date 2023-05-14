@@ -2,20 +2,22 @@
 #
 # This file is part of Invenio.
 # Copyright (C) 2015-2022 CERN.
+# Copyright (C) 2023 Graz University of Technology.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Static pages module for Invenio."""
 
-from flask import url_for
+from flask import request, url_for
 from jinja2.sandbox import SandboxedEnvironment
 from werkzeug.exceptions import NotFound
 
 from . import config
+from .records.models import PageModel as Page
 from .resources import PageResource, PageResourceConfig
 from .services import PageService, PageServiceConfig
-from .views import handle_not_found
+from .views import add_url_rule, handle_not_found, render_page
 
 
 class InvenioPages(object):
@@ -113,3 +115,29 @@ class InvenioPages(object):
 
 class InvenioPagesREST(InvenioPages):
     """Invenio App ILS REST API app."""
+
+
+def finalize_app(app):
+    """Finalize app."""
+    register_pages(app)
+
+
+def register_pages(app):
+    """Register URL rule of all static pages to the application."""
+    # We need to set the function view, to be able to directly register the urls
+    # in the Flask.url_map
+    app.view_functions["invenio_pages.view"] = view
+
+    for page in Page.query.all():
+        add_url_rule(page.url)
+
+
+def view():
+    """Public interface to the page view.
+
+    Models: `pages.pages`.
+    Templates: Uses the template defined by the ``template_name`` field
+    or ``pages/default.html`` if template_name is not defined.
+    Context: page `pages.pages` object.
+    """
+    return render_page(request.path)  # pragma: no cover
