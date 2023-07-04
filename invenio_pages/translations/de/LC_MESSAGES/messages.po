@@ -1,8 +1,11 @@
 # Translations template for invenio-pages.
-# Copyright (C) 2016-2022 CERN
+# Copyright (C) 2016 CERN
 # This file is distributed under the same license as the invenio-pages
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+# 
+# Translators:
+# Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2021
 # 
 #, fuzzy
 msgid ""
@@ -10,10 +13,11 @@ msgstr ""
 "Project-Id-Version: invenio-pages 1.0.0a4.dev20160629\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
 "POT-Creation-Date: 2016-08-19 14:00+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Language-Team: German (https://www.transifex.com/inveniosoftware/teams/23537/de/)\n"
+"PO-Revision-Date: 2016-08-19 12:00+0000\n"
+"Last-Translator: Hermann Schranzhofer <hermann.schranzhofer@tugraz.at>, 2021\n"
+"Language-Team: German (https://app.transifex.com/inveniosoftware/teams/23537/de/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 "Language: de\n"
@@ -29,7 +33,7 @@ msgstr ""
 
 #: invenio_pages/admin.py:104
 msgid "View"
-msgstr ""
+msgstr "Ansicht"
 
 #: invenio_pages/admin.py:144
 msgid "Pages"

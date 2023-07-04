@@ -1,8 +1,11 @@
 # Translations template for invenio-pages.
-# Copyright (C) 2016-2022 CERN
+# Copyright (C) 2016 CERN
 # This file is distributed under the same license as the invenio-pages
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+# 
+# Translators:
+# Jesús Martín <jesusmartin@sallep.net>, 2017
 # 
 #, fuzzy
 msgid ""
@@ -10,27 +13,28 @@ msgstr ""
 "Project-Id-Version: invenio-pages 1.0.0a4.dev20160629\n"
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
 "POT-Creation-Date: 2016-08-19 14:00+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Language-Team: Spanish (https://www.transifex.com/inveniosoftware/teams/23537/es/)\n"
+"PO-Revision-Date: 2016-08-19 12:00+0000\n"
+"Last-Translator: Jesús Martín <jesusmartin@sallep.net>, 2017\n"
+"Language-Team: Spanish (https://app.transifex.com/inveniosoftware/teams/23537/es/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
 "Language: es\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: invenio_pages/admin.py:69
 msgid "Template selected does not exist"
-msgstr ""
+msgstr "La plantilla seleccionada no existe"
 
 #: invenio_pages/admin.py:77
 msgid "You cannot assign list page itself as a child."
-msgstr ""
+msgstr "No puede asignar el estado de página hija a la página lista."
 
 #: invenio_pages/admin.py:104
 msgid "View"
-msgstr ""
+msgstr "Ver"
 
 #: invenio_pages/admin.py:144
 msgid "Pages"
-msgstr ""
+msgstr "Páginas"
