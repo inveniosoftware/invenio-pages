@@ -9,6 +9,12 @@
 Changes
 =======
 
+Version 3.1.0 (released 2023-09-18):
+--------------------------------------
+
+- schema: sanitize page content
+- updated transifex config
+- pulled latest translations
 
 Version 3.0.1 (released 2023-03-09):
 --------------------------------------
