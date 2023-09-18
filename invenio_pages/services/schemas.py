@@ -10,7 +10,7 @@
 from datetime import timezone
 
 from marshmallow import Schema, fields
-from marshmallow_utils.fields import TZDateTime
+from marshmallow_utils.fields import SanitizedHTML, TZDateTime
 
 
 class PageSchema(Schema):
@@ -19,7 +19,7 @@ class PageSchema(Schema):
     id = fields.String()
     url = fields.String(metadata={"create_only": True})
     title = fields.String()
-    content = fields.String()
+    content = SanitizedHTML()
     description = fields.String()
     template_name = fields.String()
     created = TZDateTime(timezone=timezone.utc, format="iso", dump_only=True)
