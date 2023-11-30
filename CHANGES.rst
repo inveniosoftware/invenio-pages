@@ -1,6 +1,6 @@
 ..
     This file is part of Invenio.
-    Copyright (C) 2015-2022 CERN.
+    Copyright (C) 2015-2023 CERN.
 
     Invenio is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
@@ -9,20 +9,26 @@
 Changes
 =======
 
+Version 3.2.0 (released 2023-11-30):
+------------------------------------
+
+- allow configuration for extra HTML tags and attributes when
+  creating and editing static pages
+
 Version 3.1.0 (released 2023-09-18):
---------------------------------------
+------------------------------------
 
 - schema: sanitize page content
 - updated transifex config
 - pulled latest translations
 
 Version 3.0.1 (released 2023-03-09):
---------------------------------------
+------------------------------------
 
 - fix invenio-search dependencies
 
 Version 3.0.0 (released 2023-03-09):
---------------------------------------
+------------------------------------
 
 - move the module to services/resources architecture
 - add invenio-administration page
@@ -30,7 +36,7 @@ Version 3.0.0 (released 2023-03-09):
 
 
 Version 2.0.0 (released 2023-01-25):
---------------------------------------
+------------------------------------
 
 - major release, tests cleanup
 - License update
