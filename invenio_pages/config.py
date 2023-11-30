@@ -2,6 +2,7 @@
 #
 # This file is part of Invenio.
 # Copyright (C) 2015-2022 CERN.
+# Copyright (C) 2023 KTH Royal Institute of Technology.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -52,3 +53,13 @@ PAGES_SORT_OPTIONS = {
 
 PAGES_FACETS = {}
 """Available facets defined for this module."""
+
+
+PAGES_ALLOWED_EXTRA_HTML_TAGS = ["img", "button"]
+"""Extend allowed HTML tags list for static pages content."""
+
+PAGES_ALLOWED_EXTRA_HTML_ATTRS = {
+    "img": ["src", "alt", "title", "width", "height", "loading"],
+    "button": ["type", "name", "value", "disabled", "onclick"],
+}
+"""Extend allowed HTML attrs list  for static pages content."""
