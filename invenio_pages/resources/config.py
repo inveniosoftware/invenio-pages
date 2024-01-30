@@ -34,3 +34,10 @@ class PageResourceConfig(RecordResourceConfig):
     request_view_args = {
         "id": ma.fields.Number(),
     }
+
+    response_handlers = {
+        "application/vnd.inveniordm.v1+json": RecordResourceConfig.response_handlers[
+            "application/json"
+        ],
+        **RecordResourceConfig.response_handlers,
+    }
