@@ -19,11 +19,12 @@ class PageListView(AdminResourceListView):
     """Configuration for pages list view."""
 
     api_endpoint = "/pages"
-    name = "Pages"
+    name = "pages"
     resource_config = "pages_resource"
     search_request_headers = {"Accept": "application/json"}
-    title = "Pages"
-    category = "Pages"
+    title = _("Pages")
+    menu_label = _("Pages")
+    category = _("Site management")
     pid_path = "id"
     icon = "file alternate outline"
 
@@ -53,9 +54,9 @@ class PageEditView(AdminResourceEditView):
     resource_config = "pages_resource"
     pid_path = "id"
     api_endpoint = "/pages"
-    title = "Edit Page"
+    title = _("Edit page")
 
-    list_view_name = "Pages"
+    list_view_name = "pages"
 
     form_fields = {
         "created": {"order": 1},
@@ -91,12 +92,12 @@ class PageDetailView(AdminResourceDetailView):
     api_endpoint = "/pages"
     name = "page-details"
     resource_config = "pages_resource"
-    title = "Page"
+    title = _("Page")
 
     display_edit = True
     display_delete = False
 
-    list_view_name = "Pages"
+    list_view_name = "pages"
     pid_path = "id"
 
     item_field_list = {
