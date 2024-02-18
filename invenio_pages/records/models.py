@@ -45,6 +45,9 @@ class PageModel(db.Model, Timestamp):
     template_name = db.Column(db.String(70), nullable=False)
     """Page template name."""
 
+    has_custom_view = db.Column(db.Boolean(), nullable=False, default=False)
+    """Page custom view flag."""
+
     @classmethod
     def create(self, data):
         """Create a new page."""
@@ -56,6 +59,7 @@ class PageModel(db.Model, Timestamp):
                     content=data.get("content", ""),
                     description=data.get("description", ""),
                     template_name=data["template_name"],
+                    has_custom_view=data.get("has_custom_view", False),
                 )
                 db.session.add(obj)
 
@@ -143,7 +147,11 @@ class PageModel(db.Model, Timestamp):
         Used on Page admin view in inline model.
         :returns: unambiguous page representation.
         """
-        return "URL: %s, title: %s" % (self.url, self.title)
+        return "URL: %s, title: %s, has_custom_view: %s" % (
+            self.url,
+            self.title,
+            self.has_custom_view,
+        )
 
 
 class PageList(db.Model):
