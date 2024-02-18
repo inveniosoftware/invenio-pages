@@ -30,7 +30,8 @@ def register_pages():
     current_app.view_functions["invenio_pages.view"] = view
 
     for page in Page.query.all():
-        _add_url_rule(page.url)
+        if not page.has_custom_view:  # Check if page does not have a custom view
+            _add_url_rule(page.url)
 
 
 @blueprint.app_template_filter("render_string")
