@@ -33,6 +33,7 @@ def test_page_read(module_scoped_pages_fixture, simple_user_identity):
         "content": "Generic dog.",
         "id": "1",
         "template_name": "invenio_pages/default.html",
+        "has_custom_view": False,
         "links": {"self": "https://127.0.0.1:5000/api/pages/1"},
     }
     assert page == expected_data
@@ -50,6 +51,7 @@ def test_page_read_by_url(module_scoped_pages_fixture, simple_user_identity):
         "content": "Generic dog.",
         "id": "1",
         "template_name": "invenio_pages/default.html",
+        "has_custom_view": False,
         "links": {"self": "https://127.0.0.1:5000/api/pages/1"},
     }
     assert page == expected_data
