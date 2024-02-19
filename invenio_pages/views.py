@@ -25,12 +25,17 @@ blueprint = Blueprint(
 
 @blueprint.before_app_first_request
 def register_pages():
-    """Register URL rule of all static pages to the application."""
+    """Register URL rules for all static pages in the application.
+
+    This function iterates over all static pages stored in the database and registers
+    their URL rules with the application. Pages with custom views are skipped to allow
+    default handling for pages without customizations.
+    """
     # We need to set the function view, to be able to directly register the urls in the Flask.url_map
     current_app.view_functions["invenio_pages.view"] = view
 
     for page in Page.query.all():
-        if not page.has_custom_view:  # Check if page does not have a custom view
+        if not page.has_custom_view:  # Skip registration of pages with custom view
             _add_url_rule(page.url)
 
 
