@@ -147,11 +147,7 @@ class PageModel(db.Model, Timestamp):
         Used on Page admin view in inline model.
         :returns: unambiguous page representation.
         """
-        return "URL: %s, title: %s, has_custom_view: %s" % (
-            self.url,
-            self.title,
-            self.has_custom_view,
-        )
+        return f"URL: {self.url}, title: {self.title}, has_custom_view: {self.has_custom_view}"
 
 
 class PageList(db.Model):
