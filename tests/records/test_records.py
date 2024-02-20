@@ -14,6 +14,7 @@ from invenio_records_resources.services.base.utils import map_search_params
 from invenio_pages import PageModel as Page
 from invenio_pages.records.errors import PageNotCreatedError, PageNotFoundError
 from invenio_pages.services.config import PageServiceConfig
+from invenio_pages.views import register_pages
 
 
 def test_page_repr(module_scoped_pages_fixture, base_app):
@@ -146,3 +147,39 @@ def test_delete_all(module_scoped_pages_fixture, base_app):
     Page.delete_all()
     pages = Page.search(map_search_params(PageServiceConfig.search, {}), [])
     assert len(pages.items) == 0
+
+
+def test_register_pages_with_custom_view(module_scoped_pages_fixture, base_app):
+    """Test that URL is not registered if has_custom_view is True."""
+    # Create a page with has_custom_view set to True
+    data_with_custom_view = {
+        "url": "/custom-page-1",
+        "title": "Custom Page 1",
+        "content": "Content for Custom Page 1",
+        "template_name": "invenio_pages/default.html",
+        "has_custom_view": True,
+    }
+
+    # Create a page with has_custom_view set to False
+    data_without_custom_view = {
+        "url": "/custom-page-2",
+        "title": "Custom Page 2",
+        "content": "Content for Custom Page 2",
+        "template_name": "invenio_pages/default.html",
+        "has_custom_view": False,
+    }
+
+    # Create the pages
+    Page.create(data_with_custom_view)
+    Page.create(data_without_custom_view)
+
+    # Register pages
+    register_pages()
+
+    # Verify that the URL is not registered for the page with custom view set to True
+    assert not any(
+        rule.rule == "/custom-page-1" for rule in base_app.url_map.iter_rules()
+    )
+
+    # Verify that the URL is registered for the page with custom view set to False
+    assert any(rule.rule == "/custom-page-2" for rule in base_app.url_map.iter_rules())
