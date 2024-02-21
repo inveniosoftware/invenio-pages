@@ -9,6 +9,12 @@
 Changes
 =======
 
+Version 3.3.0 (released 2024-02-21):
+------------------------------------
+
+- Add new DB column to pages table.
+- Move to admin menu category site administration.
+
 Version 3.2.0 (released 2023-11-30):
 ------------------------------------
 
