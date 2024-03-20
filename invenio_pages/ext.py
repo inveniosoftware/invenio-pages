@@ -129,7 +129,8 @@ def register_pages(app):
     app.view_functions["invenio_pages.view"] = view
 
     for page in Page.query.all():
-        add_url_rule(page.url)
+        if not page.has_custom_view:  # Skip registration of pages with custom view
+            add_url_rule(page.url)
 
 
 def view():
