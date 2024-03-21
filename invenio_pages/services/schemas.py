@@ -45,6 +45,5 @@ class PageSchema(Schema):
     content = DynamicSanitizedHTML()
     description = fields.String()
     template_name = fields.String()
-    has_custom_view = fields.Boolean()
     created = TZDateTime(timezone=timezone.utc, format="iso", dump_only=True)
     updated = TZDateTime(timezone=timezone.utc, format="iso", dump_only=True)

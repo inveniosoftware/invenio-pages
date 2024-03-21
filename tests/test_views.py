@@ -8,8 +8,6 @@
 
 """Test views for Pages module."""
 
-from unittest import mock
-
 import pytest
 from invenio_db import db
 from jinja2.exceptions import UndefinedError
