@@ -83,3 +83,26 @@ def render_page(path):
     return render_template(
         [page["template_name"], current_app.config["PAGES_DEFAULT_TEMPLATE"]], page=page
     )
+
+
+def create_page_view(page_path):
+    """Create a page view.
+
+    .. code-block:: python
+
+        app = Flask(__name__)
+        app.add_url_rule("/about", view_func=create_page_view("/about"))
+
+    """
+
+    def _view():
+        """Public interface to the page view.
+
+        Models: `pages.pages`.
+        Templates: Uses the template defined by the ``template_name`` field
+        or ``pages/default.html`` if template_name is not defined.
+        Context: page `pages.pages` object.
+        """
+        return render_page(page_path)
+
+    return _view

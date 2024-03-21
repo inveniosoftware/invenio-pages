@@ -117,33 +117,3 @@ class InvenioPages(object):
 
 class InvenioPagesREST(InvenioPages):
     """Invenio App ILS REST API app."""
-
-
-def finalize_app(app):
-    """Finalize app."""
-    register_pages(app)
-
-
-def register_pages(app):
-    """Register URL rule of all static pages to the application."""
-    # We need to set the function view, to be able to directly register the urls
-    # in the Flask.url_map
-    app.view_functions["invenio_pages.view"] = view
-
-    if not sqlalchemy.inspect(db.engine).has_table("pages_page"):
-        return
-
-    for page in Page.query.all():
-        if not page.has_custom_view:  # Skip registration of pages with custom view
-            add_url_rule(page.url)
-
-
-def view():
-    """Public interface to the page view.
-
-    Models: `pages.pages`.
-    Templates: Uses the template defined by the ``template_name`` field
-    or ``pages/default.html`` if template_name is not defined.
-    Context: page `pages.pages` object.
-    """
-    return render_page(request.path)  # pragma: no cover
