@@ -12,9 +12,9 @@ import pytest
 from invenio_records_resources.services.base.utils import map_search_params
 
 from invenio_pages import PageModel as Page
+from invenio_pages.ext import register_pages
 from invenio_pages.records.errors import PageNotCreatedError, PageNotFoundError
 from invenio_pages.services.config import PageServiceConfig
-from invenio_pages.views import register_pages
 
 
 def test_page_repr(module_scoped_pages_fixture, base_app):
@@ -174,7 +174,7 @@ def test_register_pages_with_custom_view(module_scoped_pages_fixture, base_app):
     Page.create(data_without_custom_view)
 
     # Register pages
-    register_pages()
+    register_pages(base_app)
 
     # Verify that the URL is not registered for the page with custom view set to True
     assert not any(
