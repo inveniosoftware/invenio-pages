@@ -9,7 +9,6 @@
 
 """Views for Pages module."""
 
-
 from flask import Blueprint, abort, current_app, g, render_template, request
 from invenio_db import db
 from sqlalchemy.orm.exc import NoResultFound
@@ -70,10 +69,11 @@ def create_pages_api_bp(app):
     return ext.pages_resource.as_blueprint()
 
 
-def render_page(path):
+def render_page(path, **template_ctx):
     """Internal interface to the page view.
 
     :param path: Page path.
+    :param template_ctx: Passed to the rendered template.
     :returns: The rendered template.
     """
     try:
@@ -81,7 +81,9 @@ def render_page(path):
     except NoResultFound:
         abort(404)
     return render_template(
-        [page["template_name"], current_app.config["PAGES_DEFAULT_TEMPLATE"]], page=page
+        [page["template_name"], current_app.config["PAGES_DEFAULT_TEMPLATE"]],
+        page=page,
+        **template_ctx,
     )
 
 
