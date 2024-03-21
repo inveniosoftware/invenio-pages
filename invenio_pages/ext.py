@@ -2,14 +2,16 @@
 #
 # This file is part of Invenio.
 # Copyright (C) 2015-2022 CERN.
-# Copyright (C) 2023 Graz University of Technology.
+# Copyright (C) 2023-2024 Graz University of Technology.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Static pages module for Invenio."""
 
+import sqlalchemy
 from flask import request, url_for
+from invenio_db import db
 from jinja2.sandbox import SandboxedEnvironment
 from werkzeug.exceptions import NotFound
 
@@ -127,6 +129,9 @@ def register_pages(app):
     # We need to set the function view, to be able to directly register the urls
     # in the Flask.url_map
     app.view_functions["invenio_pages.view"] = view
+
+    if not sqlalchemy.inspect(db.engine).has_table("pages_page"):
+        return
 
     for page in Page.query.all():
         if not page.has_custom_view:  # Skip registration of pages with custom view
