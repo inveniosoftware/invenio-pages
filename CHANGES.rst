@@ -9,6 +9,10 @@
 Changes
 =======
 
+Version 4.0.1 (released 2024-03-22)
+
+- chore: fix CHANGES.rst format 
+
 Version 4.0.0 (released 2024-03-21)
 
 - Major release because of fundamental change in the way the module is
