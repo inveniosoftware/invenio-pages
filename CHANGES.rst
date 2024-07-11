@@ -25,6 +25,12 @@
 Changes
 =======
 
+Version 1.0.0a7 (released 2024-07-11):
+--------------------------------------
+
+- views: fixes page url registration
+- ext: removes extensions for 'jinja>2'
+
 Version 1.0.0a5 (released 2020-04-14):
 --------------------------------------
 
