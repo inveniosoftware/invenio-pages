@@ -35,10 +35,7 @@ from werkzeug.exceptions import NotFound
 from .models import Page
 
 blueprint = Blueprint(
-    'invenio_pages',
-    __name__,
-    url_prefix='/',
-    template_folder='templates'
+    "invenio_pages", __name__, url_prefix="/", template_folder="templates"
 )
 
 
@@ -48,18 +45,18 @@ def preload_pages():
     try:
         _add_url_rule([page.url for page in Page.query.all()])
     except Exception:  # pragma: no cover
-        current_app.logger.warn('Pages were not loaded.')
+        current_app.logger.warn("Pages were not loaded.")
         raise
 
 
-@blueprint.app_template_filter('render_string')
+@blueprint.app_template_filter("render_string")
 def render_string(source):
     """Render a string in sandboxed environment.
 
     :param source: A string containing the page source.
     :returns: The rendered template.
     """
-    return current_app.extensions['invenio-pages'].render_template(source)
+    return current_app.extensions["invenio-pages"].render_template(source)
 
 
 def view():
@@ -85,28 +82,26 @@ def render_page(path):
         abort(404)
 
     return render_template(
-        [page.template_name, current_app.config['PAGES_DEFAULT_TEMPLATE']],
-        page=page)
+        [page.template_name, current_app.config["PAGES_DEFAULT_TEMPLATE"]], page=page
+    )
 
 
 def handle_not_found(exception, **extra):
     """Custom blueprint exception handler."""
     assert isinstance(exception, NotFound)
 
-    page = Page.query.filter(db.or_(Page.url == request.path,
-                                    Page.url == request.path + "/")).first()
+    page = Page.query.filter(
+        db.or_(Page.url == request.path, Page.url == request.path + "/")
+    ).first()
 
     if page:
         _add_url_rule(page.url)
         return render_template(
-            [
-                page.template_name,
-                current_app.config['PAGES_DEFAULT_TEMPLATE']
-            ],
-            page=page
+            [page.template_name, current_app.config["PAGES_DEFAULT_TEMPLATE"]],
+            page=page,
         )
-    elif 'wrapped' in extra:
-        return extra['wrapped'](exception)
+    elif "wrapped" in extra:
+        return extra["wrapped"](exception)
     else:
         return exception
 
@@ -118,6 +113,7 @@ def _add_url_rule(url_or_urls):
     current_app._got_first_request = False
     if isinstance(url_or_urls, six.string_types):
         url_or_urls = [url_or_urls]
-    map(lambda url: current_app.add_url_rule(url, 'invenio_pages.view', view),
-        url_or_urls)
+
+    for url in url_or_urls:
+        current_app.add_url_rule(url, "invenio_pages.view", view)
     current_app._got_first_request = old

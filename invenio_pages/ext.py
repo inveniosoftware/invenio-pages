@@ -30,8 +30,10 @@ from distutils.version import StrictVersion
 
 from flask import __version__ as flask_version
 from flask import url_for
+from jinja2 import __version__ as jinja2_version
 from jinja2.sandbox import SandboxedEnvironment
 from werkzeug.exceptions import NotFound
+
 
 from . import config
 from .views import handle_not_found
@@ -52,14 +54,23 @@ class _InvenioPagesState(object):
     def jinja_env(self):
         """Create a sandboxed Jinja environment."""
         if self._jinja_env is None:
+            # Split the version string into major, minor, and patch components
+            major, minor, patch = map(int, jinja2_version.split("."))
+            if major > 2:
+                # jinja>=3 removes the autoescape and with_ extention
+                extensions = []
+            else:
+                extensions = [
+                    "jinja2.ext.autoescape",
+                    "jinja2.ext.with_",
+                ]
             self._jinja_env = SandboxedEnvironment(
-                extensions=[
-                    'jinja2.ext.autoescape', 'jinja2.ext.with_', ],
+                extensions=extensions,
                 autoescape=True,
             )
-            self._jinja_env.globals['url_for'] = url_for
+            self._jinja_env.globals["url_for"] = url_for
             # Load whitelisted configuration variables.
-            for var in self.app.config['PAGES_WHITELIST_CONFIG_KEYS']:
+            for var in self.app.config["PAGES_WHITELIST_CONFIG_KEYS"]:
                 self._jinja_env.globals[var] = self.app.config.get(var)
         return self._jinja_env
 
@@ -96,8 +107,9 @@ class InvenioPages(object):
             existing_handler = None
 
         if existing_handler:
-            app.error_handler_spec[None][404][NotFound] = \
+            app.error_handler_spec[None][404][NotFound] = (
                 lambda error: handle_not_found(error, wrapped=existing_handler)
+            )
         else:
             app.error_handler_spec.setdefault(None, {}).setdefault(404, {})
             app.error_handler_spec[None][404][NotFound] = handle_not_found
@@ -112,9 +124,9 @@ class InvenioPages(object):
         self.init_config(app)
 
         self.wrap_errorhandler(app)
-        app.extensions['invenio-pages'] = _InvenioPagesState(app)
+        app.extensions["invenio-pages"] = _InvenioPagesState(app)
 
-        return app.extensions['invenio-pages']
+        return app.extensions["invenio-pages"]
 
     def init_config(self, app):
         """Initialize configuration.
@@ -123,11 +135,11 @@ class InvenioPages(object):
         """
         app.config.setdefault(
             "PAGES_BASE_TEMPLATE",
-            app.config.get("BASE_TEMPLATE",
-                           "invenio_pages/base.html"))
+            app.config.get("BASE_TEMPLATE", "invenio_pages/base.html"),
+        )
 
         for k in dir(config):
-            if k.startswith('PAGES_'):
+            if k.startswith("PAGES_"):
                 app.config.setdefault(k, getattr(config, k))
 
 
