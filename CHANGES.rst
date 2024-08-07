@@ -9,9 +9,13 @@
 Changes
 =======
 
+Version v4.1.0 (released 2024-08-07)
+
+- http headers: use and adjust vnd.inveniordm.v1+json http accept header
+
 Version 4.0.1 (released 2024-03-22)
 
-- chore: fix CHANGES.rst format 
+- chore: fix CHANGES.rst format
 
 Version 4.0.0 (released 2024-03-21)
 
