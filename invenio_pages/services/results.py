@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
+# Copyright (C) 2024 Graz University of Technology.
 #
 # Invenio-Pages is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -8,7 +9,13 @@
 
 """Results for the requests service."""
 
-from flask_sqlalchemy import Pagination
+try:
+    # flask_sqlalchemy<3.0.0
+    from flask_sqlalchemy import Pagination
+except ImportError:
+    # flask_sqlalchemy>=3.0.0
+    from flask_sqlalchemy.pagination import Pagination
+
 from invenio_records_resources.services.records.results import RecordItem, RecordList
 
 
