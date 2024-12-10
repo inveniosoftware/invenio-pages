@@ -2,6 +2,7 @@
 #
 # This file is part of Invenio.
 # Copyright (C) 2022 CERN.
+# Copyright (C) 2024 Graz University of Technology.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -21,7 +22,7 @@ def test_alembic(base_app, db):
 
     base_app.config["ALEMBIC_CONTEXT"] = alembic_test_context()
     # Check that this package's SQLAlchemy models have been properly registered
-    tables = [x.name for x in db.get_tables_for_bind()]
+    tables = [x for x in db.metadata.tables]
 
     assert "pages_page" in tables
     assert "pages_pagelist" in tables
