@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version 5.0.0 (release 2024-12-10)
+
+- comp: make compatible to flask-sqlalchemy>=3.1
+- setup: bump major dependencies
+
 Version 4.1.2 (release 2024-11-30)
 
 - setup: change to reusable workflows
