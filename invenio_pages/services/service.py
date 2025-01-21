@@ -35,10 +35,10 @@ class PageService(RecordService):
         )
         return response
 
-    def read_by_url(self, identity, url):
+    def read_by_url(self, identity, url, lang):
         """Retrieve a page by url."""
         self.require_permission(identity, "read")
-        page = self.record_cls.get_by_url(url)
+        page = self.record_cls.get_by_url(url, lang=lang)
         response = self.result_item(self, identity, page, links_tpl=self.links_item_tpl)
         return response
 

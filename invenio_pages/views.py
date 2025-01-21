@@ -11,6 +11,7 @@
 
 from flask import Blueprint, abort, current_app, g, render_template, request
 from invenio_db import db
+from invenio_i18n import get_locale
 from sqlalchemy.orm.exc import NoResultFound
 from werkzeug.exceptions import NotFound
 
@@ -77,7 +78,8 @@ def render_page(path, **template_ctx):
     :returns: The rendered template.
     """
     try:
-        page = current_pages_service.read_by_url(g.identity, request.path).to_dict()
+        lang = get_locale()
+        page = current_pages_service.read_by_url(g.identity, request.path, lang.language).to_dict()
     except NoResultFound:
         abort(404)
     return render_template(
