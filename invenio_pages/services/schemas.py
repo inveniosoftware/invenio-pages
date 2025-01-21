@@ -2,6 +2,7 @@
 #
 # Copyright (C) 2023-2024 CERN.
 # Copyright (C) 2023 KTH Royal Institute of Technology.
+# Copyright (C) 2025 University of Münster.
 #
 # Invenio-Pages is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -44,6 +45,7 @@ class PageSchema(Schema):
     title = fields.String()
     content = DynamicSanitizedHTML()
     description = fields.String()
+    lang = fields.String(metadata={"create_only": True})
     template_name = fields.String()
     created = TZDateTime(timezone=timezone.utc, format="iso", dump_only=True)
     updated = TZDateTime(timezone=timezone.utc, format="iso", dump_only=True)
