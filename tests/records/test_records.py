@@ -33,11 +33,11 @@ def test_page_versions(module_scoped_pages_fixture, base_app, db):
 
 
 def test_page_versions(module_scoped_pages_fixture, base_app, db):
-    dog_page = Page.get_by_url("/dogs")
+    dog_page = Page.get_by_url("/dogs", "")
     dog_page.title = "Just a dog!"
     db.session.commit()
 
-    dog_page = Page.get_by_url("/dogs")
+    dog_page = Page.get_by_url("/dogs", "")
     assert "Just a dog!" == dog_page.title
     assert 2 == dog_page.versions.count()
     assert "Page for Dogs!" == dog_page.versions[0].title

@@ -24,6 +24,7 @@ def test_page_content(module_scoped_pages_fixture, base_client):
         "title": "Page for Dogs!",
         "description": "",
         "url": "/dogs",
+        "lang": "",
         "content": "Generic dog.",
         "id": "1",
         "template_name": "invenio_pages/default.html",
@@ -46,6 +47,7 @@ def test_html_content(module_scoped_pages_fixture, base_client):
         "url": "/htmldog",
         "content": "<h1>HTML aware dog.</h1>.\n" '<p class="test">paragraph<br /></p>',
         "id": "4",
+        "lang": "",
         "template_name": "invenio_pages/default.html",
         "links": {"self": "https://127.0.0.1:5000/api/pages/4"},
     }
