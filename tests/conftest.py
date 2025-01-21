@@ -44,24 +44,28 @@ def pages_fixture(app, db):
             url="/dogs",
             title="Page for Dogs!",
             content="Generic dog.",
+            lang="en",
             template_name="invenio_pages/default.html",
         ),
         Page(
             url="/dogs/shiba",
             title="Page for doge!",
             content="so doge!",
+            lang="en",
             template_name="invenio_pages/default.html",
         ),
         Page(
             url="/cows/",
             title="Page for Cows!",
             content="Generic cow.",
+            lang="en",
             template_name="invenio_pages/default.html",
         ),
         Page(
             url="/htmldog",
             title="Page for modern dogs!",
             content="<h1>HTML aware dog.</h1>.\n" '<p class="test">paragraph<br /></p>',
+            lang="en",
             template_name="invenio_pages/default.html",
         ),
     ]
