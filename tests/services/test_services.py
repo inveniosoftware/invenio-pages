@@ -31,6 +31,7 @@ def test_page_read(module_scoped_pages_fixture, simple_user_identity):
         "description": "",
         "url": "/dogs",
         "content": "Generic dog.",
+        "lang": "en",
         "id": "1",
         "template_name": "invenio_pages/default.html",
         "links": {"self": "https://127.0.0.1:5000/api/pages/1"},

@@ -79,7 +79,9 @@ def render_page(path, **template_ctx):
     """
     try:
         lang = get_locale()
-        page = current_pages_service.read_by_url(g.identity, request.path, lang.language).to_dict()
+        page = current_pages_service.read_by_url(
+            g.identity, request.path, lang.language
+        ).to_dict()
     except NoResultFound:
         abort(404)
     return render_template(
