@@ -17,7 +17,7 @@ from invenio_pages.services.config import PageServiceConfig
 
 
 def test_page_repr(module_scoped_pages_fixture, base_app):
-    dog_page = Page.get_by_url("/dogs/shiba")
+    dog_page = Page.get_by_url("/dogs/shiba", "")
     assert dog_page.__repr__() == "URL: /dogs/shiba, title: Page for doge!"
 
 

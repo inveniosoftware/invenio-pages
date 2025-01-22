@@ -20,6 +20,7 @@ depends_on = None
 
 def upgrade():
     """Upgrade database."""
+    op.drop_constraint(op.f("uq_pages_page_url"), "pages_page", type_="unique")
     op.add_column(
         "pages_page",
         sa.Column(
@@ -30,12 +31,22 @@ def upgrade():
             nullable=False,
         ),
     )
-    op.drop_constraint(op.f("uq_pages_page_url"), "pages_page", type_="unique")
     op.create_unique_constraint("uq_pages_page_url_lang", "pages_page", ["url", "lang"])
+    op.add_column(
+        "pages_page_version",
+        sa.Column(
+            "lang",
+            sa.VARCHAR(length=2),
+            server_default=sa.text("'en'::character varying"),
+            autoincrement=False,
+            nullable=False,
+        ),
+    )
 
 
 def downgrade():
     """Downgrade database."""
+    op.drop_column("pages_page_version", "lang")
     op.drop_constraint("uq_pages_page_url_lang", "pages_page", type_="unique")
-    op.create_unique_constraint(op.f("uq_pages_page_url"), "pages_page", ["url"])
     op.drop_column("pages_page", "lang")
+    op.create_unique_constraint(op.f("uq_pages_page_url"), "pages_page", ["url"])
