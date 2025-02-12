@@ -2,6 +2,7 @@
 #
 # This file is part of Invenio.
 # Copyright (C) 2015-2024 CERN.
+# Copyright (C) 2025      University of Münster.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -36,6 +37,9 @@ class PageModel(db.Model, Timestamp):
     title = db.Column(db.String(200), nullable=False, default="")
     """Page title."""
 
+    lang = db.Column(db.String(2), nullable=False, default="")
+    """Page language. Default is 'en'"""
+
     content = db.Column(db.Text(), nullable=False, default="")
     """Page content. Default is pages/templates/default.html"""
 
@@ -54,6 +58,7 @@ class PageModel(db.Model, Timestamp):
                     url=data["url"],
                     title=data.get("title", ""),
                     content=data.get("content", ""),
+                    lang=data.get("lang", "en"),
                     description=data.get("description", ""),
                     template_name=data["template_name"],
                 )
@@ -64,14 +69,14 @@ class PageModel(db.Model, Timestamp):
             raise PageNotCreatedError(data["url"])
 
     @classmethod
-    def get_by_url(self, url):
+    def get_by_url(self, url, lang="en"):
         """Get a page by URL.
 
         :param url: The page URL.
         :returns: A :class:`invenio_pages.records.models.PageModel` instance.
         """
         try:
-            return self.query.filter_by(url=url).one()
+            return self.query.filter_by(url=url, lang=lang).one()
         except NoResultFound:
             raise PageNotFoundError(url)
 
@@ -143,7 +148,7 @@ class PageModel(db.Model, Timestamp):
         Used on Page admin view in inline model.
         :returns: unambiguous page representation.
         """
-        return f"URL: {self.url}, title: {self.title}"
+        return f"URL: {self.url}, title: {self.title}, language: {self.lang}"
 
 
 class PageList(db.Model):
