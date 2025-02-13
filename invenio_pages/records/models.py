@@ -37,7 +37,7 @@ class PageModel(db.Model, Timestamp):
     title = db.Column(db.String(200), nullable=False, default="")
     """Page title."""
 
-    lang = db.Column(db.String(2), nullable=False, default="en")
+    lang = db.Column(db.CHAR(2), nullable=False, default="en")
     """Page language. Default is 'en'"""
 
     content = db.Column(db.Text(), nullable=False, default="")
