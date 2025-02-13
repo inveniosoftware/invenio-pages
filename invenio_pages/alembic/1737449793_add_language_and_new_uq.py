@@ -24,22 +24,25 @@ def upgrade():
         "pages_page",
         sa.Column(
             "lang",
-            sa.String(length=2),
-            server_default="en",
-            nullable=False,
+            sa.CHAR(length=2),
+            default="en",
+            nullable=True,
         ),
     )
+    op.execute("UPDATE pages_page SET lang='en' WHERE lang IS NULL")
+    op.alter_column("pages_page", "lang", nullable=False)
     op.create_unique_constraint("uq_pages_page_url_lang", "pages_page", ["url", "lang"])
     op.add_column(
         "pages_page_version",
         sa.Column(
             "lang",
-            sa.String(length=2),
-            server_default="en",
-            autoincrement=False,
-            nullable=False,
+            sa.CHAR(length=2),
+            default="en",
+            nullable=True,
         ),
     )
+    op.execute("UPDATE pages_page_version SET lang='en' WHERE lang IS NULL")
+    op.alter_column("pages_page_version", "lang", nullable=False)
 
 
 def downgrade():
