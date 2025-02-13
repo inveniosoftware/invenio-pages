@@ -25,6 +25,7 @@ def test_page_content(module_scoped_pages_fixture, base_client):
         "description": "",
         "url": "/dogs",
         "content": "Generic dog.",
+        "lang": "en",
         "id": "1",
         "template_name": "invenio_pages/default.html",
         "links": {"self": "https://127.0.0.1:5000/api/pages/1"},
@@ -45,6 +46,7 @@ def test_html_content(module_scoped_pages_fixture, base_client):
         "description": "",
         "url": "/htmldog",
         "content": "<h1>HTML aware dog.</h1>.\n" '<p class="test">paragraph<br /></p>',
+        "lang": "en",
         "id": "4",
         "template_name": "invenio_pages/default.html",
         "links": {"self": "https://127.0.0.1:5000/api/pages/4"},
@@ -90,6 +92,7 @@ def test_create(module_scoped_pages_fixture, client, superuser):
         "url": "/astures",
         "title": "Astures",
         "content": "Astures",
+        "lang": "es",
         "description": "Los astures (astures en latín) fueron un grupo de pueblos celtas...",
         "template_name": "invenio_pages/default.html",
     }
@@ -111,6 +114,7 @@ def test_delete(module_scoped_pages_fixture, client, superuser):
         "url": "/cantabros",
         "title": "Cantabros",
         "content": "Cantabros",
+        "lang": "es",
         "description": "El término cántabros...",
         "template_name": "invenio_pages/default.html",
     }
@@ -130,6 +134,7 @@ def test_update(module_scoped_pages_fixture, client, admin):
         "url": "/lusitanos",
         "title": "Lusitanos",
         "content": "Lusitanos",
+        "lang": "es",
         "description": "El término lusitanos...",
     }
     admin.login(client)
@@ -148,6 +153,7 @@ def test_update_denied(module_scoped_pages_fixture, client):
         "url": "/lusitanos",
         "title": "Lusitanos",
         "content": "Lusitanos",
+        "lang": "es",
         "description": "El término lusitanos...",
     }
     with pytest.raises(PermissionDeniedError):
@@ -159,6 +165,7 @@ def test_create_denied(module_scoped_pages_fixture, client, admin):
         "url": "/arevacos",
         "title": "Arévacos",
         "content": "Arévacos",
+        "lang": "es",
         "description": "Los término arévacos",
         "template_name": "invenio_pages/default.html",
     }

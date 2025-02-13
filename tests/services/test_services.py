@@ -31,6 +31,7 @@ def test_page_read(module_scoped_pages_fixture, simple_user_identity):
         "description": "",
         "url": "/dogs",
         "content": "Generic dog.",
+        "lang": "en",
         "id": "1",
         "template_name": "invenio_pages/default.html",
         "links": {"self": "https://127.0.0.1:5000/api/pages/1"},
@@ -40,7 +41,7 @@ def test_page_read(module_scoped_pages_fixture, simple_user_identity):
 
 def test_page_read_by_url(module_scoped_pages_fixture, simple_user_identity):
     """Test read_by_url service function."""
-    page = current_pages_service.read_by_url(simple_user_identity, "/dogs").data
+    page = current_pages_service.read_by_url(simple_user_identity, "/dogs", "en").data
     page.pop("created")
     page.pop("updated")
     expected_data = {
@@ -48,6 +49,7 @@ def test_page_read_by_url(module_scoped_pages_fixture, simple_user_identity):
         "description": "",
         "url": "/dogs",
         "content": "Generic dog.",
+        "lang": "en",
         "id": "1",
         "template_name": "invenio_pages/default.html",
         "links": {"self": "https://127.0.0.1:5000/api/pages/1"},
@@ -101,6 +103,7 @@ def test_create(module_scoped_pages_fixture, superuser_identity):
         "url": "/astures",
         "title": "Astures",
         "content": "Astures",
+        "lang": "es",
         "description": "Los astures (astures en latín) fueron un grupo de pueblos celtas...",
         "template_name": "invenio_pages/default.html",
     }
@@ -135,6 +138,7 @@ def test_update(module_scoped_pages_fixture, admin_user_identity):
         "url": "/lusitanos",
         "title": "Lusitanos",
         "content": "Lusitanos",
+        "lang": "es",
         "description": "El término lusitanos...",
     }
     assert current_pages_service.read(admin_user_identity, 1)["title"] != "Lusitanos"
@@ -150,6 +154,7 @@ def test_update_denied(module_scoped_pages_fixture, simple_user_identity):
         "url": "/lusitanos",
         "title": "Lusitanos",
         "content": "Lusitanos",
+        "lang": "es",
         "description": "El término lusitanos...",
     }
     with pytest.raises(PermissionDeniedError):
@@ -161,6 +166,7 @@ def test_create_denied(module_scoped_pages_fixture, admin_user_identity):
         "url": "/arevacos",
         "title": "Arévacos",
         "content": "Arévacos",
+        "lang": "es",
         "description": "Los término arévacos",
         "template_name": "invenio_pages/default.html",
     }

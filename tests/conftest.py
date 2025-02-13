@@ -2,6 +2,7 @@
 #
 # This file is part of Invenio.
 # Copyright (C) 2015-2022 CERN.
+# Copyright (C) 2025      University of Münster.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -44,24 +45,28 @@ def pages_fixture(app, db):
             url="/dogs",
             title="Page for Dogs!",
             content="Generic dog.",
+            lang="en",
             template_name="invenio_pages/default.html",
         ),
         Page(
             url="/dogs/shiba",
             title="Page for doge!",
             content="so doge!",
+            lang="en",
             template_name="invenio_pages/default.html",
         ),
         Page(
             url="/cows/",
             title="Page for Cows!",
             content="Generic cow.",
+            lang="en",
             template_name="invenio_pages/default.html",
         ),
         Page(
             url="/htmldog",
             title="Page for modern dogs!",
             content="<h1>HTML aware dog.</h1>.\n" '<p class="test">paragraph<br /></p>',
+            lang="en",
             template_name="invenio_pages/default.html",
         ),
     ]
@@ -82,24 +87,28 @@ def module_scoped_pages_fixture(app, database):
             url="/dogs",
             title="Page for Dogs!",
             content="Generic dog.",
+            lang="en",
             template_name="invenio_pages/default.html",
         ),
         Page(
             url="/dogs/shiba",
             title="Page for doge!",
             content="so doge!",
+            lang="en",
             template_name="invenio_pages/default.html",
         ),
         Page(
             url="/cows/",
             title="Page for Cows!",
             content="Generic cow.",
+            lang="en",
             template_name="invenio_pages/default.html",
         ),
         Page(
             url="/htmldog",
             title="Page for modern dogs!",
             content="<h1>HTML aware dog.</h1>.\n" '<p class="test">paragraph<br /></p>',
+            lang="en",
             template_name="invenio_pages/default.html",
         ),
     ]

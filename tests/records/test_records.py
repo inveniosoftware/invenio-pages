@@ -17,27 +17,18 @@ from invenio_pages.services.config import PageServiceConfig
 
 
 def test_page_repr(module_scoped_pages_fixture, base_app):
-    dog_page = Page.get_by_url("/dogs/shiba")
-    assert dog_page.__repr__() == "URL: /dogs/shiba, title: Page for doge!"
+    dog_page = Page.get_by_url("/dogs/shiba", "en")
+    assert (
+        dog_page.__repr__() == "URL: /dogs/shiba, title: Page for doge!, language: en"
+    )
 
 
 def test_page_versions(module_scoped_pages_fixture, base_app, db):
-    dog_page = Page.get_by_url("/dogs")
+    dog_page = Page.get_by_url("/dogs", "en")
     dog_page.title = "Just a dog!"
     db.session.commit()
 
-    dog_page = Page.get_by_url("/dogs")
-    assert "Just a dog!" == dog_page.title
-    assert 2 == dog_page.versions.count()
-    assert "Page for Dogs!" == dog_page.versions[0].title
-
-
-def test_page_versions(module_scoped_pages_fixture, base_app, db):
-    dog_page = Page.get_by_url("/dogs")
-    dog_page.title = "Just a dog!"
-    db.session.commit()
-
-    dog_page = Page.get_by_url("/dogs")
+    dog_page = Page.get_by_url("/dogs", "en")
     assert "Just a dog!" == dog_page.title
     assert 2 == dog_page.versions.count()
     assert "Page for Dogs!" == dog_page.versions[0].title
@@ -96,6 +87,7 @@ def test_create(module_scoped_pages_fixture, base_app):
         "url": "/astures",
         "title": "Astures",
         "content": "Astures",
+        "lang": "en",
         "description": "Los astures (astures en latín) fueron un grupo de pueblos celtas...",
         "template_name": "invenio_pages/default.html",
     }
@@ -114,6 +106,7 @@ def test_delete(module_scoped_pages_fixture, base_app):
         "url": "/cantabros",
         "title": "Cantabros",
         "content": "Cantabros",
+        "lang": "en",
         "description": "El término cántabros...",
         "template_name": "invenio_pages/default.html",
     }
@@ -130,6 +123,7 @@ def test_update(module_scoped_pages_fixture, base_app):
         "url": "/lusitanos",
         "title": "Lusitanos",
         "content": "Lusitanos",
+        "lang": "es",
         "description": "El término lusitanos...",
     }
     assert Page.get(1).title != "Lusitanos"
