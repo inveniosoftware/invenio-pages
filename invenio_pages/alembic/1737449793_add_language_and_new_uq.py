@@ -26,7 +26,6 @@ def upgrade():
             "lang",
             sa.String(length=2),
             server_default="en",
-            autoincrement=False,
             nullable=False,
         ),
     )
