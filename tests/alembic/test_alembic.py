@@ -13,7 +13,9 @@ import pytest
 from invenio_db.utils import alembic_test_context, drop_alembic_version_table
 
 
-@pytest.mark.skip(reason="We have to figure out why this is failing (or even if it is failing).")
+@pytest.mark.skip(
+    reason="We have to figure out why this is failing (or even if it is failing)."
+)
 def test_alembic(base_app, db):
     """Test alembic recipes."""
     ext = base_app.extensions["invenio-db"]
