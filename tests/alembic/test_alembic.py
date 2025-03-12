@@ -13,9 +13,6 @@ import pytest
 from invenio_db.utils import alembic_test_context, drop_alembic_version_table
 
 
-@pytest.mark.skip(
-    reason="We have to figure out why this is failing (or even if it is failing)."
-)
 def test_alembic(base_app, db):
     """Test alembic recipes."""
     ext = base_app.extensions["invenio-db"]
@@ -38,12 +35,12 @@ def test_alembic(base_app, db):
     db.drop_all()
     drop_alembic_version_table()
     ext.alembic.upgrade()
-    assert len(ext.alembic.compare_metadata()) == 3
+    assert len(ext.alembic.compare_metadata()) == 0
 
     # Try to upgrade and downgrade
     ext.alembic.stamp()
     ext.alembic.downgrade(target="96e796392533")
     ext.alembic.upgrade()
-    assert len(ext.alembic.compare_metadata()) == 3
+    assert len(ext.alembic.compare_metadata()) == 0
 
     drop_alembic_version_table()

@@ -31,7 +31,7 @@ class PageModel(db.Model, Timestamp):
     id = db.Column(db.Integer, nullable=False, primary_key=True, autoincrement=True)
     """Page identifier."""
 
-    url = db.Column(db.String(100), unique=True, nullable=False)
+    url = db.Column(db.String(100), nullable=False)
     """Page url."""
 
     title = db.Column(db.String(200), nullable=False, default="")
@@ -48,6 +48,10 @@ class PageModel(db.Model, Timestamp):
 
     template_name = db.Column(db.String(70), nullable=False)
     """Page template name."""
+
+    __table_args__ = (
+        db.UniqueConstraint("url", "lang", name="uq_pages_page_url_lang"),
+    )
 
     @classmethod
     def create(self, data):

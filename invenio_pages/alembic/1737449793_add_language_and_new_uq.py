@@ -42,7 +42,6 @@ def upgrade():
         ),
     )
     op.execute("UPDATE pages_page_version SET lang='en' WHERE lang IS NULL")
-    op.alter_column("pages_page_version", "lang", nullable=False)
 
 
 def downgrade():
