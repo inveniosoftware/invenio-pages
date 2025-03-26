@@ -10,6 +10,13 @@
 Changes
 =======
 
+Version v6.0.0 (released 2025-03-26)
+
+- global: add i18n support via "lang" column (#99)
+    * Add support for multiple languages via the `lang` column.
+    * Fix the tests and a bug that was uncovered thereby.
+    * Adds alembic recipes
+
 Version 5.0.0 (release 2024-12-10)
 
 - comp: make compatible to flask-sqlalchemy>=3.1

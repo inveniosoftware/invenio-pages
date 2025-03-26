@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2023 CERN.
+# Copyright (C) 2023-2025 CERN.
 # Copyright (C) 2025 University of Münster.
 #
 # invenio-administration is free software; you can redistribute it and/or
