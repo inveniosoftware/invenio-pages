@@ -44,6 +44,7 @@ class PageSchema(Schema):
     title = fields.String()
     content = DynamicSanitizedHTML()
     description = fields.String()
+    lang = fields.String()
     template_name = fields.String()
     created = TZDateTime(timezone=timezone.utc, format="iso", dump_only=True)
     updated = TZDateTime(timezone=timezone.utc, format="iso", dump_only=True)

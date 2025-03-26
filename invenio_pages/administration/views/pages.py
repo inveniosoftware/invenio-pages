@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2023 CERN.
+# Copyright (C) 2025 University of Münster.
 #
 # invenio-administration is free software; you can redistribute it and/or
 # modify it under the terms of the MIT License; see LICENSE file for more
@@ -37,6 +38,7 @@ class PageListView(AdminResourceListView):
         "url": {"text": _("Url"), "order": 1, "width": 2},
         "title": {"text": _("Title"), "order": 2, "width": 3},
         "description": {"text": _("Description"), "order": 3, "width": 3},
+        "lang": {"text": _("Language"), "order": 4, "width": 3},
         "created": {"text": _("Created"), "order": 4, "width": 3},
         "updated": {"text": _("Updated"), "order": 5, "width": 3},
     }
@@ -76,8 +78,13 @@ class PageEditView(AdminResourceEditView):
             "text": _("Description"),
             "description": _("Description of the page"),
         },
-        "content": {
+        "lang": {
             "order": 6,
+            "text": _("Language"),
+            "description": _("Language of title and content"),
+        },
+        "content": {
+            "order": 7,
             "text": _("Content"),
             "description": _("Content displayed by the page."),
             "rows": 10,
@@ -106,5 +113,6 @@ class PageDetailView(AdminResourceDetailView):
         "url": {"text": _("Url"), "order": 3},
         "title": {"text": _("Title"), "order": 4},
         "description": {"text": _("Description"), "order": 5},
-        "content": {"text": _("Content"), "order": 6, "escape": True},
+        "lang": {"text": _("Language"), "order": 6},
+        "content": {"text": _("Content"), "order": 7, "escape": True},
     }
