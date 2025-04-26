@@ -3,6 +3,7 @@
 # This file is part of Invenio.
 # Copyright (C) 2015-2025 CERN.
 # Copyright (C) 2025      University of Münster.
+# Copyright (C) 2025 Graz University of Technology.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -17,6 +18,13 @@ from invenio_administration.permissions import administration_access_action
 from invenio_app.factory import create_api
 
 from invenio_pages import PageModel as Page
+
+
+@pytest.fixture(scope="module")
+def app_config(app_config):
+    """Application configuration fixture."""
+    app_config["THEME_FRONTPAGE"] = False
+    return app_config
 
 
 @pytest.fixture(scope="module")
