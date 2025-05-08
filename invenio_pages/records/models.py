@@ -3,6 +3,7 @@
 # This file is part of Invenio.
 # Copyright (C) 2015-2025 CERN.
 # Copyright (C) 2025      University of Münster.
+# Copyright (C) 2025 Graz University of Technology.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -104,8 +105,12 @@ class PageModel(db.Model, Timestamp):
         :param filters: The search filters.
         :returns: A list of the :class:`invenio_pages.records.models.PageModel` instance.
         """
+        # if filters == [] -> True
+        # if filters != [] -> False
+        default_element = not bool(len(filters))
+
         pages = (
-            PageModel.query.filter(or_(*filters))
+            PageModel.query.filter(or_(default_element, *filters))
             .order_by(
                 search_params["sort_direction"](text(",".join(search_params["sort"])))
             )
