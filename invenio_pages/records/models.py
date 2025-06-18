@@ -53,11 +53,11 @@ class PageModel(db.Model, Timestamp):
     )
 
     @classmethod
-    def create(self, data):
+    def create(cls, data):
         """Create a new page."""
         try:
             with db.session.begin_nested():
-                obj = PageModel(
+                obj = cls(
                     url=data["url"],
                     title=data.get("title", ""),
                     content=data.get("content", ""),
@@ -72,31 +72,31 @@ class PageModel(db.Model, Timestamp):
             raise PageNotCreatedError(data["url"])
 
     @classmethod
-    def get_by_url(self, url, lang="en"):
+    def get_by_url(cls, url, lang="en"):
         """Get a page by URL.
 
         :param url: The page URL.
         :returns: A :class:`invenio_pages.records.models.PageModel` instance.
         """
         try:
-            return self.query.filter_by(url=url, lang=lang).one()
+            return cls.query.filter_by(url=url, lang=lang).one()
         except NoResultFound:
             raise PageNotFoundError(url)
 
     @classmethod
-    def get(self, id):
+    def get(cls, id):
         """Get a page by ID.
 
         :param id: The page ID.
         :returns: A :class:`invenio_pages.records.models.PageModel` instance.
         """
         try:
-            return self.query.filter_by(id=id).one()
+            return cls.query.filter_by(id=id).one()
         except NoResultFound:
             raise PageNotFoundError(id)
 
     @classmethod
-    def search(self, search_params, filters):
+    def search(cls, search_params, filters):
         """Get pages according to param filters.
 
         :param search_params: The maximum resources to retreive.
@@ -104,7 +104,7 @@ class PageModel(db.Model, Timestamp):
         :returns: A list of the :class:`invenio_pages.records.models.PageModel` instance.
         """
         pages = (
-            self.query.filter(*filters)
+            cls.query.filter(*filters)
             .order_by(
                 search_params["sort_direction"](text(",".join(search_params["sort"])))
             )
@@ -117,21 +117,21 @@ class PageModel(db.Model, Timestamp):
         return pages
 
     @classmethod
-    def update(self, data, id):
+    def update(cls, data, id):
         """Update an existing page."""
         with db.session.begin_nested():
-            self.query.filter_by(id=id).update(data)
+            cls.query.filter_by(id=id).update(data)
 
     @classmethod
-    def delete(self, page):
+    def delete(cls, page):
         """Delete page by its id."""
         with db.session.begin_nested():
             db.session.delete(page)
 
     @classmethod
-    def delete_all(self):
+    def delete_all(cls):
         """Delete all pages."""
-        self.query.delete()
+        cls.query.delete()
 
     @validates("template_name")
     def validate_template_name(self, key, value):
