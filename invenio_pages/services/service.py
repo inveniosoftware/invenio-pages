@@ -7,6 +7,9 @@
 
 """Page Service API."""
 
+from datetime import datetime
+
+import sqlalchemy as sa
 from invenio_records_resources.services import RecordService
 from invenio_records_resources.services.base import LinksTemplate
 from invenio_records_resources.services.base.utils import map_search_params
@@ -53,12 +56,12 @@ class PageService(RecordService):
         """Search for pages matching the querystring."""
         self.require_permission(identity, "search")
 
-        search_params = map_search_params(self.config.search, params)
-        query = search_params["q"]
         filters = []
+        search_params = map_search_params(self.config.search, params)
 
+        query = search_params["q"]
         if query:
-            self._query_filters(filters, query)
+            filters.append(self._query_filter(query))
 
         pages = self.record_cls.search(search_params, filters)
         return self.result_list(
@@ -100,28 +103,27 @@ class PageService(RecordService):
         self.require_permission(identity, "delete")
         self.record_cls.delete_all()
 
-    def _query_filters(self, filters, query):
-        filters.extend(
-            [
-                Page.url.ilike(f"%{query}%"),
-                Page.title.ilike(f"%{query}%"),
-                Page.content.ilike(f"%{query}%"),
-                Page.description.ilike(f"%{query}%"),
-                Page.template_name.ilike(f"%{query}%"),
-            ]
-        )
-        datetime_value = self._validate_datetime(query)
+    def _query_filter(self, query):
+        """Build an SQLAlchemy filter for the search query."""
+        clauses = [
+            Page.url.ilike(f"%{query}%"),
+            Page.title.ilike(f"%{query}%"),
+            Page.content.ilike(f"%{query}%"),
+            Page.description.ilike(f"%{query}%"),
+            Page.template_name.ilike(f"%{query}%"),
+        ]
+        datetime_value = self._parse_datetime(query)
         if datetime_value is not None:
-            filters.extend(
+            clauses.extend(
                 [
                     func.date(Page.created) == datetime_value,
                     func.date(Page.updated) == datetime_value,
                 ]
             )
+        return sa.or_(*clauses)
 
-    def _validate_datetime(self, value):
-        from datetime import datetime
-
+    def _parse_datetime(self, value):
+        """Parse a datetime string in the format YYYY-MM-DD."""
         try:
             datetime_value = datetime.strptime(value, "%Y-%m-%d")
         except ValueError:

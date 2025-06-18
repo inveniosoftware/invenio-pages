@@ -12,10 +12,8 @@
 
 from flask import current_app
 from invenio_db import db
-from sqlalchemy import or_
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import IntegrityError, NoResultFound
 from sqlalchemy.orm import validates
-from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.sql import text
 from sqlalchemy_utils.models import Timestamp
 
@@ -105,12 +103,8 @@ class PageModel(db.Model, Timestamp):
         :param filters: The search filters.
         :returns: A list of the :class:`invenio_pages.records.models.PageModel` instance.
         """
-        # if filters == [] -> True
-        # if filters != [] -> False
-        default_element = not bool(len(filters))
-
         pages = (
-            PageModel.query.filter(or_(default_element, *filters))
+            self.query.filter(*filters)
             .order_by(
                 search_params["sort_direction"](text(",".join(search_params["sort"])))
             )
