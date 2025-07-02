@@ -10,6 +10,12 @@
 Changes
 =======
 
+Version v7.1.0 (released 2025-07-02)
+
+- chore: fix classmethod argument names
+- service: simplify search filtering logic
+- fix: SADeprecationWarning
+
 Version v7.0.0 (released 2025-6-03)
 
 - setup: bump major dependencies
