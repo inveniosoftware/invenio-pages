@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v7.2.0 (released 2025-07-17)
+
+- fix: setuptools require underscores instead of dashes
+- i18n: pulled translations
+
 Version v7.1.0 (released 2025-07-02)
 
 - chore: fix classmethod argument names
