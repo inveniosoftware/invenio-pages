@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (C) 2022 CERN.
+# Copyright (C) 2025 Northwestern University.
 #
 # Invenio-Pages is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -9,23 +10,17 @@
 
 
 from invenio_i18n import gettext as _
-from invenio_records_resources.services import Link, RecordServiceConfig
-from invenio_records_resources.services.records.links import pagination_links
+from invenio_records_resources.services import (
+    EndpointLink,
+    RecordServiceConfig,
+    pagination_endpoint_links,
+)
 from sqlalchemy import asc, desc
 
 from ..records.models import PageModel
 from .permissions import PagesPermissionPolicy
 from .results import PageItem, PageList
 from .schemas import PageSchema
-
-
-class PagesLink(Link):
-    """Link variables setter for Page links."""
-
-    @staticmethod
-    def vars(page, vars):
-        """Variables for the URI template."""
-        vars.update({"id": page.id})
 
 
 class SearchOptions:
@@ -93,6 +88,10 @@ class PageServiceConfig(RecordServiceConfig):
     result_list_cls = PageList
     record_cls = PageModel
     links_item = {
-        "self": PagesLink("{+api}/pages/{id}"),
+        "self": EndpointLink(
+            "pages.read",
+            params=["id"],
+            vars=lambda obj, vars: vars.update(id=obj.id),
+        ),
     }
-    links_search = pagination_links("{+api}/pages{?args*}")
+    links_search = pagination_endpoint_links("pages.search")

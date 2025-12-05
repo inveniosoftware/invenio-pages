@@ -59,6 +59,10 @@ def test_search(module_scoped_pages_fixture, base_client):
     pages = base_client.get("/pages")
     assert pages.status_code == 200
     assert pages.json["hits"]["total"] == 4
+    assert (
+        "https://127.0.0.1:5000/api/pages?facets=%7B%7D&page=1&size=25"
+        == pages.json["links"]["self"]
+    )
 
     pages = base_client.get("/pages?size=2")
     assert pages.json["hits"]["total"] == 2

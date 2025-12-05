@@ -58,7 +58,7 @@ class PageService(RecordService):
 
         filters = []
         search_params = map_search_params(self.config.search, params)
-
+        params.update(size=search_params["size"], page=search_params["page"])
         query = search_params["q"]
         if query:
             filters.append(self._query_filter(query))
@@ -68,6 +68,7 @@ class PageService(RecordService):
             self,
             identity,
             pages,
+            params=params,
             links_tpl=LinksTemplate(self.config.links_search, context={"args": params}),
             links_item_tpl=self.links_item_tpl,
         )
