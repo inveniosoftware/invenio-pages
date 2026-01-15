@@ -3,6 +3,7 @@
     Copyright (C) 2015-2024 CERN.
     Copyright (C) 2024-2025 Graz University of Technology.
     Copyright (C) 2025 KTH Royal Institute of Technology.
+    Copyright (C) 2026 Northwestern University.
 
     Invenio is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
@@ -10,6 +11,11 @@
 
 Changes
 =======
+
+Version v7.3.0 (released 2026-01-15)
+
+- refactor!: replace Link usage by EndpointLink
+    PagesLink is removed but only used locally/low risk (see PR for details)
 
 Version v7.2.1 (released 2025-10-21)
 
