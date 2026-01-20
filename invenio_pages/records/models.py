@@ -3,7 +3,7 @@
 # This file is part of Invenio.
 # Copyright (C) 2015-2025 CERN.
 # Copyright (C) 2025      University of Münster.
-# Copyright (C) 2025 Graz University of Technology.
+# Copyright (C) 2025-2026 Graz University of Technology.
 #
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -15,12 +15,11 @@ from invenio_db import db
 from sqlalchemy.exc import IntegrityError, NoResultFound
 from sqlalchemy.orm import validates
 from sqlalchemy.sql import text
-from sqlalchemy_utils.models import Timestamp
 
 from .errors import PageNotCreatedError, PageNotFoundError
 
 
-class PageModel(db.Model, Timestamp):
+class PageModel(db.Model, db.Timestamp):
     """Represents a page."""
 
     __versioned__ = {}
