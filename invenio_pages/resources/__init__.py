@@ -7,6 +7,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Invenio-pages module contains schemas and serializers."""
+
 from .config import PageResourceConfig
 from .resource import PageResource
 

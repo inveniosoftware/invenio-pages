@@ -7,6 +7,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Hijacks `mock` to fake as many non-available modules as possible."""
+
 import sys
 import types
 

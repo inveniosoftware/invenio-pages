@@ -7,6 +7,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Page Resource Configuration."""
+
 import marshmallow as ma
 from invenio_records_resources.resources import (
     RecordResourceConfig,

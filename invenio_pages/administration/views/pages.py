@@ -8,6 +8,7 @@
 # details.
 
 """Invenio administration pages view module."""
+
 from invenio_administration.views.base import (
     AdminResourceDetailView,
     AdminResourceEditView,

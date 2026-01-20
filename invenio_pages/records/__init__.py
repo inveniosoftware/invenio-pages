@@ -7,6 +7,7 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Records directory."""
+
 from .models import PageModel
 
 __all__ = "PageModel"

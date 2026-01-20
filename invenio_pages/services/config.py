@@ -8,7 +8,6 @@
 
 """Page Service Configuration."""
 
-
 from invenio_i18n import gettext as _
 from invenio_records_resources.services import (
     EndpointLink,
