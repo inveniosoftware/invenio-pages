@@ -1,7 +1,7 @@
 ..
     This file is part of Invenio.
     Copyright (C) 2015-2024 CERN.
-    Copyright (C) 2024-2025 Graz University of Technology.
+    Copyright (C) 2024-2026 Graz University of Technology.
     Copyright (C) 2025 KTH Royal Institute of Technology.
     Copyright (C) 2026 Northwestern University.
 
@@ -11,6 +11,12 @@
 
 Changes
 =======
+
+Version v8.0.0 (released 2026-01-29)
+
+- chore(setup): bump dependencies
+- chore(black): update formatting to >= 26.0
+- fix(chore): DeprecationWarning stdlib
 
 Version v7.3.0 (released 2026-01-15)
 
