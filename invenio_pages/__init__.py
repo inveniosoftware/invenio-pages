@@ -13,6 +13,6 @@
 from .ext import InvenioPages, InvenioPagesREST
 from .records.models import PageList, PageModel
 
-__version__ = "8.0.0"
+__version__ = "9.0.0"
 
 __all__ = ("__version__", "InvenioPages", "InvenioPagesREST", "PageModel", "PageList")

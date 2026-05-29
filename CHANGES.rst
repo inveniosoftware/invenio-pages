@@ -12,6 +12,10 @@
 Changes
 =======
 
+Version v9.0.0 (released 2026-05-29)
+
+- chore(setup): bump dependencies
+
 Version v8.0.0 (released 2026-01-29)
 
 - chore(setup): bump dependencies
