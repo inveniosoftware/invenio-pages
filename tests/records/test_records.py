@@ -133,6 +133,27 @@ def test_update(module_scoped_pages_fixture, base_app):
     assert page.template_name == "invenio_pages/default.html"
 
 
+def test_update_timestamp(base_app, db):
+    data = {
+        "url": "/timestamp-test",
+        "title": "Before",
+        "content": "",
+        "lang": "en",
+        "description": "",
+        "template_name": "invenio_pages/default.html",
+    }
+    page = Page.create(data)
+    db.session.commit()
+    original_updated = page.updated
+
+    Page.update({"title": "After"}, page.id)
+    db.session.commit()
+
+    updated_page = Page.get(page.id)
+    assert updated_page.title == "After"
+    assert updated_page.updated > original_updated
+
+
 def test_delete_all(module_scoped_pages_fixture, base_app):
     Page.delete_all()
     pages = Page.search(map_search_params(PageServiceConfig.search, {}), [])

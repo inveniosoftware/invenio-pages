@@ -119,7 +119,9 @@ class PageModel(db.Model, db.Timestamp):
     def update(cls, data, id):
         """Update an existing page."""
         with db.session.begin_nested():
-            cls.query.filter_by(id=id).update(data)
+            page = cls.query.filter_by(id=id).one()
+            for key, value in data.items():
+                setattr(page, key, value)
 
     @classmethod
     def delete(cls, page):

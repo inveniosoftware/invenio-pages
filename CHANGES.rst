@@ -12,6 +12,10 @@
 Changes
 =======
 
+Version v9.0.1 (released 2026-06-01)
+
+- fix: page ``updated`` timestamp now reflects last edit, not creation date (#118)
+
 Version v9.0.0 (released 2026-05-29)
 
 - chore(setup): bump dependencies
