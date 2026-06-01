@@ -119,7 +119,7 @@ class PageModel(db.Model, db.Timestamp):
     def update(cls, data, id):
         """Update an existing page."""
         with db.session.begin_nested():
-            page = cls.query.filter_by(id=id).one()
+            page = cls.get(id)
             for key, value in data.items():
                 setattr(page, key, value)
 
