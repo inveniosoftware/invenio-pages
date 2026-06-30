@@ -1,3 +1,143 @@
+# SPDX-FileCopyrightText: 2015-2024 CERN.
+# SPDX-FileCopyrightText: 2024-2026 Graz University of Technology.
+# SPDX-FileCopyrightText: 2026 TU Wien.
+# SPDX-License-Identifier: MIT
+
+[project]
+name = "invenio-pages"
+description = "InvenioRDM module for the static pages feature."
+readme = "README.rst"
+requires-python = ">=3.9"
+license = "MIT"
+authors = [
+  { name = "CERN", email = "info@inveniosoftware.org" },
+]
+keywords = [
+  "invenio",
+  "pages",
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+]
+dependencies = [
+  "invenio-administration>=7.0.0,<8.0.0",
+  "invenio-base>=2.0.0,<3.0.0",
+  "invenio-records-resources>=11.0.0,<12.0.0",
+  "invenio-rest>=4.0.0,<5.0.0",
+]
+dynamic = ["version"]
+
+[project.urls]
+Repository = "https://github.com/inveniosoftware/invenio-pages"
+
+[project.entry-points."invenio_administration.views"]
+invenio_pages_create = "invenio_pages.administration.views.pages:PageEditView"
+invenio_pages_details = "invenio_pages.administration.views.pages:PageDetailView"
+invenio_pages_list = "invenio_pages.administration.views.pages:PageListView"
+
+[project.entry-points."invenio_base.api_apps"]
+invenio_pages = "invenio_pages:InvenioPages"
+
+[project.entry-points."invenio_base.api_blueprints"]
+invenio_pages = "invenio_pages.views:create_pages_api_bp"
+
+[project.entry-points."invenio_base.apps"]
+invenio_pages = "invenio_pages:InvenioPages"
+
+[project.entry-points."invenio_base.blueprints"]
+invenio_pages = "invenio_pages.views:blueprint"
+
+[project.entry-points."invenio_db.alembic"]
+invenio_pages = "invenio_pages:alembic"
+
+[project.entry-points."invenio_db.models"]
+invenio_pages = "invenio_pages.records.models"
+
+[project.entry-points."invenio_i18n.translations"]
+messages = "invenio_pages"
+
+[project.optional-dependencies]
+elasticsearch7 = [
+  "invenio-search[elasticsearch7]>=3.0.0,<4.0.0",
+]
+opensearch1 = [
+  "invenio-search[opensearch1]>=3.0.0,<4.0.0",
+]
+opensearch2 = [
+  "invenio-search[opensearch2]>=3.0.0,<4.0.0",
+]
+tests = [
+  "invenio-app>=3.0.0,<4.0.0",
+  "invenio-db[postgresql,mysql]>=2.2.0,<3.0.0",
+  "pytest-black>=0.6.0",
+  "pytest-cache>=1.0",
+  "pytest-invenio>=4.0.0,<5.0.0",
+  "sphinx>=4.5.0",
+]
+
 [build-system]
-requires = ["setuptools", "wheel", "babel>2.8"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# see https://babel.pocoo.org/en/latest/messages.html#toml-configuration-format
+[tool.babel]
+[tool.babel.compile_catalog]
+directory = "invenio_pages/translations/"
+use_fuzzy = true
+
+[tool.babel.extract_messages]
+copyright_holder = "CERN"
+msgid_bugs_address = "info@inveniosoftware.org"
+mapping_file = "pyproject.toml"
+output_file = "invenio_pages/translations/messages.pot"
+add_comments = "NOTE"
+
+[tool.babel.init_catalog]
+input_file = "invenio_pages/translations/messages.pot"
+output_dir = "invenio_pages/translations/"
+
+[[tool.babel.mappings]]
+method = "javascript"
+pattern = "**.js"
+encoding = "utf-8"
+extract_messages = "$._, jQuery._"
+
+[[tool.babel.mappings]]
+method = "python"
+pattern = "**.py"
+encoding = "utf-8"
+
+[[tool.babel.mappings]]
+method = "jinja2"
+pattern = "**/templates/**.html"
+encoding = "utf-8"
+
+[tool.hatch.version]
+path = "invenio_pages/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/invenio_pages",
+]
+
+[tool.isort]
+profile = "black"
+
+[tool.pydocstyle]
+add_ignore = "D401"
+
+[tool.pytest.ini_options]
+addopts = '--black --isort --pydocstyle --doctest-glob="*.rst" --doctest-modules --cov=invenio_pages --cov-report=term-missing'
+testpaths = "tests invenio_pages"
+live_server_scope = "module"
+
+# UV needs to be told explicitly which extras are conflicting:
+# https://docs.astral.sh/uv/concepts/projects/config/#conflicting-dependencies
+[tool.uv]
+conflicts = [
+  [
+    { extra = "opensearch1" },
+    { extra = "opensearch2" },
+    { extra = "elasticsearch7" },
+  ]
+]
