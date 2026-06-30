@@ -26,7 +26,7 @@ class DynamicSanitizedHTML(SanitizedHTML):
         )
         self.attrs = self.attrs = dict(
             **current_app.config.get("ALLOWED_HTML_ATTRS", {}),
-            **current_app.config["PAGES_ALLOWED_EXTRA_HTML_ATTRS"]
+            **current_app.config["PAGES_ALLOWED_EXTRA_HTML_ATTRS"],
         )
 
         return super()._deserialize(value, attr, data, **kwargs)
