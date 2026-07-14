@@ -30,6 +30,7 @@ class InvenioPages(object):
 
         :param app: The Flask application. (Default: ``None``)
         """
+        self._jinja_env = None
         if app:
             self.init_app(app)
 
@@ -81,6 +82,7 @@ class InvenioPages(object):
         :returns: The :class:`invenio_pages.ext.InvenioPages` instance
             initialized.
         """
+        self.app = app
         self.init_config(app)
         self.init_services(app)
         self.init_resources(app)
