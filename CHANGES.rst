@@ -11,6 +11,10 @@ Changes
 =======
 
 
+Version v10.0.2 (released 2026-07-16)
+
+- fix: initialize jinja_env and app so dynamic pages render
+
 Version v10.0.1 (released 2026-07-16)
 
 - chore(setup): migrate from setuptools to hatchling
