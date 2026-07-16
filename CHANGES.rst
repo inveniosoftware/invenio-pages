@@ -12,6 +12,11 @@
 Changes
 =======
 
+
+Version v7.3.1 (released 2026-07-16)
+
+- fix: initialize jinja_env and app so dynamic pages render
+
 Version v7.3.0 (released 2026-01-15)
 
 - refactor!: replace Link usage by EndpointLink
