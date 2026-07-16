@@ -9,6 +9,11 @@
 Changes
 =======
 
+Version v9.0.1 (released 2026-07-16)
+
+- fix: initialize jinja_env and app so dynamic pages render
+- chore(licenses): update license headers to use SPDX
+
 Version v9.0.0 (released 2026-05-29)
 
 - chore(setup): bump dependencies
