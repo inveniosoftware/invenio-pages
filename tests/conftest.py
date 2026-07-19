@@ -1,10 +1,13 @@
 # SPDX-FileCopyrightText: 2015-2025 CERN.
 # SPDX-FileCopyrightText: 2025 University of Münster.
 # SPDX-FileCopyrightText: 2025-2026 Graz University of Technology.
+# SPDX-FileCopyrightText: 2026 CESNET z.s.p.o.
 # SPDX-License-Identifier: MIT
 
 
 """Pytest configuration."""
+
+import time
 
 import pytest
 from invenio_access.models import ActionRoles
@@ -118,7 +121,10 @@ def module_scoped_pages_fixture(app, database):
     ]
     for page in pages:
         db.session.add(page)
-    db.session.commit()
+        db.session.commit()
+        # Small delay to ensure distinct timestamps in PostgreSQL (microsecond precision)
+        # This is needed for test_search where ordering by created is tested
+        time.sleep(0.002)  # 2ms delay ensures timestamps differ
 
 
 @pytest.fixture(scope="function")
