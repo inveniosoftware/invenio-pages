@@ -42,40 +42,53 @@ def create_app(instance_path, entry_points):
 def pages_fixture(app, db):
     """Page fixtures.
 
+    The pages are added to the DB one by one to avoid pages having the same creation
+    timestamp, which could cause flaky tests with some tests.
+
     Scope: function
     """
-    pages = [
+    db.session.add(
         Page(
             url="/dogs",
             title="Page for Dogs!",
             content="Generic dog.",
             lang="en",
             template_name="invenio_pages/default.html",
-        ),
+        )
+    )
+    db.session.commit()
+
+    db.session.add(
         Page(
             url="/dogs/shiba",
             title="Page for doge!",
             content="so doge!",
             lang="en",
             template_name="invenio_pages/default.html",
-        ),
+        )
+    )
+    db.session.commit()
+
+    db.session.add(
         Page(
             url="/cows/",
             title="Page for Cows!",
             content="Generic cow.",
             lang="en",
             template_name="invenio_pages/default.html",
-        ),
+        )
+    )
+    db.session.commit()
+
+    db.session.add(
         Page(
             url="/htmldog",
             title="Page for modern dogs!",
             content="<h1>HTML aware dog.</h1>.\n" '<p class="test">paragraph<br /></p>',
             lang="en",
             template_name="invenio_pages/default.html",
-        ),
-    ]
-    for page in pages:
-        db.session.add(page)
+        )
+    )
     db.session.commit()
 
 
@@ -83,41 +96,54 @@ def pages_fixture(app, db):
 def module_scoped_pages_fixture(app, database):
     """Page fixtures.
 
+    The pages are added to the DB one by one to avoid pages having the same creation
+    timestamp, which could cause flaky tests with some tests.
+
     Scope: module
     """
     db = database
-    pages = [
+    db.session.add(
         Page(
             url="/dogs",
             title="Page for Dogs!",
             content="Generic dog.",
             lang="en",
             template_name="invenio_pages/default.html",
-        ),
+        )
+    )
+    db.session.commit()
+
+    db.session.add(
         Page(
             url="/dogs/shiba",
             title="Page for doge!",
             content="so doge!",
             lang="en",
             template_name="invenio_pages/default.html",
-        ),
+        )
+    )
+    db.session.commit()
+
+    db.session.add(
         Page(
             url="/cows/",
             title="Page for Cows!",
             content="Generic cow.",
             lang="en",
             template_name="invenio_pages/default.html",
-        ),
+        )
+    )
+    db.session.commit()
+
+    db.session.add(
         Page(
             url="/htmldog",
             title="Page for modern dogs!",
             content="<h1>HTML aware dog.</h1>.\n" '<p class="test">paragraph<br /></p>',
             lang="en",
             template_name="invenio_pages/default.html",
-        ),
-    ]
-    for page in pages:
-        db.session.add(page)
+        )
+    )
     db.session.commit()
 
 
