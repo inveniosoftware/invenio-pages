@@ -9,6 +9,12 @@
 Changes
 =======
 
+Version v9.0.2 (released 2026-07-21)
+
+- fix(tests): create `Page` fixtures one by one to space out creation
+- chore(setup): migrate from setuptools to hatchling
+- chore(format): reformat with black
+
 Version v9.0.1 (released 2026-07-16)
 
 - fix: initialize jinja_env and app so dynamic pages render
