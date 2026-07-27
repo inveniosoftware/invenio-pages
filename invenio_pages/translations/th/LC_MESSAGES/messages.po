@@ -4,6 +4,9 @@
 # project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 # 
+# Translators:
+# Suthep Yonphimai <tomztt@gmail.com>, 2026
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -11,103 +14,104 @@ msgstr ""
 "Report-Msgid-Bugs-To: info@inveniosoftware.org\n"
 "POT-Creation-Date: 2026-06-22 20:48+0000\n"
 "PO-Revision-Date: 2016-08-19 12:00+0000\n"
-"Language-Team: Danish (https://app.transifex.com/inveniosoftware/teams/23537/da/)\n"
+"Last-Translator: Suthep Yonphimai <tomztt@gmail.com>, 2026\n"
+"Language-Team: Thai (https://app.transifex.com/inveniosoftware/teams/23537/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.18.0\n"
-"Language: da\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: th\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: invenio_pages/administration/views/pages.py:64 invenio_pages/config.py:31
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: invenio_pages/administration/views/pages.py:35
 #: invenio_pages/administration/views/pages.py:69
 #: invenio_pages/administration/views/pages.py:110 invenio_pages/config.py:35
 #: invenio_pages/services/config.py:47
 msgid "Title"
-msgstr ""
+msgstr "ชื่อเรื่อง"
 
 #: invenio_pages/administration/views/pages.py:38
 #: invenio_pages/administration/views/pages.py:107 invenio_pages/config.py:39
 #: invenio_pages/services/config.py:63
 msgid "Created"
-msgstr ""
+msgstr "สร้างเมื่อ"
 
 #: invenio_pages/administration/views/pages.py:39
 #: invenio_pages/administration/views/pages.py:108 invenio_pages/config.py:43
 #: invenio_pages/services/config.py:67
 msgid "Updated"
-msgstr ""
+msgstr "อัปเดตเมื่อ"
 
 #: invenio_pages/administration/views/pages.py:22
 #: invenio_pages/administration/views/pages.py:23
 msgid "Pages"
-msgstr ""
+msgstr "หน้า"
 
 #: invenio_pages/administration/views/pages.py:24
 msgid "Site management"
-msgstr ""
+msgstr "การจัดการเว็บไซต์"
 
 #: invenio_pages/administration/views/pages.py:34
 #: invenio_pages/administration/views/pages.py:109
 #: invenio_pages/services/config.py:43
 msgid "Url"
-msgstr ""
+msgstr "URL"
 
 #: invenio_pages/administration/views/pages.py:36
 #: invenio_pages/administration/views/pages.py:74
 #: invenio_pages/administration/views/pages.py:111
 #: invenio_pages/services/config.py:59
 msgid "Description"
-msgstr ""
+msgstr "คำอธิบาย"
 
 #: invenio_pages/administration/views/pages.py:37
 #: invenio_pages/administration/views/pages.py:79
 #: invenio_pages/administration/views/pages.py:112
 msgid "Language"
-msgstr ""
+msgstr "ภาษา"
 
 #: invenio_pages/administration/views/pages.py:55
 msgid "Edit page"
-msgstr ""
+msgstr "แก้ไขหน้า"
 
 #: invenio_pages/administration/views/pages.py:65
 msgid "Relative path to the page."
-msgstr ""
+msgstr "เส้นทางสัมพัทธ์ไปยังหน้า"
 
 #: invenio_pages/administration/views/pages.py:70
 msgid "Title of the page."
-msgstr ""
+msgstr "ชื่อเรื่องของหน้า"
 
 #: invenio_pages/administration/views/pages.py:75
 msgid "Description of the page"
-msgstr ""
+msgstr "คำอธิบายของหน้า"
 
 #: invenio_pages/administration/views/pages.py:80
 msgid "Language of title and content"
-msgstr ""
+msgstr "ภาษาของชื่อเรื่องและเนื้อหา"
 
 #: invenio_pages/administration/views/pages.py:84
 #: invenio_pages/administration/views/pages.py:113
 #: invenio_pages/services/config.py:51
 msgid "Content"
-msgstr ""
+msgstr "เนื้อหา"
 
 #: invenio_pages/administration/views/pages.py:85
 msgid "Content displayed by the page."
-msgstr ""
+msgstr "เนื้อหาที่แสดงในหน้า"
 
 #: invenio_pages/administration/views/pages.py:98
 msgid "Page"
-msgstr ""
+msgstr "หน้า"
 
 #: invenio_pages/records/errors.py:16
 #, python-brace-format
 msgid "The page identified by {identifier} cannot be found."
-msgstr ""
+msgstr "ไม่พบหน้าที่ระบุโดย {identifier}"
 
 #: invenio_pages/records/errors.py:30
 #, python-brace-format
@@ -115,19 +119,21 @@ msgid ""
 "The page with url {url} couldn't be created, likely due to a page with the "
 "same URL already existing."
 msgstr ""
+"ไม่สามารถสร้างหน้าที่มี URL {url} ได้ อาจเป็นเพราะมีหน้าที่มี URL "
+"เดียวกันอยู่แล้ว"
 
 #: invenio_pages/services/config.py:27
 msgid "Ascending"
-msgstr ""
+msgstr "จากน้อยไปมาก"
 
 #: invenio_pages/services/config.py:31
 msgid "Descending"
-msgstr ""
+msgstr "จากมากไปน้อย"
 
 #: invenio_pages/services/config.py:39
 msgid "Id"
-msgstr ""
+msgstr "รหัส"
 
 #: invenio_pages/services/config.py:55
 msgid "Template Name"
-msgstr ""
+msgstr "ชื่อเทมเพลต"
