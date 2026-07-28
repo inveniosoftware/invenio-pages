@@ -9,6 +9,12 @@
 Changes
 =======
 
+Version v9.1.0 (released 2026-07-28)
+
+- fix(ci): run tests on maint-*
+- fix(build): include mo files
+- i18n: pulled translations
+
 Version v9.0.2 (released 2026-07-21)
 
 - fix(tests): create `Page` fixtures one by one to space out creation
