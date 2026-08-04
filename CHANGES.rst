@@ -10,6 +10,11 @@
 Changes
 =======
 
+Version v10.0.3 (released 2026-08-04)
+
+- fix(build): include mo files
+- fix(ci): run tests on maint-*
+- fix(tests): create `Page` fixtures one by one to space out creation
 
 Version v10.0.2 (released 2026-07-16)
 
