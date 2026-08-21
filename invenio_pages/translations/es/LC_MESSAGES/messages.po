@@ -95,7 +95,7 @@ msgstr "Descripción de la página"
 
 #: invenio_pages/administration/views/pages.py:80
 msgid "Language of title and content"
-msgstr ""
+msgstr "Idioma del título y contenido."
 
 #: invenio_pages/administration/views/pages.py:84
 #: invenio_pages/administration/views/pages.py:113
