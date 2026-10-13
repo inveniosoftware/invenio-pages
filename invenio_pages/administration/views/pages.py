@@ -1,5 +1,6 @@
 # SPDX-FileCopyrightText: 2023-2025 CERN.
 # SPDX-FileCopyrightText: 2025 University of Münster.
+# SPDX-FileCopyrightText: 2026 Northwestern University.
 # SPDX-License-Identifier: MIT
 
 """Invenio administration pages view module."""
@@ -15,7 +16,8 @@ from invenio_i18n import lazy_gettext as _
 class PageListView(AdminResourceListView):
     """Configuration for pages list view."""
 
-    api_endpoint = "/pages"
+    api_endpoint = "/pages"  # Deprecated in favor of api_endpoint_name
+    api_endpoint_name = "pages.search"
     name = "pages"
     resource_config = "pages_resource"
     search_request_headers = {"Accept": "application/json"}
@@ -51,7 +53,8 @@ class PageEditView(AdminResourceEditView):
     url = "/pages/<pid_value>/edit"
     resource_config = "pages_resource"
     pid_path = "id"
-    api_endpoint = "/pages"
+    api_endpoint = "/pages"  # Deprecated in favor of api_endpoint_name
+    api_endpoint_name = "pages.search"
     title = _("Edit page")
 
     list_view_name = "pages"
@@ -92,7 +95,8 @@ class PageDetailView(AdminResourceDetailView):
     """Configuration for page detail view."""
 
     url = "/pages/<pid_value>"
-    api_endpoint = "/pages"
+    api_endpoint = "/pages"  # Deprecated in favor of api_endpoint_name
+    api_endpoint_name = "pages.search"
     name = "page-details"
     resource_config = "pages_resource"
     title = _("Page")
