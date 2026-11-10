@@ -10,7 +10,6 @@
 # Ignacio Estevo, 2024
 # Jesús Martín <jesusmartin@sallep.net>, 2024
 # 
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: invenio-pages 4.0.1\n"

@@ -8,7 +8,6 @@
 # Mojib Wali <mojib.wali@tugraz.at>, 2024
 # Tibor Simko <tibor.simko@cern.ch>, 2024
 # 
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: invenio-pages 4.0.1\n"
