@@ -7,7 +7,6 @@
 # Translators:
 # Vasyl Ostrovskyi <vasyusya@yahoo.com>, 2024
 # 
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: invenio-pages 4.0.1\n"
