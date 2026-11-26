@@ -7,7 +7,7 @@
 name = "invenio-pages"
 description = "InvenioRDM module for the static pages feature."
 readme = "README.rst"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 license = "MIT"
 authors = [
   { name = "CERN", email = "info@inveniosoftware.org" },
